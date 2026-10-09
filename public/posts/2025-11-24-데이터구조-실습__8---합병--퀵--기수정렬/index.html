@@ -211,8 +211,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="실행-결과">실행 결과</h3>
-<p><img src="/images/07bed68daf79fa6f.png" alt=""></p>
-<hr>
+<h2><img src="/images/07bed68daf79fa6f.png" alt=""></h2>
 <h2 id="2-각-단계-출력">2. 각 단계 출력</h2>
 <ol>
 <li>데이터는 랜덤 함수를 이용하여 생성</li>
@@ -220,20 +219,20 @@
 <li>데이터의 개수는 10개</li>
 </ol>
 <ul>
-<li>퀵 정렬에서 함수가 수행되면서 정렬의 매 패스마다 다음과 같은 형식으로 화면에 출력하도록 함수를 수정하라.
-<callout>
-67      90      57      25      84      32      73      54      22      33
-low                                                                    high<br>
-67      33      57      25      84      32      73      54      22      90
-low                                high<br>
-67      33      57      25      22      32      73      54      84      90
-low     high<br>
-67      33      57      25      22      32      54      73      84      90
-high    low<br>
-54      33      57      25      22      32      67      73      84      90
-high    low<br>
-</callout></li>
+<li>퀵 정렬에서 함수가 수행되면서 정렬의 매 패스마다 다음과 같은 형식으로 화면에 출력하도록 함수를 수정하라.</li>
 </ul>
+<blockquote>
+<p>67      90      57      25      84      32      73      54      22      33
+low                                                                    high
+67      33      57      25      84      32      73      54      22      90
+low                                high
+67      33      57      25      22      32      73      54      84      90
+low     high
+67      33      57      25      22      32      54      73      84      90
+high    low
+54      33      57      25      22      32      67      73      84      90
+high    low</p>
+</blockquote>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
@@ -351,138 +350,119 @@ high    low<br>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="실행-결과-1">실행 결과</h3>
 <columns>
-<column ratio="25">
-![](/images/dc104736b6588c34.png)
-</column>
-<column ratio="25">
-![](/images/7006a05407fb0247.png)
-</column>
-<column ratio="25">
-![](/images/bc3c690cef9b401e.png)
-</column>
-<column ratio="25">
-![](/images/8fc3854959c44e98.png)
-</column>
+<column ratio="100">![](/images/dc104736b6588c34.png)</column>
+<column ratio="100">![](/images/7006a05407fb0247.png)</column>
+<column ratio="100">![](/images/bc3c690cef9b401e.png)</column>
+<column ratio="100">![](/images/8fc3854959c44e98.png)</column>
 </columns>
-<hr>
-<h2 id="3-문제2-처럼-입력데이터를-생성하고-기수-정렬-프로그램에서-다음과-같이-각-버켓의-내용을-화면에-출력하는-함수-print_bucket을-프로그램에-추가하라">3. 문제2 처럼 입력데이터를 생성하고, 기수 정렬 프로그램에서 다음과 같이 각 버켓의 내용을 화면에 출력하는 함수 print_bucket()을 프로그램에 추가하라.</h2>
-<callout>
-0\]-\>           0
-\[1\]-\>
-\[2\]-\>           62
-\[3\]-\>
-\[4\]-\>           64      24      34
-\[5\]-\>
-\[6\]-\>
-\[7\]-\>
-\[8\]-\>           58      78
-\[9\]-\>           69
-</callout>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define N 10
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MIN_VAL 0
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MAX_VAL 100
-</span></span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#define BUCKETS 10
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define DIGITS 2 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MAX_QUEUE_SIZE (N + 1) 
-</span></span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_array</span>(<span style="color:#66d9ef">int</span> arr[], <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> title) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s: &#34;</span>, title);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%d &#34;</span>, arr[i]);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> data[MAX_QUEUE_SIZE];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> front, rear;
-</span></span><span style="display:flex;"><span>} QueueType;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init_queue</span>(QueueType <span style="color:#f92672">*</span>q) { q<span style="color:#f92672">-&gt;</span>front <span style="color:#f92672">=</span> q<span style="color:#f92672">-&gt;</span>rear <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; }
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">is_empty</span>(QueueType <span style="color:#f92672">*</span>q) { <span style="color:#66d9ef">return</span> (q<span style="color:#f92672">-&gt;</span>front <span style="color:#f92672">==</span> q<span style="color:#f92672">-&gt;</span>rear); }
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">is_full</span>(QueueType <span style="color:#f92672">*</span>q) { <span style="color:#66d9ef">return</span> ((q<span style="color:#f92672">-&gt;</span>rear <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> MAX_QUEUE_SIZE <span style="color:#f92672">==</span> q<span style="color:#f92672">-&gt;</span>front); }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">enqueue</span>(QueueType <span style="color:#f92672">*</span>q, <span style="color:#66d9ef">int</span> item) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">is_full</span>(q)) <span style="color:#66d9ef">return</span>; 
-</span></span><span style="display:flex;"><span>    q<span style="color:#f92672">-&gt;</span>rear <span style="color:#f92672">=</span> (q<span style="color:#f92672">-&gt;</span>rear <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> MAX_QUEUE_SIZE;
-</span></span><span style="display:flex;"><span>    q<span style="color:#f92672">-&gt;</span>data[q<span style="color:#f92672">-&gt;</span>rear] <span style="color:#f92672">=</span> item;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">dequeue</span>(QueueType <span style="color:#f92672">*</span>q) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">is_empty</span>(q)) <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>    q<span style="color:#f92672">-&gt;</span>front <span style="color:#f92672">=</span> (q<span style="color:#f92672">-&gt;</span>front <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> MAX_QUEUE_SIZE;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> q<span style="color:#f92672">-&gt;</span>data[q<span style="color:#f92672">-&gt;</span>front];
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_buckets</span>(QueueType queues[BUCKETS]) {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;=======================</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> BUCKETS; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;[%d]-&gt;     &#34;</span>, i);
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">is_empty</span>(<span style="color:#f92672">&amp;</span>queues[i])) {
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 원형 큐의 front 다음부터 rear까지 순회
-</span></span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> (queues[i].front <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> MAX_QUEUE_SIZE;
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>) {
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%3d &#34;</span>, queues[i].data[k]); 
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (k <span style="color:#f92672">==</span> queues[i].rear) <span style="color:#66d9ef">break</span>; <span style="color:#75715e">// rear에 도달하면 종료
-</span></span></span><span style="display:flex;"><span>                k <span style="color:#f92672">=</span> (k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> MAX_QUEUE_SIZE;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;=======================</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">radix_sort</span>(<span style="color:#66d9ef">int</span> list[], <span style="color:#66d9ef">int</span> n) {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i, b, d, factor <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>    QueueType queues[BUCKETS];
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; b <span style="color:#f92672">&lt;</span> BUCKETS; b<span style="color:#f92672">++</span>) <span style="color:#a6e22e">init_queue</span>(<span style="color:#f92672">&amp;</span>queues[b]);
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (d <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; d <span style="color:#f92672">&lt;</span> DIGITS; d<span style="color:#f92672">++</span>) {  
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 데이터들을 자리수에 따라 큐에 삽입
-</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">enqueue</span>(<span style="color:#f92672">&amp;</span>queues[(list[i] <span style="color:#f92672">/</span> factor) <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>], list[i]);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">--- 자릿수 %d (Pass %d) 기준 정렬 ---</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, factor, d <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">print_buckets</span>(queues);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 버킷에서 꺼내어 list로 합침
-</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (b <span style="color:#f92672">=</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; b <span style="color:#f92672">&lt;</span> BUCKETS; b<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">is_empty</span>(<span style="color:#f92672">&amp;</span>queues[b]))
-</span></span><span style="display:flex;"><span>                list[i<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">dequeue</span>(<span style="color:#f92672">&amp;</span>queues[b]); 
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        factor <span style="color:#f92672">*=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">// 그 다음 자리수로 이동
-</span></span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> list[N]; 
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 0-100 범위의 랜덤 데이터 10개 생성
-</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">srand</span>((<span style="color:#66d9ef">int</span>)<span style="color:#a6e22e">time</span>(NULL));
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> N; i<span style="color:#f92672">++</span>) {
-</span></span><span style="display:flex;"><span>        list[i] <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>() <span style="color:#f92672">%</span> (MAX_VAL <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_array</span>(list, N, <span style="color:#e6db74">&#34;원본 데이터&#34;</span>);
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">radix_sort</span>(list, N);
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_array</span>(list, N, <span style="color:#e6db74">&#34;최종 정렬된 데이터&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="실행-결과-2">실행 결과</h3>
-<p><img src="/images/165b85f88ade66ac.png" alt=""></p>
+---
+## 3. 문제2 처럼 입력데이터를 생성하고, 기수 정렬 프로그램에서 다음과 같이 각 버켓의 내용을 화면에 출력하는 함수 print_bucket()을 프로그램에 추가하라.
+> 0]->           0
+[1]->
+[2]->           62
+[3]->
+[4]->           64      24      34
+[5]->
+[6]->
+[7]->
+[8]->           58      78
+[9]->           69
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+<p>#define N 10
+#define MIN_VAL 0
+#define MAX_VAL 100</p>
+<p>#define BUCKETS 10
+#define DIGITS 2
+#define MAX_QUEUE_SIZE (N + 1)</p>
+<p>void print_array(int arr[], int n, const char* title) {
+printf(&quot;%s: &ldquo;, title);
+for (int i = 0; i &lt; n; i++) {
+printf(&quot;%d &ldquo;, arr[i]);
+}
+printf(&quot;\n&rdquo;);
+}</p>
+<p>typedef struct {
+int data[MAX_QUEUE_SIZE];
+int front, rear;
+} QueueType;</p>
+<p>void init_queue(QueueType *q) { q-&gt;front = q-&gt;rear = 0; }
+int is_empty(QueueType *q) { return (q-&gt;front == q-&gt;rear); }
+int is_full(QueueType *q) { return ((q-&gt;rear + 1) % MAX_QUEUE_SIZE == q-&gt;front); }</p>
+<p>void enqueue(QueueType *q, int item) {
+if (is_full(q)) return;
+q-&gt;rear = (q-&gt;rear + 1) % MAX_QUEUE_SIZE;
+q-&gt;data[q-&gt;rear] = item;
+}</p>
+<p>int dequeue(QueueType *q) {
+if (is_empty(q)) return -1;
+q-&gt;front = (q-&gt;front + 1) % MAX_QUEUE_SIZE;
+return q-&gt;data[q-&gt;front];
+}</p>
+<p>void print_buckets(QueueType queues[BUCKETS]) {
+printf(&quot;=======================\n&rdquo;);
+for (int i = 0; i &lt; BUCKETS; i++) {
+printf(&quot;[%d]-&gt;     &ldquo;, i);</p>
+<pre><code>    if (!is_empty(&amp;queues[i])) {
+        // 원형 큐의 front 다음부터 rear까지 순회
+        int k = (queues[i].front + 1) % MAX_QUEUE_SIZE;
+        while (1) {
+            printf(&quot;%3d &quot;, queues[i].data[k]); 
+            if (k == queues[i].rear) break; // rear에 도달하면 종료
+            k = (k + 1) % MAX_QUEUE_SIZE;
+        }
+    }
+    printf(&quot;\n&quot;);
+}
+printf(&quot;=======================\n&quot;);
+</code></pre>
+<p>}</p>
+<p>void radix_sort(int list[], int n) {
+int i, b, d, factor = 1;
+QueueType queues[BUCKETS];</p>
+<pre><code>for (b = 0; b &lt; BUCKETS; b++) init_queue(&amp;queues[b]);
 
+for (d = 0; d &lt; DIGITS; d++) {  
+    // 데이터들을 자리수에 따라 큐에 삽입
+    for (i = 0; i &lt; n; i++) {
+        enqueue(&amp;queues[(list[i] / factor) % 10], list[i]);
+    }
+    
+    printf(&quot;\n--- 자릿수 %d (Pass %d) 기준 정렬 ---\n&quot;, factor, d + 1);
+    print_buckets(queues);
+
+    // 버킷에서 꺼내어 list로 합침
+    for (b = i = 0; b &lt; BUCKETS; b++) {
+        while (!is_empty(&amp;queues[b]))
+            list[i++] = dequeue(&amp;queues[b]); 
+    }
+    factor *= 10; // 그 다음 자리수로 이동
+}
+</code></pre>
+<p>}</p>
+<p>int main() {
+int list[N];</p>
+<pre><code>// 0-100 범위의 랜덤 데이터 10개 생성
+srand((int)time(NULL));
+for (int i = 0; i &lt; N; i++) {
+    list[i] = rand() % (MAX_VAL + 1);
+}
+
+print_array(list, N, &quot;원본 데이터&quot;);
+
+radix_sort(list, N);
+
+printf(&quot;\n&quot;);
+print_array(list, N, &quot;최종 정렬된 데이터&quot;);
+
+return 0;
+</code></pre>
+<p>}</p>
+<pre tabindex="0"><code>### 실행 결과
+![](/images/165b85f88ade66ac.png)
+</code></pre>
   </div>
   <footer class="post-foot">
     <a href="https://duddnr0719.github.io/">← 목록으로</a>

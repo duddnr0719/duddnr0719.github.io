@@ -17,15 +17,13 @@ draft: false
 - 세션 공유 : 대화 내용을 링크로 공유하여 팀원과 협업하거나 디버깅할 수 있다.
 - 75+ LLM 제공자 : Claude, GPT, Gemini는 물론, 로컬 모델까지 지원한다.
 - Claude Pro/Max 연동 : Anthropic 계정으로 로그인하여 기존 구독을 활용할 수 있다.
-
 ## 설치
 - CLI 설치
-```bash
+```
 curl -fsSL https://opencode.ai/install | bash
 
 npm install -g opencode-ai
 ```
-
 ## LLM 제공자
 - OpenCode Zen : OpenCode 팀이 추천하는 큐레이션 모델
 - Antropic : Claude Max 구독 혹은 API 키 사용
@@ -33,38 +31,34 @@ npm install -g opencode-ai
 - OpenAI : GPT 모델 사용
 - Google : Gemini 모델 사용
 - OpenRouter : 다양한 모델을 하나의 API로 사용
-
 ## 사용법
-```bash
+```
 cd /path/to/your/project
 opencode
 ```
 작업할 프로젝트 디렉토리로 이동하여 OpenCode를 실행한다.
-```bash
+```
 /init
 ```
 - 프로젝트에서 처음 OpenCode를 사용한다면 /init 명령어로 초기화하는 것을 권장한다.
-이 명령어를 실행하면 OpenCode가 프로젝트 구조를 분석하고 [AGENTS.md](http://AGENTS.md) 파일을 생성한다. 이 파일은 OpenCode가 프로젝트의 구조와 코딩 패턴을 이해하는 데 도움을 준다.
-
+이 명령어를 실행하면 OpenCode가 프로젝트 구조를 분석하고 [AGENTS.md](http://agents.md/) 파일을 생성한다. 이 파일은 OpenCode가 프로젝트의 구조와 코딩 패턴을 이해하는 데 도움을 준다.
 ### 기본 사용법
 프롬프트를 작성할 때 @키를 누르면 파일 이름 일부만 입력해도 프로젝트 내의 파일을 찾을 수 있다.
-```bash
+```
 @pakages/functions/src/api/index.ts 를 분석해줘
 ```
 와 같이 프롬프트에 파일을 포함시키면 OpenCode가 해당 파일의 내용을 참고해서 답변해준다.
-
 ### Plan , Build 모드
 Tab키를 사용하여 두 모드를 전환할 수 있다.
 - Plan 모드
-- 변경사항을 직접 적용하지 않고 구현 계획만 제안한다.
+  - 변경사항을 직접 적용하지 않고 구현 계획만 제안한다.
 - Build 모드
-- 실제로 코드를 수정한다.
+  - 실제로 코드를 수정한다.
 → 복잡한 기능을 추가할 때는 Plan 모드에서 먼저 계획을 검토한 후 Build 모드로 전환해서 구현하는 것이 좋다.
-
 ## 권한 설정
 OpenCode가 파일을 수정하거나 명령어를 실행할 때 매번 승인을 받을지, 자동으로 실행할지 설정할 수 있다.
 → 프로젝트 루트에 opencode.json, opencode.jsonc 파일을 만들어서 permission 옵션을 설정하면 된다.
-```json
+```
 {
   "$schema": "https://opencode.ai/config.json",
   "permission": {
@@ -82,14 +76,12 @@ OpenCode가 파일을 수정하거나 명령어를 실행할 때 매번 승인�
 - ask : 매번 사용자에게 승인 요청
 - deny : 실행 금지
 → ask로 설정된 작업을 LLM을 시도하면 Accept, Accept Always, Deny 세 가지 옵션이 표시된다.
-
 ## 세션 공유
 OpenCode의 강력한 기능 중 하나는 대화 내용을 공유할 수 있다는 것이다.
-```json
+```
 /share
 ```
 이 명령어를 실행하면 현재 대화의 공유 링크가 클립보드에 복사된다. 팀원에게 문제 상황을 설명하거나, 버그를 디버깅할 때 유용하게 활용할 수 있다.
-
 ## 사용자화
 OpenCode는 다양한 커스터마이징 옵션을 제공한다.
 - 테마 설정 : 원하는 색상 테마를 선택할 수 있다.

@@ -63,10 +63,10 @@
 <ul>
 <li>CLI 설치</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://opencode.ai/install | bash
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>npm install -g opencode-ai
-</span></span></code></pre></div><h2 id="llm-제공자">LLM 제공자</h2>
+<pre tabindex="0"><code>curl -fsSL https://opencode.ai/install | bash
+
+npm install -g opencode-ai
+</code></pre><h2 id="llm-제공자">LLM 제공자</h2>
 <ul>
 <li>OpenCode Zen : OpenCode 팀이 추천하는 큐레이션 모델</li>
 <li>Antropic : Claude Max 구독 혹은 API 키 사용</li>
@@ -76,43 +76,49 @@
 <li>OpenRouter : 다양한 모델을 하나의 API로 사용</li>
 </ul>
 <h2 id="사용법">사용법</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /path/to/your/project
-</span></span><span style="display:flex;"><span>opencode
-</span></span></code></pre></div><p>작업할 프로젝트 디렉토리로 이동하여 OpenCode를 실행한다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/init
-</span></span></code></pre></div><ul>
+<pre tabindex="0"><code>cd /path/to/your/project
+opencode
+</code></pre><p>작업할 프로젝트 디렉토리로 이동하여 OpenCode를 실행한다.</p>
+<pre tabindex="0"><code>/init
+</code></pre><ul>
 <li>프로젝트에서 처음 OpenCode를 사용한다면 /init 명령어로 초기화하는 것을 권장한다.
-이 명령어를 실행하면 OpenCode가 프로젝트 구조를 분석하고 <a href="http://AGENTS.md">AGENTS.md</a> 파일을 생성한다. 이 파일은 OpenCode가 프로젝트의 구조와 코딩 패턴을 이해하는 데 도움을 준다.</li>
+이 명령어를 실행하면 OpenCode가 프로젝트 구조를 분석하고 <a href="http://agents.md/">AGENTS.md</a> 파일을 생성한다. 이 파일은 OpenCode가 프로젝트의 구조와 코딩 패턴을 이해하는 데 도움을 준다.</li>
 </ul>
 <h3 id="기본-사용법">기본 사용법</h3>
 <p>프롬프트를 작성할 때 @키를 누르면 파일 이름 일부만 입력해도 프로젝트 내의 파일을 찾을 수 있다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>@pakages/functions/src/api/index.ts 를 분석해줘
-</span></span></code></pre></div><p>와 같이 프롬프트에 파일을 포함시키면 OpenCode가 해당 파일의 내용을 참고해서 답변해준다.</p>
+<pre tabindex="0"><code>@pakages/functions/src/api/index.ts 를 분석해줘
+</code></pre><p>와 같이 프롬프트에 파일을 포함시키면 OpenCode가 해당 파일의 내용을 참고해서 답변해준다.</p>
 <h3 id="plan--build-모드">Plan , Build 모드</h3>
 <p>Tab키를 사용하여 두 모드를 전환할 수 있다.</p>
 <ul>
-<li>Plan 모드</li>
+<li>Plan 모드
+<ul>
 <li>변경사항을 직접 적용하지 않고 구현 계획만 제안한다.</li>
-<li>Build 모드</li>
+</ul>
+</li>
+<li>Build 모드
+<ul>
 <li>실제로 코드를 수정한다.
 → 복잡한 기능을 추가할 때는 Plan 모드에서 먼저 계획을 검토한 후 Build 모드로 전환해서 구현하는 것이 좋다.</li>
+</ul>
+</li>
 </ul>
 <h2 id="권한-설정">권한 설정</h2>
 <p>OpenCode가 파일을 수정하거나 명령어를 실행할 때 매번 승인을 받을지, 자동으로 실행할지 설정할 수 있다.
 → 프로젝트 루트에 opencode.json, opencode.jsonc 파일을 만들어서 permission 옵션을 설정하면 된다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;$schema&#34;</span>: <span style="color:#e6db74">&#34;https://opencode.ai/config.json&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;permission&#34;</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;edit&#34;</span>: <span style="color:#e6db74">&#34;ask&#34;</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;bash&#34;</span>: {
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;git push&#34;</span>: <span style="color:#e6db74">&#34;ask&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;git status&#34;</span>: <span style="color:#e6db74">&#34;allow&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;npm run build&#34;</span>: <span style="color:#e6db74">&#34;allow&#34;</span>,
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;terraform *&#34;</span>: <span style="color:#e6db74">&#34;deny&#34;</span>
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><ul>
+<pre tabindex="0"><code>{
+  &#34;$schema&#34;: &#34;https://opencode.ai/config.json&#34;,
+  &#34;permission&#34;: {
+    &#34;edit&#34;: &#34;ask&#34;,
+    &#34;bash&#34;: {
+      &#34;git push&#34;: &#34;ask&#34;,
+      &#34;git status&#34;: &#34;allow&#34;,
+      &#34;npm run build&#34;: &#34;allow&#34;,
+      &#34;terraform *&#34;: &#34;deny&#34;
+    }
+  }
+}
+</code></pre><ul>
 <li>allow : 승인 없이 자동 실행</li>
 <li>ask : 매번 사용자에게 승인 요청</li>
 <li>deny : 실행 금지
@@ -120,8 +126,8 @@
 </ul>
 <h2 id="세션-공유">세션 공유</h2>
 <p>OpenCode의 강력한 기능 중 하나는 대화 내용을 공유할 수 있다는 것이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">/share</span>
-</span></span></code></pre></div><p>이 명령어를 실행하면 현재 대화의 공유 링크가 클립보드에 복사된다. 팀원에게 문제 상황을 설명하거나, 버그를 디버깅할 때 유용하게 활용할 수 있다.</p>
+<pre tabindex="0"><code>/share
+</code></pre><p>이 명령어를 실행하면 현재 대화의 공유 링크가 클립보드에 복사된다. 팀원에게 문제 상황을 설명하거나, 버그를 디버깅할 때 유용하게 활용할 수 있다.</p>
 <h2 id="사용자화">사용자화</h2>
 <p>OpenCode는 다양한 커스터마이징 옵션을 제공한다.</p>
 <ul>

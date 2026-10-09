@@ -6,51 +6,40 @@ categories: ["쿠버네티스"]
 draft: false
 ---
 
-<callout>
-쿠버네티스를 잘 이해하기 위해선 도커를 알아야 한다.
-</callout>
-
+> 쿠버네티스를 잘 이해하기 위해선 도커를 알아야 한다.
 # 쿠버네티스(Kubernetes, K8s)
 - 컨테이너 오케스트레이션 중 하나. (→ 컨테이너화된 애플리케이션을 자동으로 배포, 스케일링 및 관리해 주는 오픈소스 시스템)
-
 ## CNI(Container Network Interface)
 - Container간 통신을 지원하는 인터페이스
 - flannel, calico 등의 다양한 플러그인이 존재
-
 ## 쿠버네티스 클러스터 구성
 <columns>
-<column ratio="50">
-### Master Node
+<column ratio="100">### Master Node
 : 워커 노드들의 상태를 관리하고 제어
 - etcd : key-value 타입의 저장소. worker node, 쿠버네티스의 상태 정보들을 가지고 있음
 - kube-apiserver : k8s API를 사용하도록 요청을 받고 요청이 유효한지 검사. kubectl 명령어로 된 요청을 받고 etcd 저장소에서 정보를 받아 scheduler에게 요청
 - kube-scheduler : apiserver가 준 etcd 저장소 정보들을 통해 pod를 실행할 노드를 판단하여 선택
-- kube-controller-manager : pod를 관찰하며 개수를 보장
-
-</column>
-<column ratio="50">
-### Worker Node
+- kube-controller-manager : pod를 관찰하며 개수를 보장</column>
+<column ratio="100">### Worker Node
 : 도커 플랫폼을 통해 컨테이너를 동작하며 실제 서비스 제공
 - 컨테이너 런타임 : 컨테이너를 실행하는 엔진. (ex. docker, containerd, runc)
 - kubelet : 모든 노드에서 실행되는 k8s 에이전트. 데몬 형태로 동작. kube-apiserver가 pod를 시작하려고 하면 해당 노드의 kubelet에 연결되어 kubelet은 컨테이너 런타임을 사용하여 pod를 시작하고 수명 주기를 모니터링하여 kube-apiserver에 다시 보고.
-- kube-proxy : k8s의 네트워크 동작을 관리(클러스터에서 pod 간 네트워크 연결을 유지). iptables rule의 방화벽 기능을 사용하며 이는 Linux 커널에 내장.
-</column>
+- kube-proxy : k8s의 네트워크 동작을 관리(클러스터에서 pod 간 네트워크 연결을 유지). iptables rule의 방화벽 기능을 사용하며 이는 Linux 커널에 내장.</column>
 </columns>
-
 ## 쿠버네티스 컨테이너 동작 Flow
 1. 컨테이너를 빌드한다. (main ui, login, pay …)
-2. 해당 컨테이너를 Docker hub에 저장한다.
-3. 해당 컨테이너가 실행되도록 요청한다.(deploy)
-4. 해당 command를 master node에 전달하고 master node는 REST API server를 통해 요청을 받는다.
-5. worker node 중 어느 노드에 배치하면 좋을지 REST API server가 scheduler에게 요청하고 scheduler는 상태를 보고 응답한다.
-6. REST API server는 worker node에게 실행하라고 요청한다.
-7. worker node의 kubelet은 요청을 받고 도커 명령어로 바꿔 Docker nginx에게 실행 요청을 한다.
-8. Docker demon은 Docker hub에서 서치하고 받아와 컨테이너로 실행한다.
+1. 해당 컨테이너를 Docker hub에 저장한다.
+1. 해당 컨테이너가 실행되도록 요청한다.(deploy)
+1. 해당 command를 master node에 전달하고 master node는 REST API server를 통해 요청을 받는다.
+1. worker node 중 어느 노드에 배치하면 좋을지 REST API server가 scheduler에게 요청하고 scheduler는 상태를 보고 응답한다.
+1. REST API server는 worker node에게 실행하라고 요청한다.
+1. worker node의 kubelet은 요청을 받고 도커 명령어로 바꿔 Docker nginx에게 실행 요청을 한다.
+1. Docker demon은 Docker hub에서 서치하고 받아와 컨테이너로 실행한다.
 ---
 ## Namespace ?
 - K8s API 종류 중 하나로, 클러스터 하나를 여러 개의 논리적인 단위로 나눠 사용할 수 있도록 한다.
 - ex) red, green, blue namespace가 생성할 때 내부에 Pod, service가 나뉘어 있다.
-- kubectl에서 namespace를 지정하면 API를 통해 해당 Pod에만 적용할 수 있다.
+  - kubectl에서 namespace를 지정하면 API를 통해 해당 Pod에만 적용할 수 있다.
 - 보통 용도에 따라 실행해야 하는 앱을 구분할 때 사용한다.
 ---
 ## Pod ?
@@ -59,59 +48,60 @@ draft: false
 - Worker Node에서 실행되는 컨테이너의 집합, 하나의 Pod에는 한 개 이상의 서비스로 지정될 수 있다.
 ### Pod 동작 Flow
 1. 웹서버를 실행하기 위한 kubectl 명령어를 입력하면
-2. Master Node의 API는 etcd 정보를 꺼내와 Scheduler에게 어디에 실행할지 요청
-3. 응답을 받은 후 직전의 Pod 상태가 pending으로 되고
-4. 배치를 받게 되면 Running이 된다.
+1. Master Node의 API는 etcd 정보를 꺼내와 Scheduler에게 어디에 실행할지 요청
+1. 응답을 받은 후 직전의 Pod 상태가 pending으로 되고
+1. 배치를 받게 되면 Running이 된다.
 ---
 ## Controller ?
 - Master Node 내 컴포넌트로 Pod의 개수를 보장한다.
-- 웹 서버를 실행하기 위한 kubectl 커맨드를 이벽하고 API가 Scheduler에게 응답 받고
-- Controller에게 3개 보장하라고 요청을 준다.
-- Controller는 3개의 Pod를 주시 중이다가
-- 그 중 1개에 장애가 발상하면 Controller는 API에게 Pod 한 개를 더 할당해야함을 알린다.
+  - 웹 서버를 실행하기 위한 kubectl 커맨드를 이벽하고 API가 Scheduler에게 응답 받고
+  - Controller에게 3개 보장하라고 요청을 준다.
+  - Controller는 3개의 Pod를 주시 중이다가
+  - 그 중 1개에 장애가 발상하면 Controller는 API에게 Pod 한 개를 더 할당해야함을 알린다.
 ### Controller의 종류
 1. Deployment
 - 가장 범용적으로 사용되는 컨트롤러. 상태가 없는 애플리케이션을 배포할 때 사용
-- 핵심 기능 
-- ReplicaSet 관리 : 지정된 수의 Pod가 항상 실행되도록 보장한다.
-- 롤링 업데이트 & 롤백 : 서비스 중단 없이 새로운 버전으로 업데이트하거나, 문제 발생 시 이전 버전으로 되돌릴 수 있다.
-- 주 사용처
-- 웹 서버 → Nginx, Apache
-- MSA 기반의 마이크로서비스 → Spring Boot, Node.js API 등
-### 참고(ReplicaSet) {toggle="true"}
-레플리카셋은 Pod의 개수(Replicas)를 유지하는 역할을 하지만, 일반적으로 사용자가 직접 만들지 않는다.<br>대신 Deployment를 생성하면 Deployment가 내부적으로 ReplicaSet을 관리하는 구조를 가진다.
+  - 핵심 기능 
+    - ReplicaSet 관리 : 지정된 수의 Pod가 항상 실행되도록 보장한다.
+    - 롤링 업데이트 & 롤백 : 서비스 중단 없이 새로운 버전으로 업데이트하거나, 문제 발생 시 이전 버전으로 되돌릴 수 있다.
+  - 주 사용처
+    - 웹 서버 → Nginx, Apache
+    - MSA 기반의 마이크로서비스 → Spring Boot, Node.js API 등
+### 참고(ReplicaSet)
+레플리카셋은 Pod의 개수(Replicas)를 유지하는 역할을 하지만, 일반적으로 사용자가 직접 만들지 않는다.
+대신 Deployment를 생성하면 Deployment가 내부적으로 ReplicaSet을 관리하는 구조를 가진다.
 1. StatefulSet
 - 상태가 있는 애플리케이션을 관리하기 위해 사용. 각 Pod가 고유한 정체성을 가짐
-- 핵심 기능
-- 고유한 네트워크 ID : web-0, web-1 과 같이 순서대로 생성되며, 재시작되어도 이름이 변하지 않는다.
-- 안정적인 스토리지 : Pod가 삭제되고 다시 생성되어도 기존에 연결된 디스크가 그대로 연결된다.
-- 순차적 배포/종료 : 순서에 맞춰 하나씩 생성되거나 종료된다.
-- 주 사용처
-- 데이터베이스 → MySQL, PostgreSQL, MongoDB
-- 분산 시스템 → Kafka, Zookeeper, Elasticsearch
+  - 핵심 기능
+    - 고유한 네트워크 ID : web-0, web-1 과 같이 순서대로 생성되며, 재시작되어도 이름이 변하지 않는다.
+    - 안정적인 스토리지 : Pod가 삭제되고 다시 생성되어도 기존에 연결된 디스크가 그대로 연결된다.
+    - 순차적 배포/종료 : 순서에 맞춰 하나씩 생성되거나 종료된다.
+  - 주 사용처
+    - 데이터베이스 → MySQL, PostgreSQL, MongoDB
+    - 분산 시스템 → Kafka, Zookeeper, Elasticsearch
 1. Daemonset
 - 클러스터의 모든 노드(혹은 특정 노드들)에 Pod를 하나씩 실행시킨다.
-- 핵심 기능
-- 노드가 클러스터에 추가되면 자동으로 해당 노드에 Pod를 실행한다.
-- 노드가 제거되면 해당 Pod는 복제되지 않고 사라진다.
-- 주 사용처
-- 로그 수집기 : 각 노드의 로그를 중앙 서버로 전송 → Fluentd, Logstash
-- 모니터링 에이전트 : 노드의 리소스 상태 감시 → Prometheus Node Expoter
-- 네트워크 플러그인 → CNI - Calico, Flannel 등
+  - 핵심 기능
+    - 노드가 클러스터에 추가되면 자동으로 해당 노드에 Pod를 실행한다.
+    - 노드가 제거되면 해당 Pod는 복제되지 않고 사라진다.
+  - 주 사용처
+    - 로그 수집기 : 각 노드의 로그를 중앙 서버로 전송 → Fluentd, Logstash
+    - 모니터링 에이전트 : 노드의 리소스 상태 감시 → Prometheus Node Expoter
+    - 네트워크 플러그인 → CNI - Calico, Flannel 등
 1. Job & CronJob
 - 지속적으로 실행되는 서비스가 아니라, 완료되면 종료되는 작업을 위해 사용
-- Job 
-- 하나 이상의 Pod를 생성하여 지정된 작업이 성공적으로 완료될 때까지 실행한다. 작업이 끝나면 Pod는 종료된다.
-- 쓰임
-- 데이터베이스 마이그레이션
-- 대용량 데이터 배치 처리
-- 한 번만 실행하면 되는 스크립트
-- CronJob
-- 리눅스의 크론처럼 일정 주기마다 Job을 생성한다.
-- 쓰임
-- 매일 밤 데이터 백업
-- 주간 리포트 생성
-- 임시 파일 주기적 삭제
+  - Job 
+    - 하나 이상의 Pod를 생성하여 지정된 작업이 성공적으로 완료될 때까지 실행한다. 작업이 끝나면 Pod는 종료된다.
+    - 쓰임
+      - 데이터베이스 마이그레이션
+      - 대용량 데이터 배치 처리
+      - 한 번만 실행하면 되는 스크립트
+  - CronJob
+    - 리눅스의 크론처럼 일정 주기마다 Job을 생성한다.
+    - 쓰임
+      - 매일 밤 데이터 백업
+      - 주간 리포트 생성
+      - 임시 파일 주기적 삭제
 ---
 ## Ingress ?
 - HTTP / HTTPS를 통해 클러스터 내부의 서비스를 외부에서 접속할 수 있도록 지원해주는 것

@@ -42,14 +42,13 @@
     </div>
   </header>
   <div class="content">
-    <p>&lt;table_of_contents color=&ldquo;gray&rdquo;/&gt;</p>
-<h1 id="selenium-라이브러리에-대해-자세히-알아보자-">Selenium 라이브러리에 대해 자세히 알아보자 !</h1>
+    <h1 id="selenium-라이브러리에-대해-자세히-알아보자-">Selenium 라이브러리에 대해 자세히 알아보자 !</h1>
 <p>대학교 1학년 전공 시간에 BeautifulSoup은 다루어 보았지만, Selenium은 한 번도 사용해본 적이 없기 때문에 이번 장을 통해서 확실히, 정확하게 알아보는 시간이 될 것이다.</p>
 <h2 id="selenium을-정복해-보자-">Selenium을 정복해 보자 👊</h2>
 <h3 id="selenium이란-">Selenium이란 ?</h3>
-<p>→ <span color="blue_bg">동적 웹 페이지를 크롤링하기 위해 </span>필요한 파이썬 패키지. chromedriver를 제어하거나 원하는 정보를 얻기 위해 사용한다.
-크롤링을 하다보면 웹 페이지에서 입력하거나 버튼을 누르는 등 웹 페이지를 조작해야하는 상황이 발생하곤 한다. 그 때 이 패키지를 사용하여 사람이 그러한 행동을 하는 대신 <span color="blue_bg">컴퓨터가 할 수 있도록 자동화 해주는 패키지</span>가 Selenium이다.
-<span color="blue_bg">다양한 언어를 지원</span>하기 때문에 보편적으로 쓰이는 파이썬 패키지이다.</p>
+<p>→ 동적 웹 페이지를 크롤링하기 위해 필요한 파이썬 패키지. chromedriver를 제어하거나 원하는 정보를 얻기 위해 사용한다.
+크롤링을 하다보면 웹 페이지에서 입력하거나 버튼을 누르는 등 웹 페이지를 조작해야하는 상황이 발생하곤 한다. 그 때 이 패키지를 사용하여 사람이 그러한 행동을 하는 대신 컴퓨터가 할 수 있도록 자동화 해주는 패키지가 Selenium이다.
+다양한 언어를 지원하기 때문에 보편적으로 쓰이는 파이썬 패키지이다.</p>
 <h3 id="selenium의-특징">Selenium의 특징</h3>
 <ol>
 <li>브라우저 호환성 : 대부분의 브라우저(Chrome, Firefox, Safari 등)와 호환 된다. 또한 각 브라우저마다의 WebDriver를 제공하여 해당 브라우저를 자동으로 제어할 수 있다.</li>
@@ -62,36 +61,36 @@
 <li>웹 드라이버(Web Driver)
 웹 드라이버는 특정 브라우저와의 통신을 담당한다. chrome, firefox 등의 브라우저를 제어할 수 있는데, 제어하기 위해 각 브라우저에 맞는 웹 드라이버가 필요하다.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium.webdriver.common.keys <span style="color:#f92672">import</span> Keys
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 크롬드라이버 실행 -&gt; 브라우저 제어 가능</span>
-</span></span><span style="display:flex;"><span>driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Chrome()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 크롬드라이버에 google url 주소를 넣고 실행</span>
-</span></span><span style="display:flex;"><span>driver<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;https://www.google.co.kr/&#34;</span>)
-</span></span></code></pre></div><ol>
+<pre tabindex="0"><code>from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+
+# 크롬드라이버 실행 -&gt; 브라우저 제어 가능
+driver = webdriver.Chrome()
+
+# 크롬드라이버에 google url 주소를 넣고 실행
+driver.get(&#34;https://www.google.co.kr/&#34;)
+</code></pre><ol>
 <li>요소 찾기
 HTML에는 여러가지 요소가 존재한다. Selenium에는 이 요소를 선택하기 위한 다양한 메서드를 제공한다. 이를 통해 버튼을 클릭하거나, 텍스트를 입력하는 등 작업을 수행할 수 있음.
 요소를 찾는 메서드는 find_element, find_elements가 존재하며, id / name / class_name / tag_name / link_text / partial_link_text / css_selector / xpath가 있다.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>element <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>find_element(<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;example-id&#34;</span>)
-</span></span></code></pre></div><p>→ HTML의 특정 id를 가진 요소를 찾기 위한 예제</p>
+<pre tabindex="0"><code>element = driver.find_element(&#34;id&#34;, &#34;example-id&#34;)
+</code></pre><p>→ HTML의 특정 id를 가진 요소를 찾기 위한 예제</p>
 <ol>
 <li>요소와 상호작용
 선택한 요소와 상호작용하여 다양한 작업을 수행할 수 있다.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># 텍스트 입력</span>
-</span></span><span style="display:flex;"><span>input_box <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>find_element(<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;username&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -&gt; 요소(텍스트를 입력할 수 있는 곳)를 찾음</span>
-</span></span><span style="display:flex;"><span>input_box<span style="color:#f92672">.</span>send_keys(<span style="color:#e6db74">&#34;my_username&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># -&gt; 사용자가 입력하기 원하는 값을 전달</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 버튼 클릭</span>
-</span></span><span style="display:flex;"><span>submit_button <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>find_element(<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;submit&#34;</span>)
-</span></span><span style="display:flex;"><span>submit_button<span style="color:#f92672">.</span>click()
-</span></span></code></pre></div><ol>
+<pre tabindex="0"><code># 텍스트 입력
+input_box = driver.find_element(&#34;name&#34;, &#34;username&#34;)
+# -&gt; 요소(텍스트를 입력할 수 있는 곳)를 찾음
+input_box.send_keys(&#34;my_username&#34;)
+# -&gt; 사용자가 입력하기 원하는 값을 전달
+
+# 버튼 클릭
+submit_button = driver.find_element(&#34;id&#34;, &#34;submit&#34;)
+submit_button.click()
+</code></pre><ol>
 <li>페이지 탐색과 대기
 Selenium으로 웹 페이지 크롤링을 하면서 페이지가 로드될 때까지 기다려야 하는 상황이 발생하는 경우가 많다. Selenium에는 이때 사용할 수 있는 두 가지 방식이 있는데, Implicit Wait와 Explicit Wait가 존재한다.</li>
 </ol>
@@ -99,63 +98,59 @@ Selenium으로 웹 페이지 크롤링을 하면서 페이지가 로드될 때�
 <li>Implicit Wait : 지정한 시간 동안 요소를 찾으려 시도하며, 찾을 때까지 기다린다.</li>
 <li>Explicit Wait : 특정 조건을 만족할 때까지 대기한다.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium.webdriver.common.by <span style="color:#f92672">import</span> By
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium.webdriver.support.ui <span style="color:#f92672">import</span> WebDriverWait
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium.webdriver.support <span style="color:#f92672">import</span> expected_conditions <span style="color:#66d9ef">as</span> EC
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Explicit Wait 의 예시</span>
-</span></span><span style="display:flex;"><span>wait <span style="color:#f92672">=</span> WebDriverWait(driver, <span style="color:#ae81ff">10</span>)
-</span></span><span style="display:flex;"><span>element <span style="color:#f92672">=</span> wait<span style="color:#f92672">.</span>until(EC<span style="color:#f92672">.</span>presence_of_element_located((By<span style="color:#f92672">.</span>ID, <span style="color:#e6db74">&#34;example-id&#34;</span>)))
-</span></span></code></pre></div><ol>
+<pre tabindex="0"><code>from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# Explicit Wait 의 예시
+wait = WebDriverWait(driver, 10)
+element = wait.until(EC.presence_of_element_located((By.ID, &#34;example-id&#34;)))
+</code></pre><ol>
 <li>브라우저 종료
 모든 작업이 끝나면 quit() 메서드를 통해 브라우저를 종료한다.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>driver<span style="color:#f92672">.</span>quit()
-</span></span></code></pre></div><h2 id="selenium을-이용하여-웹-크롤링을-해보자">Selenium을 이용하여 웹 크롤링을 해보자</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium.webdriver.common.by <span style="color:#f92672">import</span> By
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> selenium.webdriver.common.keys <span style="color:#f92672">import</span> Keys
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Chrome 드라이버 설정</span>
-</span></span><span style="display:flex;"><span>driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Chrome()  <span style="color:#75715e"># 또는 webdriver.Chrome(executable_path=&#39;드라이버 경로&#39;)로 지정</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 구글 페이지 열기</span>
-</span></span><span style="display:flex;"><span>    driver<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;https://www.google.com&#34;</span>)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 검색 창 찾기</span>
-</span></span><span style="display:flex;"><span>    search_box <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>find_element(By<span style="color:#f92672">.</span>NAME, <span style="color:#e6db74">&#34;q&#34;</span>)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 검색어 입력</span>
-</span></span><span style="display:flex;"><span>    search_box<span style="color:#f92672">.</span>send_keys(<span style="color:#e6db74">&#34;파이썬 Selenium&#34;</span>)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 검색 실행</span>
-</span></span><span style="display:flex;"><span>    search_box<span style="color:#f92672">.</span>send_keys(Keys<span style="color:#f92672">.</span>RETURN)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 검색 결과 로드 대기</span>
-</span></span><span style="display:flex;"><span>    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 결과 출력 (첫 번째 검색 결과의 텍스트와 링크를 가져옴)</span>
-</span></span><span style="display:flex;"><span>    results <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>find_elements(By<span style="color:#f92672">.</span>CSS_SELECTOR, <span style="color:#e6db74">&#34;h3&#34;</span>) <span style="color:#75715e"># 원하는 요소값 찾기</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> idx, result <span style="color:#f92672">in</span> enumerate(results[:<span style="color:#ae81ff">5</span>], <span style="color:#ae81ff">1</span>):  <span style="color:#75715e"># 상위 5개 결과만 출력</span>
-</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>idx<span style="color:#e6db74">}</span><span style="color:#e6db74">. </span><span style="color:#e6db74">{</span>result<span style="color:#f92672">.</span>text<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">finally</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># 브라우저 닫기</span>
-</span></span><span style="display:flex;"><span>    driver<span style="color:#f92672">.</span>quit()
-</span></span></code></pre></div><ul>
-<li>실행 결과</li>
-</ul>
+<pre tabindex="0"><code>driver.quit()
+</code></pre><h2 id="selenium을-이용하여-웹-크롤링을-해보자">Selenium을 이용하여 웹 크롤링을 해보자</h2>
+<pre tabindex="0"><code>from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
+
+# Chrome 드라이버 설정
+driver = webdriver.Chrome()  # 또는 webdriver.Chrome(executable_path=&#39;드라이버 경로&#39;)로 지정
+
+try:
+    # 구글 페이지 열기
+    driver.get(&#34;https://www.google.com&#34;)
+    
+    # 검색 창 찾기
+    search_box = driver.find_element(By.NAME, &#34;q&#34;)
+    
+    # 검색어 입력
+    search_box.send_keys(&#34;파이썬 Selenium&#34;)
+    
+    # 검색 실행
+    search_box.send_keys(Keys.RETURN)
+    
+    # 검색 결과 로드 대기
+    time.sleep(2)
+    
+    # 결과 출력 (첫 번째 검색 결과의 텍스트와 링크를 가져옴)
+    results = driver.find_elements(By.CSS_SELECTOR, &#34;h3&#34;) # 원하는 요소값 찾기
+    for idx, result in enumerate(results[:5], 1):  # 상위 5개 결과만 출력
+        print(f&#34;{idx}. {result.text}&#34;)
+        
+finally:
+    # 브라우저 닫기
+    driver.quit()
+</code></pre><ul>
+<li>실행 결과
 <columns>
-<column ratio="50">
-![](/images/50b06f351e21a47a.png)
-</column>
-<column ratio="50">
-![](/images/9f4032037a9faa89.png)
-</column>
+<column ratio="100"><img src="/images/50b06f351e21a47a.png" alt=""></column>
+<column ratio="100"><img src="/images/9f4032037a9faa89.png" alt=""></column>
 </columns>
-![](/images/d11ae4287d59fd2f.png)
+<img src="/images/d11ae4287d59fd2f.png" alt=""></li>
+</ul>
 <h2 id="이번-장을-통해-얻은-것들">이번 장을 통해 얻은 것들</h2>
 <p>동적으로 만들어진 웹 페이지의 데이터를 크롤링하기 위해 Selenium을 사용한다.
 웹 페이지의 데이터를 가져오는 것뿐만 아니라 웹 페이지를 자동으로 조작하고 제어할 수 있다는 점을 알게 되었다.

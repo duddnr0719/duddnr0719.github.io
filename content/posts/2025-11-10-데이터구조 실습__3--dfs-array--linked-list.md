@@ -122,10 +122,8 @@ int main(void) {
     return 0;
 }
 ```
-
 ### 실행 결과
 ![](/images/4c62be3f92fe3b7d.png)
-
 (2) (1)에서 인접 행렬로 만들어진 연결그래프를 연결 리스트로 변환하여 연결 리스트의 구조를 출력하고 깊이 우선 탐색을 적용하여 정점을 방문하는 순서를 출력한다. (1)에서 정점을 방문한 순서와 (2)에서 정점을 방문한 순서를 비교해본다.
 ```c
 #include <stdio.h>
@@ -258,76 +256,10 @@ int main(void) {
     return 0;
 }
 ```
-
 ### 실행 결과
 ![](/images/3021fe0f8c409bb5.png)
 ### 3. 아래와 같이 7X7 인접행렬을 보이고 있다. 
 인접행렬과 인접리스트를 구현하여 출력하고, 정점 (0,0)에서 시작하여 DFS를 이용하여 정점 방문하는 순서를 출력한다. 인접 행렬로 만들어진 연결그래프를 DFS적용했을 때 정점 방문 순서와 인접리스트로 만들어진 연결그래프를 이용하여 DFS적용했을 때 정점 방문 순서와 비교해본다.
-<table>
-<tr>
-<td>0 \<시작\></td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-</table>
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -474,6 +406,5 @@ int main(void) {
     return 0;
 }
 ```
-
 ### 실행 결과
 ![](/images/d034c210a8bbbbeb.png)

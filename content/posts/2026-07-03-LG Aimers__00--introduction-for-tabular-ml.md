@@ -13,12 +13,9 @@ tabular data’s characteristics → columns
 - datetime
 - text(free-form)
 - others → images, videos …
-
 tabular data’s feature
 - no spatial or sequential structure
-
-missing values → must handle 
-
+missing values → must handle
 pipeline
 - data collection: collecting relevant data + combine information from multiple tables + incorporate useful external data + ensure reproducibility(기록)
 - exploratory data analysis(EDA): understand the data
@@ -26,7 +23,5 @@ pipeline
 - modeling
 - evaluation: use held-out dataset(지금까지 참고하지 않은 데이터셋)
 - deployment & monitoring
-
 hyperparameters
-
 train-test dataset

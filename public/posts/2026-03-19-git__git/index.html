@@ -52,42 +52,69 @@
 → 전 세계의 개발자들은 Github를 통해 서로 open source를 공유하고 협업 프로젝트의 생산성을 높인다.</li>
 </ul>
 <h2 id="github-기초-용어">Github 기초 용어</h2>
-<p><img src="/images/a806cd9813b31c63.png" alt="출처 : https://velog.io/@jameskoo0503/Github-basics">
+<p><img src="/images/a806cd9813b31c63.png" alt="">
 <img src="/images/5c098bbe51332164.png" alt="">
 Git repository에는 파일이 변경이력에 따라 구분되어 저장되며, 위치에 따라 Github 서버와 같은 원격 저장소(Remote repository)와 개인 pc 로컬 저장소(Local repository)로 구분된다.
 (→ 내 pc에서 수정된 파일이 곧바로 저장되는 workspace와 git 파일이 저장되는 local repository를 서로 구분)
-HEAD : 현재 내가 작업 중인 위치를 가리키는 포인터. 보통은 현재 브랜치의 최신 커밋을 가리키며, git log나 git reset 등에서 기준점으로 사용된다. HEAD~1은 한 커밋 이전, HEAD~2는 두 커밋 이전을 의미한다.</p>
-<p>사용자는 1) workspace에서 작성된 파일을 remote repository에 올리고 2) 반대로 다른 사용자에 의해 수정된 파일을 remote repository에서 workspace로 받아올 수 있다.</p>
-<p>다음은 파일이 옮겨지는 방향을 기준으로 Github의 용어를 정리한다</p>
+HEAD : 현재 내가 작업 중인 위치를 가리키는 포인터. 보통은 현재 브랜치의 최신 커밋을 가리키며, git log나 git reset 등에서 기준점으로 사용된다. HEAD<del>1은 한 커밋 이전, HEAD</del>2는 두 커밋 이전을 의미한다.
+사용자는 1) workspace에서 작성된 파일을 remote repository에 올리고 2) 반대로 다른 사용자에 의해 수정된 파일을 remote repository에서 workspace로 받아올 수 있다.
+다음은 파일이 옮겨지는 방향을 기준으로 Github의 용어를 정리한다</p>
 <h3 id="workspace--remote-repository">Workspace → Remote Repository</h3>
-<callout>
-- git add (workspace → 스테이지 영역)
-: Workspace file의 생성/변경/삭제 이력을 스테이지 영역에 추가
-( \*스테이지 영역 : 커밋할 변경 이력이 임시로 저장되는 위치)
-- git commit (스테이지 영역 → Local repository)
-: Index에 기록된 변경 이력을 Local repository에 저장
-- git push (Local repository → Remote repository)
-: Local repository에 저장된 변경 이력을 Remote repository에 업로드
-</callout>
+<blockquote>
+</blockquote>
+<ul>
+<li>
+<dl>
+<dt>git add (workspace → 스테이지 영역)</dt>
+<dd>Workspace file의 생성/변경/삭제 이력을 스테이지 영역에 추가
+( *스테이지 영역 : 커밋할 변경 이력이 임시로 저장되는 위치)</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>git commit (스테이지 영역 → Local repository)</dt>
+<dd>Index에 기록된 변경 이력을 Local repository에 저장</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>git push (Local repository → Remote repository)</dt>
+<dd>Local repository에 저장된 변경 이력을 Remote repository에 업로드
 → 작은 작업 단위로 commit을 하고, 어느정도의 작업이 되었을 때 push를 하는 것이 일반적이다.
-→ Staging Area가 존재하는 이유 : 모든 변경사항을 한번에 커밋하는 게 아니라, 커밋할 파일을 선택할 수 있도록 하기 위해서다. 예를 들어 A, B, C 파일을 수정했지만 A, B만 커밋하고 싶을 때, git add A B 후 커밋하면 C는 포함되지 않는다.
+→ Staging Area가 존재하는 이유 : 모든 변경사항을 한번에 커밋하는 게 아니라, 커밋할 파일을 선택할 수 있도록 하기 위해서다. 예를 들어 A, B, C 파일을 수정했지만 A, B만 커밋하고 싶을 때, git add A B 후 커밋하면 C는 포함되지 않는다.</dd>
+</dl>
+</li>
+</ul>
 <h3 id="remote-repository--workspace">Remote Repository → Workspace</h3>
-<callout>
-- git clone (Remote repository → workspace)
-: Workspace의 내용을 Remote repository와 일치화하는 것. → 보통 프로젝트에 처음 투입될 때 사용하는 명령
-(만약 Remote repository의 내용과 다른 파일이 workspace에 저장돼 있을 경우, 해당 파일은 삭제된다.
-- git pull (Remote repository → workspace)
-: 다른 사용자에 의한 Remote repository의 변경 이력을 workspace에 반영한다.
-(clone과는 달리 workspace에서 기존에 작업했던 내용은 유지된다.)
-- git fetch (Remote repository → Local repository)
-: Remote repository의 최신 변경 이력을 Local repository에만 가져와 확인한다.
+<blockquote>
+</blockquote>
+<ul>
+<li>
+<dl>
+<dt>git clone (Remote repository → workspace)</dt>
+<dd>Workspace의 내용을 Remote repository와 일치화하는 것. → 보통 프로젝트에 처음 투입될 때 사용하는 명령
+(만약 Remote repository의 내용과 다른 파일이 workspace에 저장돼 있을 경우, 해당 파일은 삭제된다.</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>git pull (Remote repository → workspace)</dt>
+<dd>다른 사용자에 의한 Remote repository의 변경 이력을 workspace에 반영한다.
+(clone과는 달리 workspace에서 기존에 작업했던 내용은 유지된다.)</dd>
+</dl>
+</li>
+<li>
+<dl>
+<dt>git fetch (Remote repository → Local repository)</dt>
+<dd>Remote repository의 최신 변경 이력을 Local repository에만 가져와 확인한다.
 (해당 내용을 확인만 하고 workspace의 데이터와 merge하지 않으려고 할 때 사용한다.)
-</callout>
-→ 만약 Remote repository의 최신 변경 이력을 pull하지 않은 채 workspace에서 수정된 파일을 push하면 해당 요청은 거부된다.
+→ 만약 Remote repository의 최신 변경 이력을 pull하지 않은 채 workspace에서 수정된 파일을 push하면 해당 요청은 거부된다.</dd>
+</dl>
+</li>
+</ul>
 <h2 id="github-기본-명령어">Github 기본 명령어</h2>
 <columns>
-<column ratio="50">
-```bash
+<column ratio="100">```
 기초 명령어
 <h1 id="새-저장소-생성">새 저장소 생성</h1>
 <p>git init</p>
@@ -103,42 +130,40 @@ HEAD : 현재 내가 작업 중인 위치를 가리키는 포인터. 보통은 �
 <p>git log &ndash;oneline</p>
 <h1 id="변경-내용-비교">변경 내용 비교</h1>
 <p>git diff</p>
-<pre tabindex="0"><code>```bash
-원격 저장소
+<pre tabindex="0"><code></code></pre><p>원격 저장소</p>
+<p>git remote add origin <url></p>
+<h1 id="첫-push">첫 push</h1>
+<p>git push -u origin main</p>
+<h1 id="이후-push">이후 push</h1>
+<p>git push</p>
+<h1 id="fetch--merge">fetch + merge</h1>
+<p>git pull</p>
+<h1 id="가져오기만-병합-x">가져오기만 (병합 X)</h1>
+<p>git fetch</p>
+<pre tabindex="0"><code class="language-&lt;/column&gt;" data-lang="&lt;/column&gt;">&lt;column ratio=&#34;100&#34;&gt;```
+브랜치 &amp; 병합
 
-git remote add origin &lt;url&gt;
+# 브랜치 생성
+git branch &lt;name&gt;
 
-# 첫 push
-git push -u origin main
+# 브랜치 이동
+git switch &lt;name&gt;
 
-# 이후 push
-git push
+# 생성 + 이동 동시에
+git switch -c &lt;name&gt;
 
-# fetch + merge
-git pull
+# 브랜치 병합
+git merge &lt;branch&gt;
 
-# 가져오기만 (병합 X)
-git fetch
-</code></pre></column>
-<column ratio="50">
-```bash
-브랜치 & 병합
-<h1 id="브랜치-생성">브랜치 생성</h1>
-<p>git branch <name></p>
-<h1 id="브랜치-이동">브랜치 이동</h1>
-<p>git switch <name></p>
-<h1 id="생성--이동-동시에">생성 + 이동 동시에</h1>
-<p>git switch -c <name></p>
-<h1 id="브랜치-병합">브랜치 병합</h1>
-<p>git merge <branch></p>
-<h1 id="커밋-재배치">커밋 재배치</h1>
-<p>git rebase <branch></p>
-<h1 id="브랜치-삭제">브랜치 삭제</h1>
-<p>git branch -d <name></p>
-<h1 id="모든-브랜치-목록">모든 브랜치 목록</h1>
-<p>git branch -a</p>
-<pre tabindex="0"><code>```bash
-되돌리기 &amp; 유용한 것들
+# 커밋 재배치
+git rebase &lt;branch&gt;
+
+# 브랜치 삭제
+git branch -d &lt;name&gt;
+
+# 모든 브랜치 목록
+git branch -a
+</code></pre><pre tabindex="0"><code>되돌리기 &amp; 유용한 것들
 
 # 작업 취소
 git restore &lt;file&gt;
@@ -154,84 +179,54 @@ git stash
 
 # 임시 저장 꺼내기
 git stash pop
-</code></pre></column>
-</columns>
-<h3 id="알아둘-것들">알아둘 것들</h3>
-<ul>
-<li>
-<p>커밋 메시지 컨벤션
+```&lt;/column&gt;
+&lt;/columns&gt;
+### 알아둘 것들
+- 커밋 메시지 컨벤션
 → 팀원 모두가 커밋 메시지를 같은 형식으로 쓰자는 약속.
 → Git 히스토리를 나중에 봤을 때, 이 커밋이 어떤 종류의 변경인지 메시지만 보고 바로 알 수 있게 하기 위해 사용
 (형식이 없으면 “수정”, “업뎃” 같은 메시지가 섞여서 히스토리를 읽을 수 없어짐.)
-<callout>
-feat : 로그인 기능 추가
+&gt; feat : 로그인 기능 추가
 fix : 비밀번호 오류 수정
 docs : README 업데이트
 refactor : 인증 로직 리팩토링
 chore : 패키지 버전 업
-</callout></p>
-</li>
-<li>
-<p>.gitignore 필수 패턴
-<callout>
-node_modules/
+- .gitignore 필수 패턴
+&gt; node_modules/
 .env
 .DS_Store
 *.log
 dist/
-</callout></p>
-</li>
-<li>
-<p><strong>merge</strong> vs <strong>rebase</strong>
-<code>merge</code> : 병합 커밋 생성, 히스토리 보존 (팀 작업에서 안전)<br><code>rebase</code> : 깔끔한 선형 히스토리 (로컬에서만 권장)</p>
-</li>
-<li>
-<p><code>git reset</code> 주의
-<code>--soft</code> : 커밋만 취소, 스테이징 유지
-<code>--mixed</code>: 커밋 + 스테이징 취소 (기본값)
-<code>--hard</code>: 전부 삭제, 복구 어려움</p>
-</li>
-<li>
-<p>git revert vs git reset 차이
-<code>git revert</code> : 선택한 커밋을 취소하는 새 커밋을 생성한다. 히스토리를 지우지 않기 때문에 이미 push한 커밋을 되돌릴 때 안전하다.<code>&lt;br&gt;git reset</code> : 커밋 자체를 제거한다. 히스토리를 덮어쓰기 때문에 push한 후에는 사용하지 않는 것이 원칙이다. 로친에서만 사용 권장.</p>
-</li>
-<li>
-<p>git stash
+- **merge** vs **rebase**
+`merge` : 병합 커밋 생성, 히스토리 보존 (팀 작업에서 안전)
+`rebase` : 깔끔한 선형 히스토리 (로컬에서만 권장)
+- `git reset` 주의
+`--soft` : 커밋만 취소, 스테이징 유지
+`--mixed`: 커밋 + 스테이징 취소 (기본값)
+`--hard`: 전부 삭제, 복구 어려움
+- git revert vs git reset 차이
+`git revert` : 선택한 커밋을 취소하는 새 커밋을 생성한다. 히스토리를 지우지 않기 때문에 이미 push한 커밋을 되돌릴 때 안전하다.`
+git reset` : 커밋 자체를 제거한다. 히스토리를 덮어쓰기 때문에 push한 후에는 사용하지 않는 것이 원칙이다. 로친에서만 사용 권장.
+- git stash
 작업 도중 다른 브랜치로 이동해야 할 때, 현재 수정사항을 커밋하지 않고 임시로 붙여두는 명령어다.
-<code>git stash</code> : 현재 변경사항 임시 저장 / <code>git stash pop</code> : 저장한 내용 불러오기 / <code>git stash list</code> : 보관된 목록 확인</p>
-</li>
-<li>
-<p>git log 유용한 옵션
-<code>git log --oneline --graph --all</code> : 모든 브랜치의 커밋 흐름을 ASCII 그래프로 한눈에 볼 수 있다. 브랜치가 어디서 분기하고 병합되었는지 시각적으로 파악할 때 유용하다.</p>
-</li>
-<li>
-<p>git cherry-pick
-다른 브랜치의 특정 커밋 하나만 현재 브랜치로 가져오는 명령어다. <code>git cherry-pick &lt;커밍해시&gt;</code></p>
-</li>
-<li>
-<p>git tag
-특정 커밋에 버전 이름을 붙이는 명령어다. 주로 배포 시점 표시에 사용한다. <code>git tag v1.0.0</code> 으로 생성하고 <code>git push origin v1.0.0</code> 으로 원격에 올린다. 태그는 push 시 자동으로 포함되지 않아 따로 push해야 한다.</p>
-</li>
-<li>
-<p>Pull Request (PR)
-내 브랜치의 변경사항을 main(또는 다른 브랜치)에 합쳐달라고 요청하는 절자다. GitHub 상에서 코드 리뷰, 코멘트, 승인 후 merge 하는 형태로 진행된다. 팀 협업에서는 push 후 바로 merge하지 않고, PR을 통해 검토 받는 것이 일반적이다.</p>
-</li>
-<li>
-<p>Conflict(충돌) 해결
-두 브랜치가 같은 파일의 같은 줄을 동시에 수정했을 때 충돌이 발생한다. Git이 자동으로 합치지 못하며, 파일 안에 &lt;&lt;&lt;&lt;&lt;&lt;&lt; / ======= / &gt;&gt;&gt;&gt;&gt;&gt;&gt; 마커로 충돌 구간을 표시해준다. 해당 영역을 직접 편집하여 해결한 뒤 git add 후 commit하면 충돌이 마무리된다.</p>
-</li>
-<li>
-<p>브랜치 전략 (GitHub Flow)
+`git stash` : 현재 변경사항 임시 저장 / `git stash pop` : 저장한 내용 불러오기 / `git stash list` : 보관된 목록 확인
+- git log 유용한 옵션
+`git log --oneline --graph --all` : 모든 브랜치의 커밋 흐름을 ASCII 그래프로 한눈에 볼 수 있다. 브랜치가 어디서 분기하고 병합되었는지 시각적으로 파악할 때 유용하다.
+- git cherry-pick
+다른 브랜치의 특정 커밋 하나만 현재 브랜치로 가져오는 명령어다. `git cherry-pick &lt;커밍해시&gt;`
+- git tag
+특정 커밋에 버전 이름을 붙이는 명령어다. 주로 배포 시점 표시에 사용한다. `git tag v1.0.0` 으로 생성하고 `git push origin v1.0.0` 으로 원격에 올린다. 태그는 push 시 자동으로 포함되지 않아 따로 push해야 한다.
+- Pull Request (PR)
+내 브랜치의 변경사항을 main(또는 다른 브랜치)에 합쳐달라고 요청하는 절자다. GitHub 상에서 코드 리뷰, 코멘트, 승인 후 merge 하는 형태로 진행된다. 팀 협업에서는 push 후 바로 merge하지 않고, PR을 통해 검토 받는 것이 일반적이다.
+- Conflict(충돌) 해결
+두 브랜치가 같은 파일의 같은 줄을 동시에 수정했을 때 충돌이 발생한다. Git이 자동으로 합치지 못하며, 파일 안에 &lt;&lt;&lt;&lt;&lt;&lt;&lt; / ======= / &gt;&gt;&gt;&gt;&gt;&gt;&gt; 마커로 충돌 구간을 표시해준다. 해당 영역을 직접 편집하여 해결한 뒤 git add 후 commit하면 충돌이 마무리된다.
+- 브랜치 전략 (GitHub Flow)
 브랜치를 어떻게 나눠서 쓸지에 대한 규칙. GitHub Flow는 가장 간단한 방식으로, main 브랜치 하나만 유지하고 부다마다 feature 브랜치를 따로 만들어 PR 후 merge하는 형태다.
-<code>main → feature/작업명 브랜치 생성 → 작업 → commit → push → PR → 코드리뷰 → merge → 브랜치 삭제</code></p>
-</li>
-<li>
-<p>SSH 키 설정
+`main → feature/작업명 브랜치 생성 → 작업 → commit → push → PR → 코드리뷰 → merge → 브랜치 삭제`
+- SSH 키 설정
 GitHub에 push할 때 매번 비밀번호를 입력하지 않아도 되도록 SSH 키를 등록할 수 있다. 한번만 설정하면 이후 인증 과정이 생략된다.
-<code>ssh-keygen -t ed25519 -C &quot;your@email.com&quot;</code> 으로 키 생성 후, GitHub Settings → SSH Keys 에 공개키(pub) 내용을 등록하면 된다.</p>
-</li>
-</ul>
-
+`ssh-keygen -t ed25519 -C &#34;your@email.com&#34;` 으로 키 생성 후, GitHub Settings → SSH Keys 에 공개키(pub) 내용을 등록하면 된다.
+</code></pre>
   </div>
   <footer class="post-foot">
     <a href="https://duddnr0719.github.io/">← 목록으로</a>

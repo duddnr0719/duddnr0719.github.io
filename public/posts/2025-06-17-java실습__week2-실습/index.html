@@ -45,104 +45,104 @@
     <h1 id="소수-판별-프로그램">소수 판별 프로그램</h1>
 <p>판별을 원하는 수를 num 변수에 저장하고 프로그램을 실행하여 소수인지 아닌지 판별.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Prime</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> 30; <span style="color:#75715e">// 소수인지 아닌지 판별할 숫자</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> flag <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 2; i <span style="color:#f92672">&lt;</span> <span style="color:#f92672">=</span>num;) {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (num<span style="color:#f92672">%</span>1 <span style="color:#f92672">==</span> 0) flag <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>; <span style="color:#75715e">// 소수가 아닌 경우 판별</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (flag <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span>) System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(num <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;은 소수가 아닙니다.&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(num <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;은 소수입니다.&#34;</span>);
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> 30; <span style="color:#75715e">// 소수인지 아닌지 판별할 숫자</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">boolean</span> flag <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 2; i <span style="color:#f92672">&lt;</span> <span style="color:#f92672">=</span>num;) {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> (num<span style="color:#f92672">%</span>1 <span style="color:#f92672">==</span> 0) flag <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>; <span style="color:#75715e">// 소수가 아닌 경우 판별</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (flag <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span>) System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(num <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;은 소수가 아닙니다.&#34;</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(num <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;은 소수입니다.&#34;</span>);
+</span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h1 id="로또-번호-추첨-프로그램">로또 번호 추첨 프로그램</h1>
 <p>랜덤 정수 6개를 뽑아 출력.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.*;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Lotto</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> max <span style="color:#f92672">=</span> 45;
-</span></span><span style="display:flex;"><span>Random random <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random();
-</span></span><span style="display:flex;"><span>HashSet<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> lotto <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (lotto.<span style="color:#a6e22e">size</span>() <span style="color:#f92672">&lt;</span> 6) {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> number <span style="color:#f92672">=</span> random.<span style="color:#a6e22e">nextInt</span>(max) <span style="color:#f92672">+</span> 1;
-</span></span><span style="display:flex;"><span>lotto.<span style="color:#a6e22e">add</span>(number);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(lotto);
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> max <span style="color:#f92672">=</span> 45;
+</span></span><span style="display:flex;"><span>		Random random <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random();
+</span></span><span style="display:flex;"><span>		HashSet<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> lotto <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">while</span> (lotto.<span style="color:#a6e22e">size</span>() <span style="color:#f92672">&lt;</span> 6) {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">int</span> number <span style="color:#f92672">=</span> random.<span style="color:#a6e22e">nextInt</span>(max) <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>			lotto.<span style="color:#a6e22e">add</span>(number);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(lotto);
+</span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h1 id="할-일-관리-프로그램">할 일 관리 프로그램</h1>
 <p>사용자가 할 일 목록을 입력하고, 완료한 항목을 체크하는 Todo 리스트 프로그램</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.*;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TodoList</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> ArrayList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> todolist <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(Scnaner scanner) {
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;추가할 일: &#34;</span>);
-</span></span><span style="display:flex;"><span>String item <span style="color:#f92672">=</span> scanner.<span style="color:#a6e22e">nextLine</span>();
-</span></span><span style="display:flex;"><span>todolist.<span style="color:#a6e22e">add</span>(item);
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;추가 되었습니다.&#34;</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">show</span>() {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (todolist.<span style="color:#a6e22e">isEmpty</span>() {
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;할 일 목록이 비었습니다.&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;할 일 목록: &#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> todolist.<span style="color:#a6e22e">size</span>(); i<span style="color:#f92672">++</span>) System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>((i<span style="color:#f92672">+</span>1) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;. &#34;</span> <span style="color:#f92672">+</span> todolist.<span style="color:#a6e22e">get</span>(i));
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove</span>(Scanner scanner) {
-</span></span><span style="display:flex;"><span>show();
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;완료된 항목의 번호: &#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> choice <span style="color:#f92672">=</span> scanner.<span style="color:#a6e22e">nextInt</span>();
-</span></span><span style="display:flex;"><span>scanner.<span style="color:#a6e22e">nextLine</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (choice <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">&amp;&amp;</span> choice <span style="color:#f92672">&lt;=</span> todolist.<span style="color:#a6e22e">size</span>()) {
-</span></span><span style="display:flex;"><span>todolist.<span style="color:#a6e22e">remove</span>(choice<span style="color:#f92672">-</span>1);
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;항목이 삭제되었습니다.);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">return;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">} else System.out.println(&#34;</span>잘못된 번호입니다.<span style="color:#e6db74">&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">public static void main(String args[]) {
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Scanner scanner = new Scanner(System.in);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">boolean flag = true;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">while(flag) {
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">System.out.println(&#34;</span>ToDo 리스트<span style="color:#e6db74">&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">System.out.println(&#34;</span>1. 할 일 추가<span style="color:#e6db74">&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">System.out.println(&#34;</span>2. 완료한 항목 체크<span style="color:#e6db74">&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">System.out.println(&#34;</span>3. 목록 보기<span style="color:#e6db74">&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">System.out.println(&#34;</span>4. 종료<span style="color:#e6db74">&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">System.out.println(&#34;</span>메뉴를 선택하세요: <span style="color:#e6db74">&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">int choice = scanner.nextInt();
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">scanner.nextLine();
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">switch(choice) {
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">case 1:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">add(scanner);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">break;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">case 2:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">remove(scanner);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">break;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">case 3:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">show();
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">break;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">case 4:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">tmp = false;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">break;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">default:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">System.out.println(&#34;</span>잘못된 선택입니다.<span style="color:#e6db74">&#34;);
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">scanner.close();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> ArrayList<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> todolist <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(Scnaner scanner) {
+</span></span><span style="display:flex;"><span>		System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;추가할 일: &#34;</span>);
+</span></span><span style="display:flex;"><span>		String item <span style="color:#f92672">=</span> scanner.<span style="color:#a6e22e">nextLine</span>();
+</span></span><span style="display:flex;"><span>		todolist.<span style="color:#a6e22e">add</span>(item);
+</span></span><span style="display:flex;"><span>		System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;추가 되었습니다.&#34;</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">show</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (todolist.<span style="color:#a6e22e">isEmpty</span>() {
+</span></span><span style="display:flex;"><span>			System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;할 일 목록이 비었습니다.&#34;</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;할 일 목록: &#34;</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> todolist.<span style="color:#a6e22e">size</span>(); i<span style="color:#f92672">++</span>) System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>((i<span style="color:#f92672">+</span>1) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;. &#34;</span> <span style="color:#f92672">+</span> todolist.<span style="color:#a6e22e">get</span>(i));
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove</span>(Scanner scanner) {
+</span></span><span style="display:flex;"><span>		show();
+</span></span><span style="display:flex;"><span>		System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;완료된 항목의 번호: &#34;</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> choice <span style="color:#f92672">=</span> scanner.<span style="color:#a6e22e">nextInt</span>();
+</span></span><span style="display:flex;"><span>		scanner.<span style="color:#a6e22e">nextLine</span>();
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (choice <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">&amp;&amp;</span> choice <span style="color:#f92672">&lt;=</span> todolist.<span style="color:#a6e22e">size</span>()) {
+</span></span><span style="display:flex;"><span>			todolist.<span style="color:#a6e22e">remove</span>(choice<span style="color:#f92672">-</span>1);
+</span></span><span style="display:flex;"><span>			System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;항목이 삭제되었습니다.);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			return;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">		} else System.out.println(&#34;</span>잘못된 번호입니다.<span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	public static void main(String args[]) {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">		Scanner scanner = new Scanner(System.in);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">		boolean flag = true;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">		while(flag) {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			System.out.println(&#34;</span>ToDo 리스트<span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			System.out.println(&#34;</span>1. 할 일 추가<span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			System.out.println(&#34;</span>2. 완료한 항목 체크<span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			System.out.println(&#34;</span>3. 목록 보기<span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			System.out.println(&#34;</span>4. 종료<span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			System.out.println(&#34;</span>메뉴를 선택하세요: <span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			int choice = scanner.nextInt();
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			scanner.nextLine();
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			switch(choice) {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			case 1:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">				add(scanner);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">				break;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			case 2:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">				remove(scanner);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">				break;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			case 3:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">				show();
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">				break;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			case 4:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">				tmp = false;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">				break;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			default:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">				System.out.println(&#34;</span>잘못된 선택입니다.<span style="color:#e6db74">&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">			}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">	scanner.close();
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">}
 </span></span></span></code></pre></div><p>→ 이 코드의 오류 : 리스트가 비어 있을 때 remove 메소드를 실행하면 show 메소드에 의해 할 일 목록이 비어 있다는 메세지 출력까지는 되지만, 제거할 항목을 입력받는 구문이 실행된다.</p>
 <h1 id="숫자-맞추기-프로그램">숫자 맞추기 프로그램</h1>
@@ -150,60 +150,60 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.*;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GuessNumber</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
-</span></span><span style="display:flex;"><span>Scanner sc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner(System.<span style="color:#a6e22e">in</span>);
-</span></span><span style="display:flex;"><span>Random rd <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> maxnum <span style="color:#f92672">=</span> 100;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> randomnum <span style="color:#f92672">=</span> rd.<span style="color:#a6e22e">nextInt</span>(maxnum) <span style="color:#f92672">+</span> 1;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> choice <span style="color:#f92672">=</span> 0;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;1부터&#34;</span> <span style="color:#f92672">+</span> maxnum <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;까지 숫자 중 한 개를 선택하세요. &#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (choice <span style="color:#f92672">!=</span> randomnum) {
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;숫자를 입력하세요: &#34;</span>);
-</span></span><span style="display:flex;"><span>choice <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">nextInt</span>();
-</span></span><span style="display:flex;"><span>sc.<span style="color:#a6e22e">nextLine</span>();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (choice <span style="color:#f92672">&lt;</span> randomnum) System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;더 큰 수입니다.&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (choice <span style="color:#f92672">&gt;</span> randomnum) System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;더 작은 수입니다.&#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;정답입니다.&#34;</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>sc.<span style="color:#a6e22e">close</span>();
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
+</span></span><span style="display:flex;"><span>		Scanner sc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner(System.<span style="color:#a6e22e">in</span>);
+</span></span><span style="display:flex;"><span>		Random rd <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random();
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> maxnum <span style="color:#f92672">=</span> 100;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> randomnum <span style="color:#f92672">=</span> rd.<span style="color:#a6e22e">nextInt</span>(maxnum) <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> choice <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;1부터&#34;</span> <span style="color:#f92672">+</span> maxnum <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;까지 숫자 중 한 개를 선택하세요. &#34;</span>);
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">while</span> (choice <span style="color:#f92672">!=</span> randomnum) {
+</span></span><span style="display:flex;"><span>			System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;숫자를 입력하세요: &#34;</span>);
+</span></span><span style="display:flex;"><span>			choice <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">nextInt</span>();
+</span></span><span style="display:flex;"><span>			sc.<span style="color:#a6e22e">nextLine</span>();
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> (choice <span style="color:#f92672">&lt;</span> randomnum) System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;더 큰 수입니다.&#34;</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (choice <span style="color:#f92672">&gt;</span> randomnum) System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;더 작은 수입니다.&#34;</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">else</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;정답입니다.&#34;</span>);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		sc.<span style="color:#a6e22e">close</span>();
+</span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h1 id="계산기-프로그램">계산기 프로그램</h1>
 <p>사용자로부터 피연잔자와 연산자를 입력받아 연산자를 기준으로 조건문을 실행하여 피연산자를 계산하여 출력.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.*;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Calculator</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
-</span></span><span style="display:flex;"><span>Scanner sc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner(System.<span style="color:#a6e22e">in</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;연산자를 입력하세요.(+, -, /, *): &#34;</span>);
-</span></span><span style="display:flex;"><span>String op <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">next</span>();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;피연산자 두 개를 입력하세요: &#34;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">nextInt</span>();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">nextInt</span>();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> c;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (op.<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;+&#34;</span>)) {
-</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(c);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (op.<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;-&#34;</span>)) {
-</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> a <span style="color:#f92672">-</span> b;
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(c)
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (op.<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;*&#34;</span>)) {
-</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> b;
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(c);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (op.<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;/&#34;</span>)) {
-</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> a <span style="color:#f92672">/</span> b;
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(c);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>sc.<span style="color:#a6e22e">close</span>();
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
+</span></span><span style="display:flex;"><span>		Scanner sc <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner(System.<span style="color:#a6e22e">in</span>);
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;연산자를 입력하세요.(+, -, /, *): &#34;</span>);
+</span></span><span style="display:flex;"><span>		String op <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">next</span>();
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">print</span>(<span style="color:#e6db74">&#34;피연산자 두 개를 입력하세요: &#34;</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">nextInt</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> sc.<span style="color:#a6e22e">nextInt</span>();
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">int</span> c;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> (op.<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;+&#34;</span>)) {
+</span></span><span style="display:flex;"><span>			c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>			System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(c);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (op.<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;-&#34;</span>)) {
+</span></span><span style="display:flex;"><span>			c <span style="color:#f92672">=</span> a <span style="color:#f92672">-</span> b;
+</span></span><span style="display:flex;"><span>			System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(c)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (op.<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;*&#34;</span>)) {
+</span></span><span style="display:flex;"><span>			c <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> b;
+</span></span><span style="display:flex;"><span>			System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(c);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (op.<span style="color:#a6e22e">equals</span>(<span style="color:#e6db74">&#34;/&#34;</span>)) {
+</span></span><span style="display:flex;"><span>			c <span style="color:#f92672">=</span> a <span style="color:#f92672">/</span> b;
+</span></span><span style="display:flex;"><span>			System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(c);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		sc.<span style="color:#a6e22e">close</span>();
+</span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
   </div>

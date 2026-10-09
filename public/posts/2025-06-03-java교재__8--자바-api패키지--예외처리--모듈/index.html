@@ -46,15 +46,11 @@
 <p>: 관련있는 클래스들을 하나로 묶은 것.
 → package 키워드로 선언한다.
 <columns>
-<column ratio="50"></p>
-<h3 id="패키지의-종류">패키지의 종류</h3>
+<column ratio="100">### 패키지의 종류</p>
 <ul>
 <li>내장 패키지 : 자바에서 기본적으로 제공하는 패키지</li>
-<li>사용자 정의 패키지 : 사용자가 정의하는 패키지
-</column>
-<column ratio="50">
-<img src="/images/1e498e5fd50da643.png" alt="">
-</column>
+<li>사용자 정의 패키지 : 사용자가 정의하는 패키지</column>
+<column ratio="100"><img src="/images/1e498e5fd50da643.png" alt=""></column>
 </columns></li>
 </ul>
 <h3 id="패키지를-사용하는-이유">패키지를 사용하는 이유</h3>
@@ -66,25 +62,18 @@
 </ol>
 <h2 id="패키지를-사용하는-방법">패키지를 사용하는 방법</h2>
 <ol>
-<li>
-<p>완전한 이름으로 참조한다. (완전한 이름이란 패키지 이름이 클래스 앞에 붙은 것이다.)
+<li>완전한 이름으로 참조한다. (완전한 이름이란 패키지 이름이 클래스 앞에 붙은 것이다.)
 → 외부 패키지에 있는 클랫흐를 사용하려면 원칙적으로 앞에 패키지를 붙인 정식 클래스 이름을 써주어야 한다. 반복적으로 많이 사용되는 클래스의 경우에는 import를 사용하여 해당 클래스나 패키지를 포함하여 사용할 수 있다.
-ex) graphics 패키지에 있는 Rectangle 클래스의 정식 이름은 graphics.Rectangle이다.</p>
-</li>
-<li>
-<p>패키지 안에서 우리가 원하는 클래스만을 포함한다.
+ex) graphics 패키지에 있는 Rectangle 클래스의 정식 이름은 graphics.Rectangle이다.</li>
+<li>패키지 안에서 우리가 원하는 클래스만을 포함한다.
 → 외부 패키지의 특정한 멤버를 import하여 사용한다.
-ex) import  java.util.Scanner;</p>
-</li>
-<li>
-<p>패키지 안의 모든 클래스를 포함한다.
+ex) import  java.util.Scanner;</li>
+<li>패키지 안의 모든 클래스를 포함한다.
 → 하나의 패키지 안에 포함된 모든 클래스를 포함한다. ⇒ 이는 “ * “ 을 사용한다.
-ex) import java.util.*;</p>
-</li>
+ex) import java.util.*;</li>
 </ol>
 <h2 id="계층-구조의-패키지-포함하기">계층 구조의 패키지 포함하기</h2>
-<p>예를 들어 java.awt.* 를 포함시키면 java.awt 아래에 있는 패키지는 자동으로 포함될 것이라고 생각하기 쉬운데, 사실 그렇지 않다. 따라서 계층 구조로 되어 있는 패키지의 경우 하위 패키지라고 하더라도 *를 사용하여 포함해주어야 한다.</p>
-<hr>
+<h2 id="예를-들어-javaawt-를-포함시키면-javaawt-아래에-있는-패키지는-자동으로-포함될-것이라고-생각하기-쉬운데-사실-그렇지-않다-따라서-계층-구조로-되어-있는-패키지의-경우-하위-패키지라고-하더라도-를-사용하여-포함해주어야-한다">예를 들어 java.awt.* 를 포함시키면 java.awt 아래에 있는 패키지는 자동으로 포함될 것이라고 생각하기 쉬운데, 사실 그렇지 않다. 따라서 계층 구조로 되어 있는 패키지의 경우 하위 패키지라고 하더라도 *를 사용하여 포함해주어야 한다.</h2>
 <h2 id="클래스-파일이-로드되는-시점">클래스 파일이 로드되는 시점</h2>
 <p>자바 소스 파일이 컴파일 되면 .class 확장자를 가지는 클래스 파일로 변환되고 파일 시스템에 저장된다. 클래스 파일은 자바 가상 기계(JVM)에 의하여 로드 된다.</p>
 <ul>
@@ -95,13 +84,13 @@ ex) import java.util.*;</p>
 <ol>
 <li>부트스트랩 클래스 - 자바 플랫폼을 구성하는 핵심적인 클래스이다. 디렉터리 jre/lib가 있는 rt.jar 및 기타 여러 jar 파일이다. Java 9부터는 모듈화되어 있는 jmods파일들이 로드된다.</li>
 <li>확장 클래스 - 자바 확장 메커니즘을 사용하는 클래스이다. 이들은 확장 디렉터리에 있는 jar 파일들이다. 디렉터리 jre/lib/ext의 모든 jar 파일은 확장으로 간주되며 로드된다.</li>
-<li>사용자 클래스 - 확장 메커니즘을 사용하지 않는 개발자 및 타사에서 정의한 클래스이다. 가상 머신 명령줄에서 -classpath 옵션을 사용하거나 CLASSPATH 환경 변수를 사용하여 이러한 클래스의 위치를 식별한다.
-<callout></li>
+<li>사용자 클래스 - 확장 메커니즘을 사용하지 않는 개발자 및 타사에서 정의한 클래스이다. 가상 머신 명령줄에서 -classpath 옵션을 사용하거나 CLASSPATH 환경 변수를 사용하여 이러한 클래스의 위치를 식별한다.</li>
 </ol>
+<blockquote>
+</blockquote>
 <ul>
 <li>확장 메커니즘 : 자바는 다양한 방법을 통해 기능을 확장할 수 있는데, 대표적으로 상속, 인터페이스, 람다 표현식 등이 있다. 이처럼 자바의 객체지향적 특성을 더욱 강화하고 재사용성 및 확장성을 높여주는 역할을 하는 것.</li>
-<li>CLASSPATH : 사용자가 직접 작성하였거나 외부에서 다운로드 받은 클래스를 찾기 위하여 가상 머신이 살펴보는 디렉터리들을 모아둔 클래스 경로.
-</callout></li>
+<li>CLASSPATH : 사용자가 직접 작성하였거나 외부에서 다운로드 받은 클래스를 찾기 위하여 가상 머신이 살펴보는 디렉터리들을 모아둔 클래스 경로.</li>
 </ul>
 <h2 id="가상-기계가-클래스를-찾는-3가지의-방법">가상 기계가 클래스를 찾는 3가지의 방법</h2>
 <ol>
@@ -114,27 +103,25 @@ ex) import java.util.*;</p>
 <p>: Java Archive의 줄임말로서 자바 애플리케이션을 한 개의 파일로 만들어서 사용자에게 전달할 방법이다. → 자바 파일들을 압축하여 하나의 파일로 만드는 데 사용된다.</p>
 <h3 id="jar-파일-만드는-방법">JAR 파일 만드는 방법</h3>
 <ul>
-<li>
-<p>JDK 안에 포함된 jar 도구를 이용하여 만든다.
-<callout>
-C:\&gt; jar cvf Name.jar *.class icon.png
-</callout>
-→ Name.jar은 파일 이름을 뜻하고, *.class는 압축할 클래스를 의미한다.</p>
-</li>
-<li>
-<p>실행 가능한 JAR 파일을 생성하려면 e를 추가한다.
-<callout>
-C:\&gt; jar cvfe Name.jar Main *.class icon.png
-</callout>
-→ Main은 처음 실행 시 실행될 클래스를 의미한다.</p>
-</li>
-<li>
-<p>JAR 파일로 압축된 파일을 실행하려면 다음의 문장을 입력한다.
-<callout>
-C:\&gt; java -jar Name.jar
-</callout></p>
-</li>
+<li>JDK 안에 포함된 jar 도구를 이용하여 만든다.</li>
 </ul>
+<blockquote>
+<p>C:&gt; jar cvf Name.jar *.class icon.png
+→ Name.jar은 파일 이름을 뜻하고, *.class는 압축할 클래스를 의미한다.</p>
+</blockquote>
+<ul>
+<li>실행 가능한 JAR 파일을 생성하려면 e를 추가한다.</li>
+</ul>
+<blockquote>
+<p>C:&gt; jar cvfe Name.jar Main *.class icon.png
+→ Main은 처음 실행 시 실행될 클래스를 의미한다.</p>
+</blockquote>
+<ul>
+<li>JAR 파일로 압축된 파일을 실행하려면 다음의 문장을 입력한다.</li>
+</ul>
+<blockquote>
+<p>C:&gt; java -jar Name.jar</p>
+</blockquote>
 <hr>
 <h2 id="object-클래스">Object 클래스</h2>
 <p>: java.lang 패키지에 들어 있으며 자바 클래스 계층 구조에서 최상단에 위치하는 클래스</p>
@@ -152,94 +139,27 @@ C:\&gt; java -jar Name.jar
 </ul>
 <hr>
 <h2 id="랩퍼-클래스">랩퍼 클래스</h2>
-<p>: 기초 자료형을 객체로 포장한 클래스</p>
+<h2>: 기초 자료형을 객체로 포장한 클래스
 <columns>
-<column ratio="50">
-### 랩퍼 클래스의 종류
-</column>
-<column ratio="50">
-### 랩퍼 클래스의 메소드
-</column>
+<column ratio="100">### 랩퍼 클래스의 종류</column>
+<column ratio="100">### 랩퍼 클래스의 메소드</column>
 </columns>
 <columns>
-<column ratio="50">
-![](/images/29f8c4e1c8237513.png)
-</column>
-<column ratio="50">
-<table header-row="true">
-<colgroup>
-<col width="239.33333333333334">
-<col width="184.328125">
-<col width="299.328125">
-</colgroup>
-<tr>
-<td>반환값</td>
-<td>메소드 이름</td>
-<td>설명</td>
-</tr>
-<tr>
-<td>static int</td>
-<td>intValue()</td>
-<td>int형으로 반환한다.</td>
-</tr>
-<tr>
-<td>static double</td>
-<td>doubleValue()</td>
-<td>double형으로 반환한다.</td>
-</tr>
-<tr>
-<td>static float</td>
-<td>floatValue()</td>
-<td>float형으로 반환한다.</td>
-</tr>
-<tr>
-<td>static int</td>
-<td>parseInt(String s)</td>
-<td>문자열을 int형으로 반환한다.</td>
-</tr>
-<tr>
-<td>static String</td>
-<td>toBinaryString(int i)</td>
-<td>int형의 정수를 2진수 형태의 문자열로 반환한다.</td>
-</tr>
-<tr>
-<td>static String</td>
-<td>toString(int i)</td>
-<td>int형의 정수를 10진수 형태의 문자열로 변환한다.</td>
-</tr>
-<tr>
-<td>static Integer</td>
-<td>valueOf(String s)</td>
-<td>문자열 s를 Integer 객체로 반환한다.</td>
-</tr>
-<tr>
-<td>static Integer</td>
-<td>valueOf(String s, in radix)</td>
-<td>문자열 s를 radix진법의 Integer 객체로 반환한다.</td>
-</tr>
-</table>
-</column>
-</columns>
----
-## 오토박싱
-: 랩퍼 객체와 기초 자료형 사이의 변환을 자동으로 해주는 기능
-```java
-Integer obj;
-<p>obj = 10;                    // 정수 -&gt; Integer 객체
-System.out.println(obj + 1); // Integer 객체 -&gt; 정수</p>
-<pre tabindex="0"><code>
----
-&lt;columns&gt;
-&lt;column ratio=&#34;50&#34;&gt;
-## String 클래스
-: 문자열을 구성하는 문자들을 내부에 저장하는 클래스
+<column ratio="100"><img src="/images/29f8c4e1c8237513.png" alt=""></column>
+</columns></h2>
+<h2 id="오토박싱">오토박싱</h2>
+<p>: 랩퍼 객체와 기초 자료형 사이의 변환을 자동으로 해주는 기능</p>
+<pre tabindex="0"><code>Integer obj;
 
-&lt;/column&gt;
-&lt;column ratio=&#34;50&#34;&gt;
-![](/images/21374f2ab004e51a.png)
-&lt;/column&gt;
-&lt;/columns&gt;
-</code></pre>
+obj = 10;                    // 정수 -&gt; Integer 객체
+System.out.println(obj + 1); // Integer 객체 -&gt; 정수
+</code></pre><hr>
+<columns>
+<column ratio="100">## String 클래스
+: 문자열을 구성하는 문자들을 내부에 저장하는 클래스</column>
+<column ratio="100">![](/images/21374f2ab004e51a.png)</column>
+</columns>
+
   </div>
   <footer class="post-foot">
     <a href="https://duddnr0719.github.io/">← 목록으로</a>

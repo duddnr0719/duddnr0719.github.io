@@ -8,16 +8,15 @@ draft: false
 
 ## 1. 개요
 Dijkstra 알고리즘과 Floyd 알고리즘을 사용하여 Shortest Path를 구한다.
-
 ### 2. 그래프는 다음과 같다.(주의: 방향 그래프이다)
 ![](/images/083ea8e67ec62c6e.png)
-### 3. \[문제1\] Dijkstra’s Shortest Path 출력
+### 3. [문제1] Dijkstra’s Shortest Path 출력
 1. 위의 그래프에서 Dijkstra 알고리즘으로 Shortest Path를 생성하는 과정을 출력하여라. 출발 정점은 1이다.
-1. Shortest Path 출력이 종료되면 마지막에 최종결과로 Shortest Path의 가중치의 합을 출력한다.
-2. 출력하는 화면은 다음과 같다.
-\{1\}
-0 10 INF 30 100 INF
-…
+  1. Shortest Path 출력이 종료되면 마지막에 최종결과로 Shortest Path의 가중치의 합을 출력한다.
+  1. 출력하는 화면은 다음과 같다.
+    {1}
+    0 10 INF 30 100 INF
+    …
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -131,19 +130,16 @@ int main(void)
     return 0;
 }
 ```
-
 ### 실행 결과
 ![](/images/7e0933c8673df634.png)
-
-## 4. \[문제2\] Floyd’s Shortest Path 출력
+## 4. [문제2] Floyd’s Shortest Path 출력
 1. 위의 그래프에서 Floyd 알고리즘으로 Shortest Path를 생성하는 과정을 출력하여라.
-1. Shortest Path 출력이 종료되면 마지막에 최종결과로 Shortest Path의 가중치의 합을 출력한다.
-2. 출력하는 화면은 다음과 같다.
-A-1
-0 10 INF 30 100 INF
-INF 0 50 INF INF INF
-…
-
+  1. Shortest Path 출력이 종료되면 마지막에 최종결과로 Shortest Path의 가중치의 합을 출력한다.
+  1. 출력하는 화면은 다음과 같다.
+  A-1
+  0 10 INF 30 100 INF
+  INF 0 50 INF INF INF
+  …
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -228,13 +224,8 @@ int main(void) {
     return 0;
 }
 ```
-
 ### 실행 결과
 <columns>
-<column ratio="50">
-![](/images/556c7c1d821c595f.png)
-</column>
-<column ratio="50">
-![](/images/a702cdbb750180d2.png)
-</column>
+<column ratio="100">![](/images/556c7c1d821c595f.png)</column>
+<column ratio="100">![](/images/a702cdbb750180d2.png)</column>
 </columns>

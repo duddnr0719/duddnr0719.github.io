@@ -51,10 +51,10 @@
 <h3 id="추상-클래스의-용도">추상 클래스의 용도</h3>
 <p>→ 자식 클래스에서 반드시 오버라이드 하도록 강제성을 부여한다.
 ⇒ 추상 클래스를 상속받는 자식 클래스의 주제에 따라서 상속 받는 메서드의 내용이 다를 수 있기 때문에 강제성을 부여하는 것이다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#960050;background-color:#1e0010">...</span> <span style="color:#960050;background-color:#1e0010">{</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">void</span> ...(); <span style="color:#75715e">// 추상 메소드 정의</span>
-</span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div><hr>
+<pre tabindex="0"><code>public abstract class ... {
+	public abstract void ...(); // 추상 메소드 정의
+};
+</code></pre><hr>
 <h1 id="인터페이스">인터페이스</h1>
 <p>: 다른 클래스를 작성할 때 기본이 되는 틀을 제공하면서 다른 클래스 사이의 중간매개 역할까지 담당하는 일종의 추상 클래스
 → interface 키워드를 사용하여 선언한다.
@@ -66,222 +66,175 @@
 <h3 id="인터페이스-구현">인터페이스 구현</h3>
 <p>: 클래스를 정의할 때 implements 키워드를 사용하여 클래스에서 구현할 수 있다.
 (인터페이스의 구현은 인터페이스에 정의된 추상 메소드의 몸체를 정의한다는 의미이다.)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#960050;background-color:#1e0010">...</span> <span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#a6e22e">인터페이스</span> 정의 
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> ...(); <span style="color:#75715e">// 추상 메소드 정의</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="인터페이스의-용도">인터페이스의 용도</h3>
-<callout>
-클래스 - 클래스 간의 is a 관계는 상속(extends)이다. 하나의 클래스는 하나의 슈퍼클래스만 상속받을 수 있다는 뜻이다. 즉, 다중 상속이 지원되지 않는다.
-</callout>
-- 인터페이스는 상속 관계가 아닌, 클래스 간의 유사성을 인코딩하는 데 사용된다.
+<pre tabindex="0"><code>public interface ... { // 인터페이스 정의 
+	public void ...(); // 추상 메소드 정의
+}
+</code></pre><h3 id="인터페이스의-용도">인터페이스의 용도</h3>
+<blockquote>
+<p>클래스 - 클래스 간의 is a 관계는 상속(extends)이다. 하나의 클래스는 하나의 슈퍼클래스만 상속받을 수 있다는 뜻이다. 즉, 다중 상속이 지원되지 않는다.</p>
+</blockquote>
+<ul>
+<li>인터페이스는 상속 관계가 아닌, 클래스 간의 유사성을 인코딩하는 데 사용된다.
 → 다중 상속이 필요한 경우 인터페이스를 사용한다.
 ex) 사람과 자동차는 둘 다 달릴 수 있다. 이를 위해 부모 클래스로 Runner를 작성하고, 사람과 자동차 클래스를 Runner 클래스의 자식 클래스로 나타내는 것은 약간 이치에 맞지 않는다.
-→ Runnable 인터페이스를 만들고 이 인터페이스를 양쪽 클래스가 구현하게 하면 된다 !
+→ Runnable 인터페이스를 만들고 이 인터페이스를 양쪽 클래스가 구현하게 하면 된다 !</li>
+</ul>
 <hr>
 <h2 id="인터페이스-vs-추상-메소드">인터페이스 VS 추상 메소드</h2>
 <ul>
-<li>추상 메소드를 사용할 때</li>
+<li>추상 메소드를 사용할 때
+<ul>
 <li>관련된 클래스들 사잉에서 코드를 공유할 때</li>
 <li>공통적인 필드나 메소드의 수가 많은 경우</li>
 <li>public 이외의 접근 지정자를 사용해야 하는 경우</li>
 <li>정적이 아닌 필드나 상수가 아닌 필드를 선언하기를 원할 때</li>
-<li>인터페이스를 사용할 때</li>
+</ul>
+</li>
+<li>인터페이스를 사용할 때
+<ul>
 <li>관련 없는 클래스들이 동일한 동작을 구현하기를 원할 때</li>
 <li>특정한 자료형의 동작을 지정하고 싶지만 누가 구현하든지 신경 쓸 필요가 없을 때</li>
 <li>다중 상속이 필요할 때</li>
 </ul>
+</li>
+</ul>
 <h2 id="인터페이스--추상메소드의-공통점--차이점">인터페이스 / 추상메소드의 공통점 &amp; 차이점</h2>
 <columns>
-<column ratio="43.75">
-- 공통점
-객체 생성 → 둘 다 객체를 생성(인스턴스화)할 수 없다.
-추상 메소드 → 추상 메소드를 포함한다.
-기능적 목적 → 상속받는 클래스에서는 추상 메소드를 반드시 재정의하여 구현해야 한다.
-</column>
-<column ratio="56.25">
-- 차이점
-<table>
-<colgroup>
-<col>
-<col width="282">
-<col width="308">
-</colgroup>
-<tr>
-<td>목적</td>
-<td>추상 클래스</td>
-<td>인터페이스</td>
-</tr>
-<tr>
-<td>개념적 목적</td>
-<td>상속 받아 기능을 확장시키는데 목적</td>
-<td>구현 객체의 동일한 실행 기능을 보장하기 위한 목적</td>
-</tr>
-<tr>
-<td>클래스</td>
-<td>클래스가 맞다 (abstract class)</td>
-<td>클래스가 아니다 (interface)</td>
-</tr>
-<tr>
-<td>일반 메소드</td>
-<td>일반 메소드 정의가 가능</td>
-<td>일반 메소드 정의 불가능 (디폴트 메소드 정의 가능)</td>
-</tr>
-<tr>
-<td>멤버 변수</td>
-<td>클래스와 동일하게 변수 선언 및 사용 가능</td>
-<td>상수만 사용 가능</td>
-</tr>
-<tr>
-<td>상속 키워드</td>
-<td>extends</td>
-<td>implements</td>
-</tr>
-<tr>
-<td>다중 상속</td>
-<td>불가능</td>
-<td>가능</td>
-</tr>
-</table>
+<column ratio="100">- 공통점
+  객체 생성 → 둘 다 객체를 생성(인스턴스화)할 수 없다.
+  추상 메소드 → 추상 메소드를 포함한다.
+  기능적 목적 → 상속받는 클래스에서는 추상 메소드를 반드시 재정의하여 구현해야 한다.</column>
+<column ratio="100">- 차이점
 </column>
 </columns>
 ## 다중 상속
 : 하나의 클래스가 여러 개의 부모 클래스를 가지는 것.
 ex) 하늘을 나는 자동차는 자동차의 특성도 가지고 있지만 비행기의 특징도 가지고 있다.
 <columns>
-<column ratio="50">
-- 다중 상속은 애매모호한 상황을 만들 수 있기 때문에 자바에서는 금지되어 있다. → 다이아몬드 문제
-\<다이아몬드 문제\>
-클래스 B와 C가 A로부터 상속을 받는다고 가정. 클래스 D는 B와 C에서 상속받는다. 클래스 A에 myMethod()가 있는데 이것을 B와 C가 모두 오버라이드를 하였다고 가정. D를 통하여 myMethod()를 호출하게 되면 어떤 메소드가 호출되는가 ? 
-</column>
-<column ratio="50">
-![](/images/62f0950e87a2974b.png)
-</column>
+<column ratio="100">- 다중 상속은 애매모호한 상황을 만들 수 있기 때문에 자바에서는 금지되어 있다. → 다이아몬드 문제
+<다이아몬드 문제>
+클래스 B와 C가 A로부터 상속을 받는다고 가정. 클래스 D는 B와 C에서 상속받는다. 클래스 A에 myMethod()가 있는데 이것을 B와 C가 모두 오버라이드를 하였다고 가정. D를 통하여 myMethod()를 호출하게 되면 어떤 메소드가 호출되는가 ?</column>
+<column ratio="100">![](/images/62f0950e87a2974b.png)</column>
 </columns>
-<h2 id="인터페이스를-이용한-다중-상속">인터페이스를 이용한 다중 상속</h2>
-<p>→ 클래스를 사용하는 것이 아닌 인터페이스를 사용하여 다중 상속과 비슷한 효과를 낼 수 있다.
-⇒ 하나의 클래스로부터 상속을 받으면서 동시에 여러 개의 인터페이스도 구현하면 다중 상속과 비슷해진다.</p>
-<ol>
-<li>여러 개의 인터페이스를 동시에 구현한다.</li>
-<li>하나의 클래스를 상속받고 또 하나의 인터페이스를 구현하는 것이다.</li>
-</ol>
-<h3 id="다중-상속-예시">다중 상속 예시</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Drivable</span> { <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">drive</span>(); }
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Flyable</span> { <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fly</span>(); }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlyingCar</span> <span style="color:#66d9ef">implements</span> Drivable, Flyable {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">drive</span>() { System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;I&#39;m driving&#34;</span>); }
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fly</span>() { System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;I&#39;m flying&#34;</span>); }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> statci <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
-</span></span><span style="display:flex;"><span>FlyingCar obj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FlyingCar();
-</span></span><span style="display:flex;"><span>obj.<span style="color:#a6e22e">drive</span>();
-</span></span><span style="display:flex;"><span>obj.<span style="color:#a6e22e">fly</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
-<h1 id="디폴트-메소드-default-method">디폴트 메소드 (Default Method)</h1>
-<p>: 인터페이스 개발자가 메소드의 디폴트 구현을 제공할 수 있는 기능.
+## 인터페이스를 이용한 다중 상속
+→ 클래스를 사용하는 것이 아닌 인터페이스를 사용하여 다중 상속과 비슷한 효과를 낼 수 있다.
+⇒ 하나의 클래스로부터 상속을 받으면서 동시에 여러 개의 인터페이스도 구현하면 다중 상속과 비슷해진다.
+1. 여러 개의 인터페이스를 동시에 구현한다.
+1. 하나의 클래스를 상속받고 또 하나의 인터페이스를 구현하는 것이다.
+### 다중 상속 예시
+```
+interface Drivable { void drive(); }
+interface Flyable { void fly(); }
+<p>public class FlyingCar implements Drivable, Flyable {
+public void drive() { System.out.println(&ldquo;I&rsquo;m driving&rdquo;); }
+public void fly() { System.out.println(&ldquo;I&rsquo;m flying&rdquo;); }</p>
+<pre><code>public statci void main(String args[]) {
+	FlyingCar obj = new FlyingCar();
+	obj.drive();
+	obj.fly();
+}
+</code></pre>
+<p>}</p>
+<pre tabindex="0"><code>---
+# 디폴트 메소드 (Default Method)
+: 인터페이스 개발자가 메소드의 디폴트 구현을 제공할 수 있는 기능.
 → 디폴트 메소드가 정의되어 있으면 인터페이스를 구현하는 클래스가 메소드의 몸체를 구현하지 않아도 메소드를 호출할 수 있다.
 → default 키워드를 메소드 앞에 추가하여 선언한다.
-<callout color="blue_bg">
-디폴트 메소드가 중요한 이유는 인터페이스가 기존의 코드를 건드리지 않고 확장될 수 있도록 하기 위함이다.<br>→ 인터페이스에 의하여 정의된 메소드는 클래스에 의해서 반드시 구현되어야 하는데, 인터페이스에 새로운 메소드가 추가되면 이 인터페이스를 사용하는 모든 클래스들이 수정되어야 한다. 디폴트 메소드가 이 문제를 해결한다 !
-</callout></p>
-<hr>
-<h1 id="정적-메소드static-method">정적 메소드(Static Method)</h1>
-<p>: 클래스로 객체를 생성하지 않아도 호출이 가능한 메소드.
+&gt; 디폴트 메소드가 중요한 이유는 인터페이스가 기존의 코드를 건드리지 않고 확장될 수 있도록 하기 위함이다.
+→ 인터페이스에 의하여 정의된 메소드는 클래스에 의해서 반드시 구현되어야 하는데, 인터페이스에 새로운 메소드가 추가되면 이 인터페이스를 사용하는 모든 클래스들이 수정되어야 한다. 디폴트 메소드가 이 문제를 해결한다 !
+---
+# 정적 메소드(Static Method)
+: 클래스로 객체를 생성하지 않아도 호출이 가능한 메소드.
 → 해당 메소드가 정의되어 있는 클래스의 이름이나 생성된 객체 등을 통해 호출할 수 있다.
-→ 인터페이스에 추가하기 위해선 메소드 이름 앞에 static 키워드를 추가한다.</p>
-<hr>
-<h1 id="팩토리-메소드-factory-method">팩토리 메소드 (Factory Method)</h1>
-<p>: 공장처럼 객체를 생성하는 정적 메소드.
-→ 디자인 패턴의 하나로서 객체를 만드는 부분을 부모 클래스에 위임하는 패턴이다. 즉, new를 호출하여서 객체를 생성하는 코드를 부모 클래스에 위함한다는 의미.</p>
-<hr>
-<h1 id="중첩-클래스">중첩 클래스</h1>
-<columns>
-<column ratio="50">
-- 정적 중첩 클래스 : 앞에 static이 붙어서 내장되는 클래스
+→ 인터페이스에 추가하기 위해선 메소드 이름 앞에 static 키워드를 추가한다.
+---
+# 팩토리 메소드 (Factory Method)
+: 공장처럼 객체를 생성하는 정적 메소드.
+→ 디자인 패턴의 하나로서 객체를 만드는 부분을 부모 클래스에 위임하는 패턴이다. 즉, new를 호출하여서 객체를 생성하는 코드를 부모 클래스에 위함한다는 의미.
+---
+# 중첩 클래스
+&lt;columns&gt;
+&lt;column ratio=&#34;100&#34;&gt;- 정적 중첩 클래스 : 앞에 static이 붙어서 내장되는 클래스
 - 비정적 중첩 클래스 : static이 붙지 않은 일반적인 중첩 클래스
-- 내부 클래스(inner class) : 클래스의 멤버처럼 선언되는 중첩 클래스
-- 지역 클래스(local class) : 메소드의 몸체 안에서 선언되는 중첩 클래스
-- 익명 클래스(annoymouse class) : 수식의 중간에서 선언되고 바로 객체화 되는 클래스
-- 중첩 클래스를 사용하는 이유 → 내부 클래스는 외부 클래스의 private 멤버도 접근할 수 있기 때문에 중첩 클래스를 사용한다.
-</column>
-<column ratio="50">
-![](/images/9391a321c656d8f5.png)
-</column>
-</columns>
+  - 내부 클래스(inner class) : 클래스의 멤버처럼 선언되는 중첩 클래스
+  - 지역 클래스(local class) : 메소드의 몸체 안에서 선언되는 중첩 클래스
+  - 익명 클래스(annoymouse class) : 수식의 중간에서 선언되고 바로 객체화 되는 클래스
+- 중첩 클래스를 사용하는 이유 → 내부 클래스는 외부 클래스의 private 멤버도 접근할 수 있기 때문에 중첩 클래스를 사용한다.&lt;/column&gt;
+&lt;column ratio=&#34;100&#34;&gt;![](/images/9391a321c656d8f5.png)&lt;/column&gt;
+&lt;/columns&gt;
 ## 내부 클래스
 : 클래스 안에 클래스를 선언하는 것
 → 내부 클래스는 외부 클래스의 인스턴스 변수와 메소드를 전부 사용할 수 있다.
-<h2 id="지역-클래스">지역 클래스</h2>
-<p>: 메소드 안에 정의되는 클래스
-→ 지역 클래스는 메소드 안에서만 사용이 가능하고 외부 클래스의 private 변수에 접근할 수 있다.</p>
-<h2 id="익명-클래스">익명 클래스</h2>
-<p>: 클래스 몸체는 정의도지만 이름이 없는 클래스
-→ 익명 클래스는 클래스를 정의하면서 동시에 객체를 생성한다. 즉, 이름이 없기 때문에 한 번만 사용이 가능하다.</p>
-<h3 id="내부-클래스-예시">내부 클래스 예시</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OuterClass</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> 10;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InnerClass</span> { <span style="color:#75715e">// 내부 클래스</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">myMethod</span>() {
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;외부 클래스의 private변수 값: &#34;</span> <span style="color:#f92672">+</span> value);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>OuterClass() {
-</span></span><span style="display:flex;"><span>InnerClass obj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> InnerClass();
-</span></span><span style="display:flex;"><span>obj.<span style="color:#a6e22e">myMethod</span>();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InnerClassTest</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
-</span></span><span style="display:flex;"><span>OuterClass outer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> OuterClass();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 외부 클래스의 private 변수 값 : 10 이 출력된다.</span>
-</span></span></code></pre></div><h3 id="지역-클래스-예시">지역 클래스 예시</h3>
+## 지역 클래스
+: 메소드 안에 정의되는 클래스
+→ 지역 클래스는 메소드 안에서만 사용이 가능하고 외부 클래스의 private 변수에 접근할 수 있다.
+## 익명 클래스
+: 클래스 몸체는 정의도지만 이름이 없는 클래스
+→ 익명 클래스는 클래스를 정의하면서 동시에 객체를 생성한다. 즉, 이름이 없기 때문에 한 번만 사용이 가능하다.
+### 내부 클래스 예시
+```java
+class OuterClass {
+	private int value = 10;
+	
+	class InnerClass { // 내부 클래스
+		public void myMethod() {
+			System.out.println(&#34;외부 클래스의 private변수 값: &#34; + value);
+		}
+	}
+	
+	OuterClass() {
+		InnerClass obj = new InnerClass();
+		obj.myMethod();
+	}
+}
+public class InnerClassTest {
+	public static void main(String args[]) {
+		OuterClass outer = new OuterClass();
+	}
+}
+// 외부 클래스의 private 변수 값 : 10 이 출력된다.
+</code></pre><h3 id="지역-클래스-예시">지역 클래스 예시</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">localInner</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> data <span style="color:#f92672">=</span> 30;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span>() {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">final</span> String msg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;현재의 데이터값은 &#34;</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Local</span> { <span style="color:#75715e">// 지역 클래스 선언 </span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printMsg</span>() {
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(msg <span style="color:#f92672">+</span> data);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>Local obj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Local();
-</span></span><span style="display:flex;"><span>obj.<span style="color:#a6e22e">printMsg</span>();
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> data <span style="color:#f92672">=</span> 30;
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">final</span> String msg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;현재의 데이터값은 &#34;</span>;
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Local</span> { <span style="color:#75715e">// 지역 클래스 선언 </span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printMsg</span>() {
+</span></span><span style="display:flex;"><span>				System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(msg <span style="color:#f92672">+</span> data);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		Local obj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Local();
+</span></span><span style="display:flex;"><span>		obj.<span style="color:#a6e22e">printMsg</span>();
+</span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">localInnerTest</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
-</span></span><span style="display:flex;"><span>localInner obj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> localInner();
-</span></span><span style="display:flex;"><span>obj.<span style="color:#a6e22e">display</span>();
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
+</span></span><span style="display:flex;"><span>		localInner obj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> localInner();
+</span></span><span style="display:flex;"><span>		obj.<span style="color:#a6e22e">display</span>();
+</span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// 현재의 데이터값은 30 이 출력된다.</span>
 </span></span></code></pre></div><h3 id="익명-클래스-예시">익명 클래스 예시</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">RemoteControl</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">turnOn</span>();
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">turnOff</span>();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">turnOn</span>();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">turnOff</span>();
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AnonymousClassTest</span> {
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
-</span></span><span style="display:flex;"><span>RemoteControl ac <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RemoteControl() { <span style="color:#75715e">// 익명 클래스 정의 -&gt; 익명 클래스가 정의되면서 동시에 객체도 생성된다.</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">turnOn</span>() {
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;TV turnOn()&#34;</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">turnoff</span>() {
-</span></span><span style="display:flex;"><span>System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;TV turnOff()&#34;</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>ac.<span style="color:#a6e22e">turnOn</span>();
-</span></span><span style="display:flex;"><span>ac.<span style="color:#a6e22e">turnOff</span>();
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String args<span style="color:#f92672">[]</span>) {
+</span></span><span style="display:flex;"><span>		RemoteControl ac <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RemoteControl() { <span style="color:#75715e">// 익명 클래스 정의 -&gt; 익명 클래스가 정의되면서 동시에 객체도 생성된다.</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">turnOn</span>() {
+</span></span><span style="display:flex;"><span>				System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;TV turnOn()&#34;</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">turnoff</span>() {
+</span></span><span style="display:flex;"><span>				System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;TV turnOff()&#34;</span>);
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		};
+</span></span><span style="display:flex;"><span>		ac.<span style="color:#a6e22e">turnOn</span>();
+</span></span><span style="display:flex;"><span>		ac.<span style="color:#a6e22e">turnOff</span>();
+</span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// TV turnOn()</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// TV turnOff() 가 출력된다.</span>
