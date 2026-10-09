@@ -1,4 +1,5 @@
 ---
+weight: 51
 title: "00. Introduction for Tabular ML"
 date: 2026-07-03T12:00:00+09:00
 categories: ["LG Aimers"]

@@ -1,4 +1,5 @@
 ---
+weight: 39
 title: "2. HTML5 기본 요소"
 date: 2025-10-22T12:00:00+09:00
 categories: ["HTML/CSS/JS"]

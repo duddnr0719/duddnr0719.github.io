@@ -1,4 +1,5 @@
 ---
+weight: 36
 title: "Selenium 정복하기"
 date: 2024-11-19T12:00:00+09:00
 categories: ["Python"]

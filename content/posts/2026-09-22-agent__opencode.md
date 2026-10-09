@@ -1,4 +1,5 @@
 ---
+weight: 56
 title: "Opencode"
 date: 2026-09-22T12:00:00+09:00
 categories: ["agent"]

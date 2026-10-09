@@ -1,4 +1,5 @@
 ---
+weight: 42
 title: "5. CSS 박스모델과 응용"
 date: 2025-10-22T12:00:00+09:00
 categories: ["HTML/CSS/JS"]

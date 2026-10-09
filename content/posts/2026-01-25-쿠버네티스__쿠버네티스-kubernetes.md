@@ -1,4 +1,5 @@
 ---
+weight: 50
 title: "쿠버네티스(Kubernetes)"
 date: 2026-01-25T12:00:00+09:00
 categories: ["쿠버네티스"]

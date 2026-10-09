@@ -1,4 +1,5 @@
 ---
+weight: 41
 title: "4. CSS3 스타일시트 기초"
 date: 2025-10-21T12:00:00+09:00
 categories: ["HTML/CSS/JS"]

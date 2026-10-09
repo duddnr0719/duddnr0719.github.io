@@ -1,4 +1,5 @@
 ---
+weight: 53
 title: "AI 코딩 에이전트 활용 (Opencode)"
 date: 2026-02-20T12:00:00+09:00
 categories: ["agent"]

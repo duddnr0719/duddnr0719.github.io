@@ -1,4 +1,5 @@
 ---
+weight: 37
 title: "네이버 날씨 웹 정보 가져오기(feat.실패, BeautifulSoup)"
 date: 2024-11-28T12:00:00+09:00
 categories: ["Python"]

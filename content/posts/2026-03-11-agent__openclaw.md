@@ -1,4 +1,5 @@
 ---
+weight: 55
 title: "OpenClaw"
 date: 2026-03-11T12:00:00+09:00
 categories: ["agent"]
