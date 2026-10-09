@@ -2,7 +2,7 @@
 weight: 20
 title: "6. Shortest Path"
 date: 2025-11-10T12:00:00+09:00
-categories: ["데이터구조 실습"]
+categories: ["데이터구조I"]
 draft: false
 ---
 
