@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>10. 그래프 II · 레옴의 노트</title>
+  <meta name="description" content="CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록">
+  <meta name="author" content="레옴">
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="10. 그래프 II">
+  <meta property="og:description" content="">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="https://duddnr0719.github.io/">레옴의 노트</a>
+      <nav>
+        
+        <a href="/">Home</a>
+        
+        <a href="/categories/">Categories</a>
+        
+        <a href="/about/">About</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<article class="post">
+  <header class="post-head">
+    <h1>10. 그래프 II</h1>
+    <div class="meta">
+      <time datetime="2025-10-31 12:00:00 &#43;0900 KST">2025년 10월 31일</time>
+      
+      <span class="cats"><a href="/categories/%eb%8d%b0%ec%9d%b4%ed%84%b0%ea%b5%ac%ec%a1%b0I/">데이터구조I</a></span>
+      
+    </div>
+  </header>
+  <div class="content">
+    <h1 id="신장-트리">신장 트리</h1>
+<ul>
+<li>그래프 내의 모든 정점 포함하는 트리 (→ cycle이 생기면 안됨)</li>
+<li>n개의 정점을 가지는 그래프의 신장 트리는 n-1개의 간선을 가짐</li>
+</ul>
+<h2 id="최소-비용-신장-트리minimum-spanning-tree">최소 비용 신장 트리(minimum spanning tree)</h2>
+<columns>
+<column ratio="100">- 네트워크에 있는 모든 정점들을 가장 적은 수의 간선과 비용으로 연결</column>
+<column ratio="100">![](/images/1589d6954d5cd95d.png)</column>
+</columns>
+## Kruskal의 MST 알고리즘
+<columns>
+<column ratio="100">- 탐욕적인 방법(greedy)
+  - 주요 알고리즘 설계 기법
+  - 각 단계에서 최선의 답을 선택하는 과정을 반복함으로써 최종적인 해답에 도달
+  - 탐욕적인 방법은 항상 최적의 해답을 주는지 검증 필요
+  - Kruskal MST 알고리즘은 최적의 해답임이 증명됨
+- union-find 알고리즘
+  → 원소가 어떤 집합에 속하는지 알아냄
+  → Kruskal MST 알고리즘에서 사이클 검사에 사용 (⇒ 신장 트리는 사이클이 생성되면 안되기 때문)
+  ![](/images/8a970b7d135535f9.png)</column>
+<column ratio="100">![](/images/ec7acc3d013aedd4.png)</column>
+</columns>
+## Kruskal MST 코드 구현
+```c
+#include <stdio.h>
+#include <stdlib.h>
+<p>#define TRUE 1
+#define FALSE 0
+#define MAX_VERTICES 100
+#define INF 1000</p>
+<p>int parent[MAX_VERTICES];</p>
+<p>void set_init(int n) {
+for (int i = 0; i &lt; n; i++) {
+parent[i] = -1;
+}
+}</p>
+<p>// curr가 속하는 집합을 반환한다 -&gt; root 찾기
+int set_find(int curr) {
+if (parent[curr] == -1) return curr;
+while (parent[curr] != -1) curr = parent[curr];
+return curr;
+}</p>
+<p>// 두 개의 원소가 속한 집합을 합친다
+void set_union(int a, int b) {
+int root1 = set_find(a);
+int root2 = set_find(b);
+if (root1 != root2) parent[root1] = root2;
+}</p>
+<p>struct Edge {           // 간선을 나타내는 구조체
+int start, end, weight;
+};</p>
+<p>typedef struct GraphType {
+int n;  // 간선의 개수
+struct Edge edges[2 * MAX_VERTICES];
+} GraphType;</p>
+<p>// 그래프 초기화
+void graph_init(GraphType* g) {
+g-&gt;n = 0;
+for (int i = 0; i &lt; 2 * MAX_VERTICES; i++) {
+g-&gt;edges[i].start = 0;
+g-&gt;edges[i].end = 0;
+g-&gt;edges[i].weight = INF;
+}
+}</p>
+<p>// 간선 삽입 연산
+void insert_edge(GraphType* g, int start, int end, int w) {
+g-&gt;edges[g-&gt;n].start = start;
+g-&gt;edges[g-&gt;n].end = end;
+g-&gt;edges[g-&gt;n].weight = w;
+}</p>
+<p>// qsort()에 사용되는 함수
+int compare(const void* a, const void* b) {
+struct Edge* x = (struct Edge*)a;
+struct Edge* y = (struct Edge*)b;
+return (x-&gt;weight - y-&gt;weight);
+}</p>
+<p>// kruskal의 최소 비용 신장 트리 프로그램
+void kruskal(GraphType* g) {
+int edge_accepted = 0;  // 현재까지 선택된 간선의 수
+int uset, vset;         // 정점 u와 정점 v의 집합 번호
+struct Edge e;</p>
+<pre><code>set_init(g-&gt;n);         // 집합 초기화
+qsort(g-&gt;edges, g-&gt;n, sizeof(struct Edge), compare);
+
+printf(&quot;크루스칼 최소 신장 트리 알고리즘 \n&quot;);
+int i = 0;
+while (edge_accepted &lt; (g-&gt;n - 1)) {        // 간선의 수 &lt; (n-1) -&gt; n개의 간선일 때 최소 신장 트리는 n-1개의 간선을 가지기 때문 + MST 알고리즘은 사이클이 생성되면 안 된다.
+    e = g-&gt;edges[i];
+    uset = set_find(e.start);               // 정점 u의 집합 번호
+    vset = set_find(e.end);                 // 정점 v의 집합 번호
+    if (uset != vset) {                     // 서로 속한 집합이 다른 경우
+        printf(&quot;간선 (%d, %d) %d 선택\n&quot;, e.start, e.end, e.weight);
+        edge_accepted++;
+        set_union(uset, vset);              // 두 개의 집합을 합침
+    }
+    i++;
+}
+</code></pre>
+<p>}</p>
+<pre tabindex="0"><code>## 시간 복잡도
+- Kruskal 알고리즘은 대부분 간선들을 정렬하는 시간에 좌우됨
+  - 사이클 테스트 등의 작업은 정렬에 비해 매우 신속하게 수행됨
+- 네트워크의 간선 e개를 퀵정렬과 같은 효율적인 알고리즘으로 정렬한다면 Kruskal 알고리즘의 시간 복잡도는 O(e*log(e))가 된다.
+---
+## Prim의 MST 알고리즘
+&lt;columns&gt;
+&lt;column ratio=&#34;100&#34;&gt;- 시작 정점에서부터 출발하여 신장 트리 집합을 단계적으로 확장해나감
+- 신장 트리 집합에 인접한 정점 중에서 최저 간선으로 연결된 정점을 선택하여 신장 트리 집합에 추가함
+![](/images/f1f9d34d6714a857.png)&lt;/column&gt;
+&lt;column ratio=&#34;100&#34;&gt;![](/images/ce202ad1e504f1d3.png)&lt;/column&gt;
+&lt;/columns&gt;
+## Prim MST 알고리즘 코드 구현
+```c
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define TRUE 1
+#define FALSE 0
+#define MAX_VERTICES 100
+#define INF 1000L
+
+typedef struct GraphType {
+	int n;	// 정점의 개수
+	int weight[MAX_VERTICES][MAX_VERTICES];
+} GraphType;
+
+int selected[MAX_VERTICES];
+int distance[MAX_VERTICES];
+
+// 최소 dist[v] 값을 갖는 정점을 반환
+int get_min_vertex(int n)
+{
+	int v, i;
+	for (i = 0; i &lt;n; i++)
+		if (!selected[i]) { // 정점을 방문하지 않은 경우
+			v = i;
+			break;
+		}
+	for (i = 0; i &lt; n; i++)
+		if (!selected[i] &amp;&amp; (distance[i] &lt; distance[v])) v = i; // 정점을 방문하지 않고 간선의 거리가 더 짧은 경우
+	return v;
+}
+// Prim의 최소 비용 신장 트리 프로그램
+void prim(GraphType* g, int s)
+{
+	int i, u, v;
+
+	for (u = 0; u&lt;g-&gt;n; u++)	distance[u] = INF; // distance 배열 초기화
+	distance[s] = 0; // 시작 인덱스의 거리 0으로 설정 -&gt; 시작점부터 시작점까지의 거리는 0.
+	for (i = 0; i&lt;g-&gt;n; i++) {
+		u = get_min_vertex(g-&gt;n); // 방문하지 않은 정점 중 거리가 가장 짧은 정점의 인덱스 값 반환 받음.
+		selected[u] = TRUE; // 해당 정점 방문 표시
+		if (distance[u] == INF) return;
+		printf(&#34;정점 %d 추가\n&#34;, u);
+		for (v = 0; v&lt;g-&gt;n; v++)
+			if (g-&gt;weight[u][v] != INF)
+				if (!selected[v] &amp;&amp; g-&gt;weight[u][v]&lt; distance[v]) // 방문이 되지 않은 정점 중 거리가 짧은 간선이 존재하는 경우 실행
+					distance[v] = g-&gt;weight[u][v]; // 거리가 짧은 간선의 값으로 distance 배열의 값 변경
+	}
+}
+</code></pre><h2 id="최단-경로">최단 경로</h2>
+<columns>
+<column ratio="100">- 네트워크에서 정점 u와 정점 v를 연결하는 경로 중에서 간선들의 가중치 합이 최소가 되는 경로
+- 간선의 가중치는 비용, 거리 등을 나타냄</column>
+<column ratio="100">### 가중치 인접행렬
+![](/images/c8bf1c528d0f2309.png)</column>
+</columns>
+### Dijkstra 알고리즘
+<columns>
+<column ratio="100">- 하나의 시작 정점에서 다른 정점까지의 최단 경로 계산 → 시작 정점이 무조건 주어져야 한다.
+  - 집합 S : 시작 정점 v로부터 최단 경로가 이미 발견된 정점들의 집합
+  - distance 배열 : 최단 경로가 알려진 정점들만을 이용한 다른 정점들까지의 최단 경로 길이
+    - 매 단계에서 가장 distance 값이 작은 정점을 S에 추가
+    - 각 단계에서 S안에 있지 않은 정점 중에서 가장 distance값이 작은 정점을 S에 추가
+    - 새로운 정점이 S에 추가되면 distance 값 갱신 
+      → distance[w] = min(distance[w], distance[u]+weight[u][w])</column>
+<column ratio="100">![](/images/6932792cf7e5c29a.png)</column>
+</columns>
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+<p>#define TRUE 1
+#define FALSE 0
+#define MAX_VERTICES	100
+#define INF	1000000	/* 무한대 (연결이 없는 경우) */</p>
+<p>typedef struct GraphType {
+int n;	// 정점의 개수
+int weight[MAX_VERTICES][MAX_VERTICES];
+} GraphType;</p>
+<p>int distance[MAX_VERTICES];/* 시작정점으로부터의 최단경로 거리 <em>/
+int found[MAX_VERTICES];		/</em> 방문한 정점 표시 */</p>
+<p>// 방문하지 않은 정점 중 시작 정점으로부터 거리가 짧은 정점을 선택하는 함수 (-&gt; 가중치가 가장 작은 index의 번호를 반환)
+int choose(int distance[], int n, int found[])
+{
+int i, min, minpos;
+min = INT_MAX;
+minpos = -1;
+for (i = 0; i&lt;n; i++)
+if (distance[i]&lt; min &amp;&amp; !found[i]) {
+min = distance[i]; // 최소값을 찾는 과정
+minpos = i;
+}
+return minpos;
+}</p>
+<p>void shortest_path(GraphType* g, int start)
+{
+int i, u, w;
+for (i = 0; i<g->n; i++) /* 초기화 <em>/
+{
+distance[i] = g-&gt;weight[start][i];
+found[i] = FALSE;
+}
+found[start] = TRUE;    /</em> 시작 정점 방문 표시 */
+distance[start] = 0;
+for (i = 0; i<g->n-1; i++) {
+print_status(g);
+u = choose(distance, g-&gt;n, found);
+found[u] = TRUE;
+for (w = 0; w<g->n; w++)
+if (!found[w])
+if (distance[u] + g-&gt;weight[u][w]&lt;distance[w]) //
+distance[w] = distance[u] + g-&gt;weight[u][w];
+}
+}</p>
+<p>int main(void)
+{
+GraphType g = { 7,
+{{ 0,  7,  INF, INF,   3,  10, INF },
+{ 7,  0,    4,  10,   2,   6, INF },
+{ INF,  4,    0,   2, INF, INF, INF },
+{ INF, 10,    2,   0,  11,   9,   4 },
+{ 3,  2,  INF,  11,   0, INF,   5 },
+{ 10,  6,  INF,   9, INF,   0, INF },
+{ INF, INF, INF,   4,   5, INF,   0 } }
+};
+shortest_path(&amp;g, 0);
+return 0;
+}</p>
+<pre tabindex="0"><code>### 시간 복잡도
+- O(n^2)
+### Floyd 알고리즘
+&lt;columns&gt;
+&lt;column ratio=&#34;100&#34;&gt;- 모든 정점에서 다른 모든 정점까지의 최단 경로를 계산
+- 2차원 배열 A를 이용하여 3중 반복을 하는 루프로 구성됨
+- 0부터 k까지의 정점만을 이용하여 정점 i부터 정점 j까지의 최단 경로 길이
+  - 이에 해당하는 2가지 경우
+    1. 정점 k를 거치지 않는 경우
+    → 배열 A는 k보다 큰 정점은 통과하지 않으므로 최단 거리는 동일
+    1. 정점 k를 거치는 경우
+    → i에서 k까지의 최단거리에 k에서 j까지의 최단 거리를 더한 값&lt;/column&gt;
+&lt;column ratio=&#34;100&#34;&gt;![](/images/bc29d13f29d35bcc.png)&lt;/column&gt;
+&lt;/columns&gt;
+### Floyd 최단경로 알고리즘 실행 순서
+&lt;columns&gt;
+&lt;column ratio=&#34;100&#34;&gt;![](/images/fa0e9356e3a8f440.png)&lt;/column&gt;
+&lt;column ratio=&#34;100&#34;&gt;![](/images/50521c35dffd5ff4.png)&lt;/column&gt;
+&lt;/columns&gt;
+## Floyd 최단경로 알고리즘 프로그램
+```c
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+#define TRUE 1
+#define FALSE 0
+#define MAX_VERTICES	100	
+#define INF	1000000	/* 무한대 (연결이 없는 경우) */
+
+typedef struct GraphType {
+	int n;	// 정점의 개수
+	int weight[MAX_VERTICES][MAX_VERTICES];
+} GraphType;
+
+int A[MAX_VERTICES][MAX_VERTICES];
+
+void printA(GraphType *g)
+{
+	int i, j;
+	printf(&#34;===============================\n&#34;);
+	for (i = 0; i&lt;g-&gt;n; i++) {
+		for (j = 0; j&lt;g-&gt;n; j++) {
+			if (A[i][j] == INF)
+				printf(&#34;  * &#34;);
+			else printf(&#34;%3d &#34;, A[i][j]);
+		}
+		printf(&#34;\n&#34;);
+	}
+	printf(&#34;===============================\n&#34;);
+}
+
+void floyd(GraphType* g)
+{
+
+	int i, j, k;
+	for (i = 0; i&lt;g-&gt;n; i++)
+		for (j = 0; j&lt;g-&gt;n; j++)
+			A[i][j] = g-&gt;weight[i][j];
+	printA(g);
+
+	for (k = 0; k&lt;g-&gt;n; k++) {
+		for (i = 0; i&lt;g-&gt;n; i++)
+			for (j = 0; j&lt;g-&gt;n; j++)
+				if (A[i][k] + A[k][j] &lt; A[i][j])
+					A[i][j] = A[i][k] + A[k][j];
+		printA(g);
+	}
+}
+
+int main(void)
+{
+	GraphType g = { 7,
+	{{ 0,  7,  INF, INF,   3,  10, INF },
+	{ 7,  0,    4,  10,   2,   6, INF },
+	{ INF,  4,    0,   2, INF, INF, INF },
+	{ INF, 10,    2,   0,  11,   9,   4 },
+	{ 3,  2,  INF,  11,   0, INF,   5 },
+	{ 10,  6,  INF,   9, INF,   0, INF },
+	{ INF, INF, INF,   4,   5, INF,   0 } }
+	};
+	floyd(&amp;g);
+	return 0;
+}
+</code></pre><h3 id="시간-복잡도">시간 복잡도</h3>
+<ul>
+<li>네트워크에 n개의 정점이 있다면 Floyd의 최단경로 알고리즘은 3중 반복문을 실행하므로 O(n^3)이다.</li>
+<li>모든 정점 상의 최단경로를 구하려면 Dijkstra의 알고리즘을 n번 반복해도 되며, 이 경우 전체 복잡도는 O(n^3)이 된다.</li>
+</ul>
+<hr>
+<h2 id="위상-정렬topological-sort">위상 정렬(Topological Sort)</h2>
+<columns>
+<column ratio="100">- 방향 그래프에서 간선 <u, v>가 있다면 정점 u는 정점 v를 선행한다.
+- 방향 그래프 정점들의 선행 순서를 위배하지 않으면서 모든 정점을 나열한다.</column>
+<column ratio="100">![](/images/4e2d333dcb8d59aa.png)</column>
+</columns>
+---
+<columns>
+<column ratio="100">- 진입 차수의 비 내림차순 순서로 정렬을 한다.
+  - 진입 차수가 0개 → n개 순으로 탐색하고, 정렬 과정을 거치며 진입 차수가 0인 노드들은 제거하고, 진입 차수가 0이 아닌 노드들은 점점 0으로 수정한 뒤 제거하며 정렬을 한다.
+    - 진입 차수 : 해당 노드로 들어오는 간선의 개수
+    ⇒ A→B, C→B 와 같은 형태의 그래프라면 A,C의 진입 차수 : 0, B의 진입 차수 : 2</column>
+<column ratio="100">![](/images/e84e67cd0be00a25.png)</column>
+</columns>
+## 위상 정렬 프로그램
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#define TRUE 1
+#define FALSE 0
+#define MAX_VERTICES 50
+<p>typedef struct GraphNode
+{
+int vertex;
+struct GraphNode *link;
+} GraphNode;</p>
+<p>typedef struct GraphType {
+int n;	// 정점의 개수
+GraphNode *adj_list[MAX_VERTICES];
+} GraphType;</p>
+<p>// 그래프 초기화
+void graph_init(GraphType *g)
+{
+int v;
+g-&gt;n = 0;
+for (v = 0; v&lt;MAX_VERTICES; v++)
+g-&gt;adj_list[v] = NULL;
+}
+// 정점 삽입 연산
+void insert_vertex(GraphType *g, int v)
+{
+if (((g-&gt;n) + 1) &gt; MAX_VERTICES) {
+fprintf(stderr, &ldquo;그래프: 정점의 개수 초과&rdquo;);
+return;
+}
+g-&gt;n++;
+}
+// 간선 삽입 연산, v를 u의 인접 리스트에 삽입한다.
+void insert_edge(GraphType *g, int u, int v)
+{
+GraphNode *node;
+if (u &gt;= g-&gt;n || v &gt;= g-&gt;n) {
+fprintf(stderr, &ldquo;그래프: 정점 번호 오류&rdquo;);
+return;
+}
+node = (GraphNode *)malloc(sizeof(GraphNode));
+node-&gt;vertex = v;
+node-&gt;link = g-&gt;adj_list[u];
+g-&gt;adj_list[u] = node;
+}</p>
+<p>#define MAX_STACK_SIZE 100
+typedef int element;
+typedef struct {
+element stack[MAX_STACK_SIZE];
+int top;
+} StackType;</p>
+<p>// 스택 초기화 함수
+void init(StackType *s)
+{
+s-&gt;top = -1;
+}
+// 공백 상태 검출 함수
+int is_empty(StackType *s)
+{
+return (s-&gt;top == -1);
+}
+// 포화 상태 검출 함수
+int is_full(StackType *s)
+{
+return (s-&gt;top == (MAX_STACK_SIZE - 1));
+}
+// 삽입함수
+void push(StackType *s, element item)
+{
+if (is_full(s)) {
+fprintf(stderr, &ldquo;스택 포화 에러\n&rdquo;);
+return;
+}
+else s-&gt;stack[++(s-&gt;top)] = item;
+}
+// 삭제함수
+element pop(StackType *s)
+{
+if (is_empty(s)) {
+fprintf(stderr, &ldquo;스택 공백 에러\n&rdquo;);
+exit(1);
+}
+else return s-&gt;stack[(s-&gt;top)&ndash;];
+}</p>
+<p>// 위상정렬을 수행한다.
+int topo_sort(GraphType *g)
+{
+int i;
+StackType s;
+GraphNode *node;</p>
+<pre><code>// 모든 정점의 진입 차수를 계산
+int *in_degree = (int *)malloc(g-&gt;n * sizeof(int));
+for (i = 0; i &lt; g-&gt;n; i++)			// 초기화
+	in_degree[i] = 0;
+for (i = 0; i &lt; g-&gt;n; i++) {
+	GraphNode *node = g-&gt;adj_list[i];//정점 i에서 나오는 간선들
+	while (node != NULL) {
+		in_degree[node-&gt;vertex]++;
+		node = node-&gt;link;
+	}
+}
+// 진입 차수가 0인 정점을 스택에 삽입
+init(&amp;s);
+for (i = 0; i &lt; g-&gt;n; i++) {
+	if (in_degree[i] == 0) push(&amp;s, i);
+}
+// 위상 순서를 생성 
+while (!is_empty(&amp;s)) {
+	int w;
+	w = pop(&amp;s);
+	printf(&quot;정점 %d -&gt;&quot;, w);		//정점 출력
+	node = g-&gt;adj_list[w];	//각 정점의 진입 차수를 변경
+	while (node != NULL) {
+		int u = node-&gt;vertex;
+		in_degree[u]--;			//진입 차수를 감소
+		if (in_degree[u] == 0) push(&amp;s, u);
+		node = node-&gt;link;   // 다음 정점
+	}
+}
+free(in_degree);
+printf(&quot;\n&quot;);
+return (i == g-&gt;n);	// 반환값이 1이면 성공, 0이면 실패
+</code></pre>
+<p>}
+//
+int main(void)
+{
+GraphType g;</p>
+<pre><code>graph_init(&amp;g);
+insert_vertex(&amp;g, 0);
+insert_vertex(&amp;g, 1);
+insert_vertex(&amp;g, 2);
+insert_vertex(&amp;g, 3);
+insert_vertex(&amp;g, 4);
+insert_vertex(&amp;g, 5);
+
+//정점 0의 인접 리스트 생성
+insert_edge(&amp;g, 0, 2);
+insert_edge(&amp;g, 0, 3);
+//정점 1의 인접 리스트 생성
+insert_edge(&amp;g, 1, 3);
+insert_edge(&amp;g, 1, 4);
+//정점 2의 인접 리스트 생성
+insert_edge(&amp;g, 2, 3);
+insert_edge(&amp;g, 2, 5);
+//정점 3의 인접 리스트 생성
+insert_edge(&amp;g, 3, 5);
+//정점 4의 인접 리스트 생성
+insert_edge(&amp;g, 4, 5);
+//위상 정렬 
+topo_sort(&amp;g);
+// 동적 메모리 반환 코드 생략
+return 0;
+</code></pre>
+<p>}</p>
+<pre tabindex="0"><code></code></pre>
+  </div>
+  <footer class="post-foot">
+    <a href="https://duddnr0719.github.io/">← 목록으로</a>
+  </footer>
+</article>
+
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 레옴 · Notion → Hugo</span>
+    </div>
+  </footer>
+</body>
+</html>
