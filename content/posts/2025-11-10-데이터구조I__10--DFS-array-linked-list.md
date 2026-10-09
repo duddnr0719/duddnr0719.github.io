@@ -1,6 +1,6 @@
 ---
 weight: 17
-title: "3. DFS(array, linked list)"
+title: "10. DFS(array, linked list)"
 date: 2025-11-10T12:00:00+09:00
 categories: ["데이터구조I"]
 draft: false
