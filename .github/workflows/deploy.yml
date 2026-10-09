@@ -31,7 +31,7 @@ jobs:
           sudo mv hugo /usr/local/bin/
 
       - name: Build with Hugo
-        run: hugo --minify --baseURL "${{ env.GITHUB_REPO_URL }}"
+        run: hugo --baseURL "${{ env.GITHUB_REPO_URL }}"
         env:
           GITHUB_REPO_URL: "https://duddnr0719.github.io/"
 
