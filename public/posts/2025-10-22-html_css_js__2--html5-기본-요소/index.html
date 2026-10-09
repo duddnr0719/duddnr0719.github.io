@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2. HTML5 기본 요소 · 레옴의 노트</title>
+  <meta name="description" content="CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록">
+  <meta name="author" content="레옴">
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="2. HTML5 기본 요소">
+  <meta property="og:description" content="">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="https://duddnr0719.github.io/">레옴의 노트</a>
+      <nav>
+        
+        <a href="/">Home</a>
+        
+        <a href="/categories/">Categories</a>
+        
+        <a href="/about/">About</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<article class="post">
+  <header class="post-head">
+    <h1>2. HTML5 기본 요소</h1>
+    <div class="meta">
+      <time datetime="2025-10-22 12:00:00 &#43;0900 KST">2025년 10월 22일</time>
+      
+      <span class="cats"><a href="/categories/HTML/CSS/JS/">HTML/CSS/JS</a></span>
+      
+    </div>
+  </header>
+  <div class="content">
+    <h1 id="html">HTML</h1>
+<h2 id="doctype-선언">&lt;!DOCTYPE&gt; 선언</h2>
+<ul>
+<li>브라우저가 올바르게 웹 페이지를 표시할 수 있도록 도움.</li>
+<li>웹 페이지에 사용된 HTML의 종류와 버전을 알고 있어야 브라우저는 올바르게 HTML 페이지를 표시할 수 있다.</li>
+<li>&lt;!DOCTYPE html&gt;은 HTML5 버전을 의미한다.</li>
+</ul>
+<h2 id="주석">주석</h2>
+<ul>
+<li>&lt;!&ndash; … &ndash;&gt;을 사용하여 주석 처리를 한다.</li>
+<li>브라우저에 의하여 무시되고 표시되지 않는다.</li>
+</ul>
+<h2 id="헤드와-바디">헤드와 바디</h2>
+<ul>
+<li>HTML 문서는 크게 헤드와 바디로 구성 된다.</li>
+<li>&lt;head&gt; … &lt;/head&gt; : 문서의 제목, 문자 인코딩, 외부 파일 연결 등 메타데이터(데이터에 대한 데이터)를 포함한다.</li>
+<li>&lt;title&gt; : HTML 문서의 제목을 정의</li>
+<li>요소 : 시작 태그와 종료 태그로 이루어진 HTML 문서의 구성 요소</li>
+<li>속성 : 요소에 대한 추가적인 정보</li>
+<li>&lt;body&gt; … &lt;/body&gt; : 실제 브라우저 화면에 표시되는 모든 콘텐츠(텍스트, 이미지, 비디오 등)를 담는다.</li>
+<li>&lt;body&gt; 안에 텍스트 입력 시 엔터키를 사용하여 줄 바꿈을 하여도 브라우저에는 표시되지 않는다.
+<callout>
+💡 
+태그 이름은 대소문자를 구별하지 않는다. → &lt;head&gt; = &lt;HEAD&gt;
+하나의 요소 안에 다른 요소들이 포함될 수 있다.
+시작 태그와 종료 태그 사이의 연속된 공백은 하나의 공백으로 취급한다.
+</callout></li>
+<li>&lt;p&gt; : 문단, 한 개의 단락을 생성한다.</li>
+<li>&lt;br&gt; : 강제 줄 바꿈 태그.</li>
+<li>&lt;pre&gt; : 프로그래머가 입력한 그대로 화면에 표시하는 태그</li>
+<li>&lt;h&gt; : 헤딩, 웹 페이지의 headline / h1 ~ h6까지 존재, 번호가 작아질 수록 표시되는 글자의 크기가 커진다.</li>
+</ul>
+<h3 id="텍스트-서식">텍스트 서식</h3>
+<ul>
+<li>&lt;b&gt; : 볼드체로 만든다.</li>
+<li>&lt;i&gt; : 이탤릭체로 만든다.</li>
+<li>&lt;strong&gt; : 텍스트를 강하게 표시한다.</li>
+<li>&lt;em&gt; : 텍스트를 강조한다.</li>
+<li>&lt;code&gt; : 텍스트가 코드임을 표시한다.</li>
+<li>&lt;sup&gt; : 위첨자</li>
+<li>&lt;sub&gt; : 아래첨자</li>
+<li>&lt;hr&gt; : 수평선</li>
+</ul>
+<h3 id="특수문자">특수문자</h3>
+<ul>
+<li>  : non-breaking space : 공백 문자 한 개</li>
+<li>&lt; : &lt; (less than)</li>
+<li>&gt; : &gt; (greater than)</li>
+<li>&quot; : “</li>
+<li>&amp; : &amp;</li>
+</ul>
+<h3 id="리스트">리스트</h3>
+<p>: 항목들을 나열하는데 사용</p>
+<ul>
+<li>&lt;ol&gt; : 번호 있는 리스트 (ordered list)</li>
+<li>&lt;ul&gt; : 번호 없는 리스트 (un-ordered list)</li>
+<li>&lt;li&gt; : 리스트 항목 생성
+→ &lt;ol&gt; / &lt;ul&gt; 로 리스트 생성 후 &lt;li&gt; 태그를 사용하여 리스트 항목을 생성한다.</li>
+<li>&lt;dl&gt; : 정의 리스트 → 항목들과 함께 항목들의 정의가 표시되는 리스트</li>
+</ul>
+<h3 id="이미지">이미지</h3>
+<ul>
+<li>&lt;img&gt; 태그를 사용하여 생성한다.</li>
+<li>src 속성을 사용하여 이미지 파일 이름을 지정한다.</li>
+<li>width, height 속성을 사용하여 가로, 세로 크기를 설정한다.</li>
+<li>alt 속성을 사용하여 이미지가 표시되지 않을 경우 화면에 표시되는 대체 텍스트를 설정한다.</li>
+</ul>
+<h3 id="하이퍼링크">하이퍼링크</h3>
+<ul>
+<li>&lt;a&gt; 태그를 사용하여 하이퍼링크를 사용한다.</li>
+<li>href 속성을 사용하여 하이퍼링크 페이지를 설정한다.</li>
+<li>target 속성을 사용하여 링크가 클릭 되었을 때 새로운 페이지가 어디에 열릴 지 지정한다.</li>
+<li>_blank : 새로운 윈도우에서 새로운 페이지를 연다</li>
+<li>_self : 현재 윈도우에 새로운 페이지를 적재한다.</li>
+<li>_parent : 부모 프레임에 새로운 페이지를 적재한다.</li>
+<li>_top : 현재 윈도우에 새로운 페이지를 적재하고 모든 프레임을 취소한다.</li>
+</ul>
+<h3 id="테이블">테이블</h3>
+<ul>
+<li>표 형태의 데이터를 표시할 때 사용</li>
+<li>&lt;table&gt; 태그를 사용하여 정의</li>
+<li>행은 &lt;tr&gt; , 데이터는 &lt;td&gt; 를 사용하여 표현</li>
+</ul>
+</tr>
+- \<thead\>를 사용하여 테이블 헤더 정의 
+- \<caption\>을 사용하여 테이블의 이름을 설정
+- \<tbody\>를 사용하여 테이블의 값 설정
+- rowspan 속성을 사용하여 열 병합, colspan 속성을 사용하여 행 병합
+<h3 id="비디오">비디오</h3>
+<ul>
+<li>웹페이지에 비디오를 삽입할 때 사용</li>
+<li>&lt;video&gt; 태그를 사용하여 정의</li>
+<li>&lt;video src=”…” (속성) (제어기여부)&gt; 의 형태로 사용</li>
+<li>video 태그의 속성</li>
+<li>autoplay : 비디오를 자동으로 재생한다.</li>
+<li>controls : 브라우저가 비디오 재생을 제어하는 컨트롤러를 표시한다.</li>
+<li>loop : 비디오를 반복하여 재생한다.</li>
+<li>poster : 비디오를 다운로드할 때 표시하는 이미지</li>
+<li>preload : 사용자가 사용할 생각이 없더라도 전체 비디오를 다운로드한다.</li>
+<li>muted : 비디오 출력을 중지한다.</li>
+<li>src : 재생할 비디오가 존재하는 URL을 지정한다.</li>
+<li>width, height : 비디오 재생기의 너비와 높이를 지정한다.</li>
+</ul>
+<h3 id="오디오">오디오</h3>
+<ul>
+<li>웹페이지에 오디오를 삽입할 때 사용</li>
+<li>&lt;audio&gt; 태그를 사용하여 정의</li>
+<li>&lt;audio src=”…” (속성) (제어기여부)&gt; 의 형태로 사용</li>
+<li>audio 태그의 속성</li>
+<li>autoplay : 음악을 자동으로 재생한다.</li>
+<li>controls : 브라우저가 오디오 재생을 제어하는 제어기를 표시한다.</li>
+<li>loop : 오디오를 반복하여 재생한다.</li>
+<li>preload : 사용자가 사용할 생각이 없더라도 오디오를 미리 다운로드한다.</li>
+<li>src : 재생할 오디오가 존재하는 URL을 지정한다.</li>
+<li>volume : 오디오의 재생 볼륨을 설정한다.(0.0 ~ 1.0)</li>
+</ul>
+
+  </div>
+  <footer class="post-foot">
+    <a href="https://duddnr0719.github.io/">← 목록으로</a>
+  </footer>
+</article>
+
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 레옴 · Notion → Hugo</span>
+    </div>
+  </footer>
+</body>
+</html>

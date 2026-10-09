@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3. DFS(array, linked list) · 레옴의 노트</title>
+  <meta name="description" content="CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록">
+  <meta name="author" content="레옴">
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="3. DFS(array, linked list)">
+  <meta property="og:description" content="">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="https://duddnr0719.github.io/">레옴의 노트</a>
+      <nav>
+        
+        <a href="/">Home</a>
+        
+        <a href="/categories/">Categories</a>
+        
+        <a href="/about/">About</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<article class="post">
+  <header class="post-head">
+    <h1>3. DFS(array, linked list)</h1>
+    <div class="meta">
+      <time datetime="2025-11-10 12:00:00 &#43;0900 KST">2025년 11월 10일</time>
+      
+      <span class="cats"><a href="/categories/%eb%8d%b0%ec%9d%b4%ed%84%b0%ea%b5%ac%ec%a1%b0%20%ec%8b%a4%ec%8a%b5/">데이터구조 실습</a></span>
+      
+    </div>
+  </header>
+  <div class="content">
+    <h2 id="1-개요">1. 개요</h2>
+<p>인접 행렬과 인접 연결리스트로 표현된 그래프에 대한 DFS를 구현한다.</p>
+<h3 id="2-인접리스트-지난주-실습문제와-비교">2. 인접리스트 (지난주 실습문제와 비교)</h3>
+<p>(1) 정점의 수와 간선의 수를 입력하면 무작위로 그래프를 발생시키는 함수를 구현하라.
+단, 정점 사이에 중복된 간선이 존재하지 않아야 한다. 생성된 그래프를 인접행렬로 표현하고 화면에 출력하고,
+정점의 이름은 &lsquo;A&rsquo;로부터 시작하여 하나씩 증가시키도록 한다. 만들어진 연결 그래프에 깊이 우선 탐색을 적용하여 정점을 방문하는 순서를 출력한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define TRUE 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define FALSE 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MAX_VERTICES 50
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// DFS 수행 시, 정점의 방문 여부를 기록하는 배열
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> visited[MAX_VERTICES];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 그래프를 인접 행렬 방식으로 표현하는 구조체
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> GraphType {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n; <span style="color:#75715e">// 정점의 개수
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> adj_mat[MAX_VERTICES][MAX_VERTICES]; <span style="color:#75715e">// 2차원 배열로 간선 정보를 저장
+</span></span></span><span style="display:flex;"><span>} GraphType;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 그래프의 정점 개수와 인접 행렬을 초기화
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(GraphType<span style="color:#f92672">*</span> g) {
+</span></span><span style="display:flex;"><span>    g<span style="color:#f92672">-&gt;</span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; r <span style="color:#f92672">&lt;</span> MAX_VERTICES; r<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; c <span style="color:#f92672">&lt;</span> MAX_VERTICES; c<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>            g<span style="color:#f92672">-&gt;</span>adj_mat[r][c] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_vertex</span>(GraphType<span style="color:#f92672">*</span> g, <span style="color:#66d9ef">int</span> v) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (((g<span style="color:#f92672">-&gt;</span>n) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&gt;</span> MAX_VERTICES) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fprintf</span>(stderr, <span style="color:#e6db74">&#34;그래프: 정점의 개수 초과</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    g<span style="color:#f92672">-&gt;</span>n<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 무방향 그래프이므로 양쪽 방향의 간선을 모두 표시
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_edge</span>(GraphType<span style="color:#f92672">*</span> g, <span style="color:#66d9ef">int</span> start, <span style="color:#66d9ef">int</span> end) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (start <span style="color:#f92672">&gt;=</span> g<span style="color:#f92672">-&gt;</span>n <span style="color:#f92672">||</span> end <span style="color:#f92672">&gt;=</span> g<span style="color:#f92672">-&gt;</span>n) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fprintf</span>(stderr, <span style="color:#e6db74">&#34;그래프: 정점 번호 오류</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    g<span style="color:#f92672">-&gt;</span>adj_mat[start][end] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    g<span style="color:#f92672">-&gt;</span>adj_mat[end][start] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_adj_matrix</span>(GraphType<span style="color:#f92672">*</span> g) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c &#34;</span>, <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">+</span> i);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c: &#34;</span>, <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">+</span> i);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%d &#34;</span>, g<span style="color:#f92672">-&gt;</span>adj_mat[i][j]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// DFS 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dfs_mat</span>(GraphType<span style="color:#f92672">*</span> g, <span style="color:#66d9ef">int</span> v) {
+</span></span><span style="display:flex;"><span>    visited[v] <span style="color:#f92672">=</span> TRUE; <span style="color:#75715e">// 현재 정점을 방문 처리
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c &#34;</span>, <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">+</span> v);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 현재 정점 v와 연결된 모든 정점을 확인
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> w <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; w <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; w<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 간선이 존재하고, 아직 방문하지 않은 정점이라면 재귀 호출로 탐색을 이어감
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (g<span style="color:#f92672">-&gt;</span>adj_mat[v][w] <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>visited[w])
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">dfs_mat</span>(g, w);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">srand</span>(<span style="color:#a6e22e">time</span>(NULL));
+</span></span><span style="display:flex;"><span>    GraphType<span style="color:#f92672">*</span> g;
+</span></span><span style="display:flex;"><span>    g <span style="color:#f92672">=</span> (GraphType<span style="color:#f92672">*</span>)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(GraphType));
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">init</span>(g);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> vertex, edge;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;정점의 개수는? &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>vertex);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;랜덤 연결 그래프 생성</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> vertex; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">insert_vertex</span>(g, i);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;간선의 개수는? &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>edge);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 목표한 개수만큼 랜덤 간선을 생성
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (count <span style="color:#f92672">&lt;</span> edge) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> start <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>() <span style="color:#f92672">%</span> vertex;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> end <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>() <span style="color:#f92672">%</span> vertex;
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 자기 자신을 가리키는 간선과 중복 간선 방지
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (start <span style="color:#f92672">!=</span> end <span style="color:#f92672">&amp;&amp;</span> g<span style="color:#f92672">-&gt;</span>adj_mat[start][end] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">insert_edge</span>(g, start, end);
+</span></span><span style="display:flex;"><span>            count<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_adj_matrix</span>(g);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">DFS: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> vertex; i<span style="color:#f92672">++</span>) visited[i] <span style="color:#f92672">=</span> FALSE;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dfs_mat</span>(g, <span style="color:#ae81ff">0</span>); 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">free</span>(g);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="실행-결과">실행 결과</h3>
+<p><img src="/images/4c62be3f92fe3b7d.png" alt=""></p>
+<p>(2) (1)에서 인접 행렬로 만들어진 연결그래프를 연결 리스트로 변환하여 연결 리스트의 구조를 출력하고 깊이 우선 탐색을 적용하여 정점을 방문하는 순서를 출력한다. (1)에서 정점을 방문한 순서와 (2)에서 정점을 방문한 순서를 비교해본다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define MAX_VERTICES 50
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define TRUE 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define FALSE 0
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 방몬 기록을 위한 배열 정의
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> visited[MAX_VERTICES];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 인접 리스트 노드 구조체 정의
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> GraphNode {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> vertex;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> GraphNode<span style="color:#f92672">*</span> link;
+</span></span><span style="display:flex;"><span>} GraphNode;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 그래프 구조체 정의
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> GraphType {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span>    GraphNode<span style="color:#f92672">*</span> adj_list[MAX_VERTICES];
+</span></span><span style="display:flex;"><span>} GraphType;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 그래프 초기화
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(GraphType<span style="color:#f92672">*</span> g) {
+</span></span><span style="display:flex;"><span>    g<span style="color:#f92672">-&gt;</span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> MAX_VERTICES; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        g<span style="color:#f92672">-&gt;</span>adj_list[i] <span style="color:#f92672">=</span> NULL;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 정점 추가
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_vertex</span>(GraphType<span style="color:#f92672">*</span> g, <span style="color:#66d9ef">int</span> v) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ((g<span style="color:#f92672">-&gt;</span>n) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;</span> MAX_VERTICES) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fprintf</span>(stderr, <span style="color:#e6db74">&#34;그래프: 정점의 개수 초과</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    g<span style="color:#f92672">-&gt;</span>n<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 간선 추가 (양방향)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_edge</span>(GraphType<span style="color:#f92672">*</span> g, <span style="color:#66d9ef">int</span> start, <span style="color:#66d9ef">int</span> end) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (start <span style="color:#f92672">&gt;=</span> g<span style="color:#f92672">-&gt;</span>n <span style="color:#f92672">||</span> end <span style="color:#f92672">&gt;=</span> g<span style="color:#f92672">-&gt;</span>n) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fprintf</span>(stderr, <span style="color:#e6db74">&#34;그래프: 정점 번호 오류</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// start -&gt; end
+</span></span></span><span style="display:flex;"><span>    GraphNode<span style="color:#f92672">*</span> node <span style="color:#f92672">=</span> (GraphNode<span style="color:#f92672">*</span>)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(GraphNode));
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">-&gt;</span>vertex <span style="color:#f92672">=</span> end;
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">-&gt;</span>link <span style="color:#f92672">=</span> g<span style="color:#f92672">-&gt;</span>adj_list[start];
+</span></span><span style="display:flex;"><span>    g<span style="color:#f92672">-&gt;</span>adj_list[start] <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// end -&gt; start (무방향)
+</span></span></span><span style="display:flex;"><span>    node <span style="color:#f92672">=</span> (GraphNode<span style="color:#f92672">*</span>)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(GraphNode));
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">-&gt;</span>vertex <span style="color:#f92672">=</span> start;
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">-&gt;</span>link <span style="color:#f92672">=</span> g<span style="color:#f92672">-&gt;</span>adj_list[end];
+</span></span><span style="display:flex;"><span>    g<span style="color:#f92672">-&gt;</span>adj_list[end] <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 인접 리스트 출력
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_adj_list</span>(GraphType<span style="color:#f92672">*</span> g) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c: &#34;</span>, <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">+</span> i);
+</span></span><span style="display:flex;"><span>        GraphNode<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> g<span style="color:#f92672">-&gt;</span>adj_list[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (p <span style="color:#f92672">!=</span> NULL) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c &#34;</span>, <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">+</span> p<span style="color:#f92672">-&gt;</span>vertex);
+</span></span><span style="display:flex;"><span>            p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>link;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 깊이 우선 탑색 (DFS)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dfs_list</span>(GraphType<span style="color:#f92672">*</span> g, <span style="color:#66d9ef">int</span> v) {
+</span></span><span style="display:flex;"><span>    visited[v] <span style="color:#f92672">=</span> TRUE;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c &#34;</span>, <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">+</span> v);
+</span></span><span style="display:flex;"><span>    GraphNode<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> g<span style="color:#f92672">-&gt;</span>adj_list[v];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (p <span style="color:#f92672">!=</span> NULL) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>visited[p<span style="color:#f92672">-&gt;</span>vertex])
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">dfs_list</span>(g, p<span style="color:#f92672">-&gt;</span>vertex);
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>link;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">srand</span>(<span style="color:#a6e22e">time</span>(NULL));
+</span></span><span style="display:flex;"><span>    GraphType<span style="color:#f92672">*</span> g <span style="color:#f92672">=</span> (GraphType<span style="color:#f92672">*</span>)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(GraphType));
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">init</span>(g);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> vertex, edge;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;정점의 개수는? &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>vertex);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;랜덤 연결 그래프 생성</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> vertex; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">insert_vertex</span>(g, i);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;간선의 개수는? &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>edge);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 목표한 개수만큼 랜덤 간선을 생성
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (count <span style="color:#f92672">&lt;</span> edge) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> start <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>() <span style="color:#f92672">%</span> vertex;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> end <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>() <span style="color:#f92672">%</span> vertex;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 자기 자신, 중복 간선 방지
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> duplicate <span style="color:#f92672">=</span> FALSE;
+</span></span><span style="display:flex;"><span>        GraphNode<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> g<span style="color:#f92672">-&gt;</span>adj_list[start];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (p <span style="color:#f92672">!=</span> NULL) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (p<span style="color:#f92672">-&gt;</span>vertex <span style="color:#f92672">==</span> end) {
+</span></span><span style="display:flex;"><span>                duplicate <span style="color:#f92672">=</span> TRUE;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>link;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (start <span style="color:#f92672">!=</span> end <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>duplicate) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">insert_edge</span>(g, start, end);
+</span></span><span style="display:flex;"><span>            count<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_adj_list</span>(g);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">DFS: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> vertex; i<span style="color:#f92672">++</span>) visited[i] <span style="color:#f92672">=</span> FALSE;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dfs_list</span>(g, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 메모리 해제(생략 가능, 실제로는 각 리스트 노드도 free 필요)
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">free</span>(g);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="실행-결과-1">실행 결과</h3>
+<p><img src="/images/3021fe0f8c409bb5.png" alt=""></p>
+<h3 id="3아래와-같이7x7인접행렬을-보이고-있다">3. 아래와 같이 7X7 인접행렬을 보이고 있다. </h3>
+<p>인접행렬과 인접리스트를 구현하여 출력하고, 정점 (0,0)에서 시작하여 DFS를 이용하여 정점 방문하는 순서를 출력한다. 인접 행렬로 만들어진 연결그래프를 DFS적용했을 때 정점 방문 순서와 인접리스트로 만들어진 연결그래프를 이용하여 DFS적용했을 때 정점 방문 순서와 비교해본다.</p>
+<table>
+<tr>
+<td>0 \<시작\></td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</table>
+```c
+#include <stdio.h>
+#include <stdlib.h>
+<p>#define MAX_VERTICES 50
+#define TRUE 1
+#define FALSE 0</p>
+<p>// 인접 리스트 구조체 정의
+typedef struct GraphNode {
+int vertex;
+struct GraphNode* link;
+} GraphNode;</p>
+<p>// 그래프 구조체 정의
+typedef struct GraphType {
+int n;
+GraphNode* adj_list[MAX_VERTICES];
+} GraphType;</p>
+<p>// 방문 기록을 위한 배열 정의
+int visited[MAX_VERTICES];</p>
+<p>// 그래프 초기화
+void init(GraphType* g) {
+g-&gt;n = 0;
+for (int i = 0; i &lt; MAX_VERTICES; i++)
+g-&gt;adj_list[i] = NULL;
+}</p>
+<p>// 정점 삽입
+void insert_vertex(GraphType* g) {
+if ((g-&gt;n) + 1 &gt; MAX_VERTICES) {
+fprintf(stderr, &ldquo;그래프: 정점의 개수 초과\n&rdquo;);
+return;
+}
+g-&gt;n++;
+}</p>
+<p>// 간선 삽입 (단방향)
+void insert_edge(GraphType* g, int start, int end) {
+if (start &gt;= g-&gt;n || end &gt;= g-&gt;n) {
+fprintf(stderr, &ldquo;그래프: 정점 번호 오류\n&rdquo;);
+return;
+}</p>
+<pre><code>GraphNode* node = (GraphNode*)malloc(sizeof(GraphNode));
+node-&gt;vertex = end;
+node-&gt;link = g-&gt;adj_list[start];
+g-&gt;adj_list[start] = node;
+</code></pre>
+<p>}</p>
+<p>// 인접 리스트 출력
+void print_adj_list(GraphType* g) {
+for (int i = 0; i &lt; g-&gt;n; i++) {
+printf(&ldquo;정점 %c -&gt; &ldquo;, &lsquo;A&rsquo; + i);
+GraphNode* p = g-&gt;adj_list[i];
+if (p == NULL) {
+printf(&ldquo;NULL&rdquo;);
+}
+while (p != NULL) {
+printf(&quot;%c &ldquo;, &lsquo;A&rsquo; + p-&gt;vertex);
+if(p-&gt;link != NULL) printf(&rdquo;-&gt; &ldquo;);
+p = p-&gt;link;
+}
+printf(&quot;\n&rdquo;);
+}
+}</p>
+<p>// 깊이 우선 탐색 (DFS)
+void dfs_list(GraphType* g, int v) {
+visited[v] = TRUE;
+printf(&quot;%c -&gt; &ldquo;, &lsquo;A&rsquo; + v); // 방문한 정점을 문자로 출력</p>
+<pre><code>GraphNode* p = g-&gt;adj_list[v];
+while (p != NULL) {
+    if (!visited[p-&gt;vertex])
+        dfs_list(g, p-&gt;vertex);
+    p = p-&gt;link;
+}
+</code></pre>
+<p>}</p>
+<p>// 그래프 메모리 해제 함수
+void free_graph(GraphType* g) {
+for (int i = 0; i &lt; g-&gt;n; i++) {
+GraphNode* p = g-&gt;adj_list[i];
+while (p != NULL) {
+GraphNode* removed = p;
+p = p-&gt;link;
+free(removed);
+}
+}
+free(g);
+}</p>
+<p>int main(void) {
+// 그래프 정의
+GraphType* g = (GraphType*)malloc(sizeof(GraphType));
+init(g);</p>
+<pre><code>// 주어진 인접 행렬 정의
+int adjMatrix[7][7] = {
+    {0, 1, 1, 1, 1, 1, 1},
+    {1, 0, 0, 0, 0, 0, 1},
+    {1, 1, 1, 0, 1, 1, 1},
+    {0, 0, 1, 0, 1, 0, 0},
+    {0, 0, 1, 1, 1, 1, 0},
+    {0, 0, 1, 0, 0, 1, 1},
+    {0, 1, 1, 1, 1, 1, 0}
+};
+// 정점의 개수 설정
+int vertex_count = 7;
+
+// 인접 행렬을 인접 리스트로 변환
+for (int i = 0; i &lt; vertex_count; i++) {
+    insert_vertex(g);
+}
+
+// 간선 삽입 연산 실행
+for (int i = 0; i &lt; vertex_count; i++) {
+    for (int j = 0; j &lt; vertex_count; j++) {
+        if (adjMatrix[i][j] == 1) {
+            insert_edge(g, i, j);
+        }
+    }
+}
+
+
+// 인접 리스트 출력
+print_adj_list(g);
+
+printf(&quot;## 깊이 우선 탐색 (DFS) 결과\n\n&quot;);
+printf(&quot;방문 순서: &quot;);
+
+// 방문 기록 초기화
+for (int i = 0; i &lt; g-&gt;n; i++) {
+    visited[i] = FALSE;
+}
+dfs_list(g, 0); 
+printf(&quot;\n&quot;);
+
+free_graph(g); 
+
+return 0;
+</code></pre>
+<p>}</p>
+<pre tabindex="0"><code>
+### 실행 결과
+![](/images/d034c210a8bbbbeb.png)
+</code></pre>
+  </div>
+  <footer class="post-foot">
+    <a href="https://duddnr0719.github.io/">← 목록으로</a>
+  </footer>
+</article>
+
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 레옴 · Notion → Hugo</span>
+    </div>
+  </footer>
+</body>
+</html>

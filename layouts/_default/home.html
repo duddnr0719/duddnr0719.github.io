@@ -1,0 +1,16 @@
+{{ define "main" }}
+<section class="home-intro">
+  <h1>{{ .Site.Params.intro | safeHTML }}</h1>
+  <p class="sub">{{ .Site.Params.description }}</p>
+</section>
+<section>
+  <h2 class="sec-title">스터디 노트</h2>
+  {{ range first 20 (.Site.GetPage "posts").Pages.ByDate.Reverse }}
+  <article class="post-row">
+    <time>{{ .Date.Format "2006-01-02" }}</time>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{ with .Params.categories }}<span class="cats">{{ delimit . " · " }}</span>{{ end }}
+  </article>
+  {{ end }}
+</section>
+{{ end }}

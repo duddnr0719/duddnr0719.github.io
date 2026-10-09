@@ -1,0 +1,19 @@
+{{ define "main" }}
+<article class="post">
+  <header class="post-head">
+    <h1>{{ .Title }}</h1>
+    <div class="meta">
+      <time datetime="{{ .Date }}">{{ .Date.Format "2006년 1월 2일" }}</time>
+      {{ with .Params.categories }}
+      <span class="cats">{{ range . }}<a href="{{ printf "/categories/%s/" . }}">{{ . }}</a>{{ end }}</span>
+      {{ end }}
+    </div>
+  </header>
+  <div class="content">
+    {{ .Content }}
+  </div>
+  <footer class="post-foot">
+    <a href="{{ .Site.BaseURL }}">← 목록으로</a>
+  </footer>
+</article>
+{{ end }}

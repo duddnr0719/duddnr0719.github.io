@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>6. Shortest Path · 레옴의 노트</title>
+  <meta name="description" content="CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록">
+  <meta name="author" content="레옴">
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="6. Shortest Path">
+  <meta property="og:description" content="">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="https://duddnr0719.github.io/">레옴의 노트</a>
+      <nav>
+        
+        <a href="/">Home</a>
+        
+        <a href="/categories/">Categories</a>
+        
+        <a href="/about/">About</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<article class="post">
+  <header class="post-head">
+    <h1>6. Shortest Path</h1>
+    <div class="meta">
+      <time datetime="2025-11-10 12:00:00 &#43;0900 KST">2025년 11월 10일</time>
+      
+      <span class="cats"><a href="/categories/%eb%8d%b0%ec%9d%b4%ed%84%b0%ea%b5%ac%ec%a1%b0%20%ec%8b%a4%ec%8a%b5/">데이터구조 실습</a></span>
+      
+    </div>
+  </header>
+  <div class="content">
+    <h2 id="1-개요">1. 개요</h2>
+<p>Dijkstra 알고리즘과 Floyd 알고리즘을 사용하여 Shortest Path를 구한다.</p>
+<h3 id="2-그래프는-다음과-같다주의-방향-그래프이다">2. 그래프는 다음과 같다.(주의: 방향 그래프이다)</h3>
+<p><img src="/images/083ea8e67ec62c6e.png" alt=""></p>
+<h3 id="3-문제1-dijkstras-shortest-path-출력">3. [문제1] Dijkstra’s Shortest Path 출력</h3>
+<ol>
+<li>위의 그래프에서 Dijkstra 알고리즘으로 Shortest Path를 생성하는 과정을 출력하여라. 출발 정점은 1이다.</li>
+<li>Shortest Path 출력이 종료되면 마지막에 최종결과로 Shortest Path의 가중치의 합을 출력한다.</li>
+<li>출력하는 화면은 다음과 같다.
+{1}
+0 10 INF 30 100 INF
+…</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;limits.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define TRUE 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define FALSE 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MAX_VERTICES    100 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define INF 1000000 </span><span style="color:#75715e">/* 무한대 (연결이 없는 경우) */</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> GraphType {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;  <span style="color:#75715e">// 정점의 개수
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> weight[MAX_VERTICES][MAX_VERTICES];
+</span></span><span style="display:flex;"><span>} GraphType;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> distance[MAX_VERTICES];<span style="color:#75715e">/* 시작정점으로부터의 최단경로 거리 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> found[MAX_VERTICES];        <span style="color:#75715e">/* 방문한 정점 표시 */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 방문하지 않은 정점 중 시작 정점으로부터 거리가 짧은 정점을 선택
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">choose</span>(<span style="color:#66d9ef">int</span> distance[], <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span> found[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i, min, minpos;
+</span></span><span style="display:flex;"><span>    min <span style="color:#f92672">=</span> INT_MAX;
+</span></span><span style="display:flex;"><span>    minpos <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (distance[i] <span style="color:#f92672">&lt;</span> min <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>found[i]) {
+</span></span><span style="display:flex;"><span>            min <span style="color:#f92672">=</span> distance[i];
+</span></span><span style="display:flex;"><span>            minpos <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> minpos;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 그래프의 가중치 합
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sum_weight</span>(GraphType<span style="color:#f92672">*</span> g) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// 반드시 초기화
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) { 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (g<span style="color:#f92672">-&gt;</span>weight[i][j] <span style="color:#f92672">&lt;</span> INF) {
+</span></span><span style="display:flex;"><span>                sum <span style="color:#f92672">+=</span> g<span style="color:#f92672">-&gt;</span>weight[i][j]; 
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 현재 distance와 found 상태 출력
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_status</span>(GraphType<span style="color:#f92672">*</span> g) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;현재 상태</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;정점: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%4d&#34;</span>, i);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">거리: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (distance[i] <span style="color:#f92672">&gt;=</span> INF) <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%4s&#34;</span>, <span style="color:#e6db74">&#34;INF&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%4d&#34;</span>, distance[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">방문: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%4d&#34;</span>, found[i]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">shortest_path</span>(GraphType<span style="color:#f92672">*</span> g, <span style="color:#66d9ef">int</span> start)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i, u, w;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) <span style="color:#75715e">/* 초기화 */</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        distance[i] <span style="color:#f92672">=</span> g<span style="color:#f92672">-&gt;</span>weight[start][i];
+</span></span><span style="display:flex;"><span>        found[i] <span style="color:#f92672">=</span> FALSE;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    found[start] <span style="color:#f92672">=</span> TRUE;    <span style="color:#75715e">/* 시작 정점 방문 표시 */</span>
+</span></span><span style="display:flex;"><span>    distance[start] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">print_status</span>(g);
+</span></span><span style="display:flex;"><span>        u <span style="color:#f92672">=</span> <span style="color:#a6e22e">choose</span>(distance, g<span style="color:#f92672">-&gt;</span>n, found);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (u <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) { <span style="color:#75715e">// 더 이상 도달 가능한 정점이 없으면 종료
+</span></span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;더 이상 선택할 정점이 없습니다. 종료.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        found[u] <span style="color:#f92672">=</span> TRUE;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (w <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; w <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; w<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>found[w]) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (g<span style="color:#f92672">-&gt;</span>weight[u][w] <span style="color:#f92672">&lt;</span> INF <span style="color:#f92672">&amp;&amp;</span> distance[u] <span style="color:#f92672">+</span> g<span style="color:#f92672">-&gt;</span>weight[u][w] <span style="color:#f92672">&lt;</span> distance[w]) {
+</span></span><span style="display:flex;"><span>                    distance[w] <span style="color:#f92672">=</span> distance[u] <span style="color:#f92672">+</span> g<span style="color:#f92672">-&gt;</span>weight[u][w];
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 최종 결과 출력
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;최종 최단거리(시작정점 %d):</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, start);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (distance[i] <span style="color:#f92672">&gt;=</span> INF) <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;정점 %d: INF</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;정점 %d: %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i, distance[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    GraphType g <span style="color:#f92672">=</span> { <span style="color:#ae81ff">6</span>,
+</span></span><span style="display:flex;"><span>    {{ <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">10</span>,  INF, <span style="color:#ae81ff">30</span>,  <span style="color:#ae81ff">3</span>,  <span style="color:#ae81ff">10</span> },
+</span></span><span style="display:flex;"><span>    { INF,  <span style="color:#ae81ff">0</span>,   <span style="color:#ae81ff">50</span>, INF, INF ,INF },
+</span></span><span style="display:flex;"><span>    { INF, INF,   <span style="color:#ae81ff">0</span>, INF, <span style="color:#ae81ff">10</span>,  <span style="color:#ae81ff">5</span> },
+</span></span><span style="display:flex;"><span>    { INF, INF,  <span style="color:#ae81ff">20</span>,  <span style="color:#ae81ff">0</span>, INF,  <span style="color:#ae81ff">15</span> },
+</span></span><span style="display:flex;"><span>    { INF, INF,  INF,  <span style="color:#ae81ff">60</span>,   <span style="color:#ae81ff">0</span>, INF },
+</span></span><span style="display:flex;"><span>    { INF, INF,  INF, INF, INF,  <span style="color:#ae81ff">0</span> }}
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> total <span style="color:#f92672">=</span> <span style="color:#a6e22e">sum_weight</span>(<span style="color:#f92672">&amp;</span>g);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">shortest_path</span>(<span style="color:#f92672">&amp;</span>g, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;가중치 총합= %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, total);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="실행-결과">실행 결과</h3>
+<p><img src="/images/7e0933c8673df634.png" alt=""></p>
+<h2 id="4-문제2-floyds-shortest-path-출력">4. [문제2] Floyd’s Shortest Path 출력</h2>
+<ol>
+<li>위의 그래프에서 Floyd 알고리즘으로 Shortest Path를 생성하는 과정을 출력하여라.</li>
+<li>Shortest Path 출력이 종료되면 마지막에 최종결과로 Shortest Path의 가중치의 합을 출력한다.</li>
+<li>출력하는 화면은 다음과 같다.
+A-1
+0 10 INF 30 100 INF
+INF 0 50 INF INF INF
+…</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define TRUE 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define FALSE 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MAX_VERTICES    100 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define INF 1000000 </span><span style="color:#75715e">/* 무한대 (연결이 없는 경우) */</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> GraphType {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;  <span style="color:#75715e">// 정점의 개수
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> weight[MAX_VERTICES][MAX_VERTICES];
+</span></span><span style="display:flex;"><span>} GraphType;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> A[MAX_VERTICES][MAX_VERTICES];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* 현재 A 행렬을 화면에 출력 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printA</span>(GraphType <span style="color:#f92672">*</span>g) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i, j;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;===============================</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (A[i][j] <span style="color:#f92672">==</span> INF)
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;  * &#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%4d &#34;</span>, A[i][j]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;===============================</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* A 행렬에 포함된 유한한 가중치 합을 반환 (대각선 제외) */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sum_weight</span>(GraphType <span style="color:#f92672">*</span>g) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">==</span> j) <span style="color:#66d9ef">continue</span>;           <span style="color:#75715e">/* 대각선(자기 자신)은 제외 */</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (A[i][j] <span style="color:#f92672">&lt;</span> INF) sum <span style="color:#f92672">+=</span> A[i][j];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">floyd</span>(GraphType<span style="color:#f92672">*</span> g) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i, j, k;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; j<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>            A[i][j] <span style="color:#f92672">=</span> g<span style="color:#f92672">-&gt;</span>weight[i][j];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;초기 A:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printA</span>(g);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;가중치의 합 = %d</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#a6e22e">sum_weight</span>(g));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/* 중간 정점 k를 이용한 최단거리 갱신 */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; k<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> g<span style="color:#f92672">-&gt;</span>n; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (A[i][k] <span style="color:#f92672">==</span> INF <span style="color:#f92672">||</span> A[k][j] <span style="color:#f92672">==</span> INF) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (A[i][k] <span style="color:#f92672">+</span> A[k][j] <span style="color:#f92672">&lt;</span> A[i][j]) {
+</span></span><span style="display:flex;"><span>                    A[i][j] <span style="color:#f92672">=</span> A[i][k] <span style="color:#f92672">+</span> A[k][j];
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;k = %d 적용 후 A:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, k);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printA</span>(g);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;가중치의 합 = %d</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#a6e22e">sum_weight</span>(g));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    GraphType g <span style="color:#f92672">=</span> { <span style="color:#ae81ff">6</span>,
+</span></span><span style="display:flex;"><span>    {{ <span style="color:#ae81ff">0</span>,  <span style="color:#ae81ff">10</span>,  INF, <span style="color:#ae81ff">30</span>,  <span style="color:#ae81ff">3</span>,  <span style="color:#ae81ff">10</span> },
+</span></span><span style="display:flex;"><span>    { INF,  <span style="color:#ae81ff">0</span>,   <span style="color:#ae81ff">50</span>, INF, INF ,INF },
+</span></span><span style="display:flex;"><span>    { INF, INF,   <span style="color:#ae81ff">0</span>, INF, <span style="color:#ae81ff">10</span>,  <span style="color:#ae81ff">5</span> },
+</span></span><span style="display:flex;"><span>    { INF, INF,  <span style="color:#ae81ff">20</span>,  <span style="color:#ae81ff">0</span>, INF,  <span style="color:#ae81ff">15</span> },
+</span></span><span style="display:flex;"><span>    { INF, INF,  INF,  <span style="color:#ae81ff">60</span>,   <span style="color:#ae81ff">0</span>, INF },
+</span></span><span style="display:flex;"><span>    { INF, INF,  INF, INF, INF,  <span style="color:#ae81ff">0</span> }}
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">floyd</span>(<span style="color:#f92672">&amp;</span>g);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="실행-결과-1">실행 결과</h3>
+<columns>
+<column ratio="50">
+![](/images/556c7c1d821c595f.png)
+</column>
+<column ratio="50">
+![](/images/a702cdbb750180d2.png)
+</column>
+</columns>
+
+  </div>
+  <footer class="post-foot">
+    <a href="https://duddnr0719.github.io/">← 목록으로</a>
+  </footer>
+</article>
+
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 레옴 · Notion → Hugo</span>
+    </div>
+  </footer>
+</body>
+</html>

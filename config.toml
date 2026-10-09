@@ -1,0 +1,31 @@
+baseURL = "https://duddnr0719.github.io/"
+languageCode = "ko-kr"
+title = "레옴의 노트"
+author = "레옴"
+enableRobotsTXT = true
+hasCJKLanguage = true
+
+[params]
+author = "레옴"
+description = "CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록"
+intro = "레옴의 스터디 노트"
+# menu
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+[[menu.main]]
+    name = "Categories"
+    url = "/categories/"
+    weight = 2
+[[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 3
+
+[markup]
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
+  [markup.goldmark.renderer]
+    unsafe = true

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Java(실습) on 레옴의 노트</title>
+		<link>https://duddnr0719.github.io/categories/java%EC%8B%A4%EC%8A%B5/</link>
+		<description>Recent content in Java(실습) on 레옴의 노트</description>
+		<generator>Hugo</generator>
+		<language>ko-kr</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 25 Jun 2025 12:00:00 +0900</lastBuildDate>
+		
+			<atom:link href="https://duddnr0719.github.io/categories/java%EC%8B%A4%EC%8A%B5/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Week4 실습</title>
+				<link>https://duddnr0719.github.io/posts/2025-06-25-java%EC%8B%A4%EC%8A%B5__week4-%EC%8B%A4%EC%8A%B5/</link>
+				<pubDate>Wed, 25 Jun 2025 12:00:00 +0900</pubDate>
+				<guid>https://duddnr0719.github.io/posts/2025-06-25-java%EC%8B%A4%EC%8A%B5__week4-%EC%8B%A4%EC%8A%B5/</guid>
+				<description>&lt;h1 id=&#34;주사위-게임-프로그램&#34;&gt;주사위 게임 프로그램&lt;/h1&gt;&#xA;&lt;p&gt;Dice 클래스로 주사위를 모델링하고 이 클래스를 사용하여 주사위 게임을 작성한다. 2개의 주사위 객체를 생성하여 주사위를 반복하여 던지고 두 주사위 값의 합이 2가 되면 반복을 종료하고 걸린 횟수를 화면에 출력한다.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Week3 실습</title>
+				<link>https://duddnr0719.github.io/posts/2025-06-18-java%EC%8B%A4%EC%8A%B5__week3-%EC%8B%A4%EC%8A%B5/</link>
+				<pubDate>Wed, 18 Jun 2025 12:00:00 +0900</pubDate>
+				<guid>https://duddnr0719.github.io/posts/2025-06-18-java%EC%8B%A4%EC%8A%B5__week3-%EC%8B%A4%EC%8A%B5/</guid>
+				<description>&lt;h1 id=&#34;클래스-정의와-메소드-사용-예제&#34;&gt;클래스 정의와 메소드 사용 예제&lt;/h1&gt;&#xA;&lt;p&gt;Counter 클래스에 생성자, 접근자, 설정자를 만들고 up(), down(), reset() 메소드를 만든다. 두 번의 up() 메소드, 한 번의 down() 메소드를 실행한 후 getCount()로 카운터 값을 추출하여 출력하는 프로그램을 작성하라.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Week2 실습</title>
+				<link>https://duddnr0719.github.io/posts/2025-06-17-java%EC%8B%A4%EC%8A%B5__week2-%EC%8B%A4%EC%8A%B5/</link>
+				<pubDate>Tue, 17 Jun 2025 12:00:00 +0900</pubDate>
+				<guid>https://duddnr0719.github.io/posts/2025-06-17-java%EC%8B%A4%EC%8A%B5__week2-%EC%8B%A4%EC%8A%B5/</guid>
+				<description>&lt;h1 id=&#34;소수-판별-프로그램&#34;&gt;소수 판별 프로그램&lt;/h1&gt;&#xA;&lt;p&gt;판별을 원하는 수를 num 변수에 저장하고 프로그램을 실행하여 소수인지 아닌지 판별.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Prime&lt;/span&gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(String args&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt;) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; num &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 30; &lt;span style=&#34;color:#75715e&#34;&gt;// 소수인지 아닌지 판별할 숫자&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;boolean&lt;/span&gt; flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 2; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;num;) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (num&lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt;1 &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; 0) flag &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;// 소수가 아닌 경우 판별&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (flag &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;) System.&lt;span style=&#34;color:#a6e22e&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;println&lt;/span&gt;(num &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;은 소수가 아닙니다.&amp;#34;&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; System.&lt;span style=&#34;color:#a6e22e&#34;&gt;out&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;println&lt;/span&gt;(num &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;은 소수입니다.&amp;#34;&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;로또-번호-추첨-프로그램&#34;&gt;로또 번호 추첨 프로그램&lt;/h1&gt;&#xA;&lt;p&gt;랜덤 정수 6개를 뽑아 출력.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

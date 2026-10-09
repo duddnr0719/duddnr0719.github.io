@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>정적 크롤링 vs 동적 크롤링 · 레옴의 노트</title>
+  <meta name="description" content="CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록">
+  <meta name="author" content="레옴">
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="정적 크롤링 vs 동적 크롤링">
+  <meta property="og:description" content="">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="https://duddnr0719.github.io/">레옴의 노트</a>
+      <nav>
+        
+        <a href="/">Home</a>
+        
+        <a href="/categories/">Categories</a>
+        
+        <a href="/about/">About</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<article class="post">
+  <header class="post-head">
+    <h1>정적 크롤링 vs 동적 크롤링</h1>
+    <div class="meta">
+      <time datetime="2024-11-05 12:00:00 &#43;0900 KST">2024년 11월 5일</time>
+      
+      <span class="cats"><a href="/categories/Python/">Python</a></span>
+      
+    </div>
+  </header>
+  <div class="content">
+    <h1 id="정적-크롤링과-동적-크롤링의-차이를-알아보자">정적 크롤링과 동적 크롤링의 차이를 알아보자</h1>
+<h2 id="정적-크롤링">정적 크롤링</h2>
+<p>→ 정적인 데이터를 수집하는 것.</p>
+<ul>
+<li>정적인 데이터 ?
+→ 변하지 않는 데이터. 한 페이지 안에서 원하는 정보가 모두 드러날 때가 정적 데이터라고 할 수 있다.
+ex) 로또 당첨 번호 페이지에 나와있는 로또 당첨 번호 7개
+→ 정적 크롤링은 한 페이지 내에서 모든 작업이 이루어지기 때문에 속도가 굉장히 빠름.
+💡 대표적인 라이브러리로 beautifulsoup, requests 가 있음.</li>
+</ul>
+<h2 id="동적-크롤링">동적 크롤링</h2>
+<p>→ 동적인 데이터를 수집하는 것.</p>
+<ul>
+<li>동적인 데이터 ?
+→ 입력, 클릭, 로그인 등과 같이 페이지 이동이 있어야 보이는 데이터를 뜻함.
+ex) 로그인 과정을 거쳐야 하는 메일함 페이지
+→ 정적 크롤링보다 수집하는 속도가 느리지만, 더 많은 정보를 수집할 수 있음.(여러 개의 페이지에서 원하는 정보를 다 가져올 수 있다.)
+💡 대표적인 라이브러리로 selenium, chromedriver 가 있음.</li>
+</ul>
+<h2 id="정적-vs-동적">정적 vs 동적</h2>
+<table>
+<tr>
+<td></td>
+<td>정적 크롤링</td>
+<td>동적 크롤링</td>
+</tr>
+<tr>
+<td>연속성</td>
+<td>주소를 통해 단발적으로 접근.</td>
+<td>브라우저를 사용하여 연속적으로 접근.</td>
+</tr>
+<tr>
+<td>수집 능력</td>
+<td>한 페이지에서만 수집하기에 수집 데이터의 한계가 존재.</td>
+<td>여러 페이지에 접근하여 수집하기에 수집 데이터의 한계가 존재하지 않음.</td>
+</tr>
+<tr>
+<td>속도</td>
+<td>빠름</td>
+<td>느림</td>
+</tr>
+</table>
+
+  </div>
+  <footer class="post-foot">
+    <a href="https://duddnr0719.github.io/">← 목록으로</a>
+  </footer>
+</article>
+
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 레옴 · Notion → Hugo</span>
+    </div>
+  </footer>
+</body>
+</html>

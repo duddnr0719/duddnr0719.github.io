@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>9. 탐색 · 레옴의 노트</title>
+  <meta name="description" content="CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록">
+  <meta name="author" content="레옴">
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="9. 탐색">
+  <meta property="og:description" content="">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="https://duddnr0719.github.io/blog/">레옴의 노트</a>
+      <nav>
+        
+        <a href="/blog/">Home</a>
+        
+        <a href="/blog/categories/">Categories</a>
+        
+        <a href="/blog/about/">About</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<article class="post">
+  <header class="post-head">
+    <h1>9. 탐색</h1>
+    <div class="meta">
+      <time datetime="2025-11-24 12:00:00 &#43;0900 KST">2025년 11월 24일</time>
+      
+      <span class="cats"><a href="/categories/%eb%8d%b0%ec%9d%b4%ed%84%b0%ea%b5%ac%ec%a1%b0%20%ec%8b%a4%ec%8a%b5/">데이터구조 실습</a></span>
+      
+    </div>
+  </header>
+  <div class="content">
+    <h2 id="1-개요">1. 개요</h2>
+<ol>
+<li>600,000개 정수를 랜덤함수로 생성하여 배열에 저장한 후에 순차 탐색을 수행한다. 탐색을 위한 정수값 비교횟수와 수행시간을 측정하라.</li>
+<li>위 1번의 순차탐색에 사용된 정렬전 동일데이터로 이진 탐색을 수행한다. 탐색을 위한 정수값 비교횟수와 수행시간을 측정하라.</li>
+</ol>
+<ul>
+<li>주의: 2번 문제는 c에 내장된 퀵정렬함수를 사용한다.
+&lt;참고&gt;
+퀵 정렬 함수에는 정렬할 배열 또는 메모리의 주소, 요소 개수, 요소 크기, 비교 함수를 넣어줍니다(stdlib.h 헤더 파일에 선언되어 있습니다).</li>
+<li><strong>qsort(정렬할배열, 요소개수, 요소크기, 비교함수);</strong></li>
+<li><strong>qsort(정렬할메모리주소, 요소개수, 요소크기, 비교함수);</strong></li>
+<li><strong>void qsort(void *_Base, size_t _NumOfElements, size_t _SizeOfElements, int (*_PtFuncCompare)(void const *, void const *));</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-plain" data-lang="plain"><span style="display:flex;"><span>#include &lt;stdio.h&gt;
+</span></span><span style="display:flex;"><span>#include &lt;stdlib.h&gt;    // qsort 함수가 선언된 헤더 파일
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>int compare(const void *a, const void *b)    // 오름차순 비교 함수 구현
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    int num1 = *(int *)a;    // void 포인터를 int 포인터로 변환한 뒤 역참조하여 값을 가져옴
+</span></span><span style="display:flex;"><span>    int num2 = *(int *)b;    // void 포인터를 int 포인터로 변환한 뒤 역참조하여 값을 가져옴
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    if (num1 &lt; num2)    // a가 b보다 작을 때는
+</span></span><span style="display:flex;"><span>        return -1;      // -1 반환
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    if (num1 &gt; num2)    // a가 b보다 클 때는
+</span></span><span style="display:flex;"><span>        return 1;       // 1 반환
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    return 0;    // a와 b가 같을 때는 0 반환
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>int main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    int numArr[10] = { 8, 4, 2, 5, 3, 7, 10, 1, 6, 9 };    // 정렬되지 않은 배열
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    // 정렬할 배열, 요소 개수, 요소 크기, 비교 함수를 넣어줌
+</span></span><span style="display:flex;"><span>    qsort(numArr, sizeof(numArr) / sizeof(int), sizeof(int), compare);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    for (int i = 0; i &lt; 10; i++)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        printf(&#34;%d &#34;, numArr[i]);    // 1 2 3 4 5 6 7 8 9 10
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    printf(&#34;\n&#34;);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    return 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt; </span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;time.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define DATA_COUNT 600000 </span><span style="color:#75715e">// 데이터 개수 60만 개
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compare</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>a, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>b)    <span style="color:#75715e">// 오름차순 비교 함수 구현
+</span></span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> num1 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)a;    <span style="color:#75715e">// void 포인터를 int 포인터로 변환한 뒤 역참조하여 값을 가져옴
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> num2 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)b;    <span style="color:#75715e">// void 포인터를 int 포인터로 변환한 뒤 역참조하여 값을 가져옴
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (num1 <span style="color:#f92672">&lt;</span> num2)    <span style="color:#75715e">// a가 b보다 작을 때는
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;      <span style="color:#75715e">// -1 반환
+</span></span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (num1 <span style="color:#f92672">&gt;</span> num2)    <span style="color:#75715e">// a가 b보다 클 때는
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;       <span style="color:#75715e">// 1 반환
+</span></span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;    <span style="color:#75715e">// a와 b가 같을 때는 0 반환
+</span></span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>arr;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> target;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 시간 및 비교 횟수 측정을 위한 변수
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">clock_t</span> start, end;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> time_used;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> comparison_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> found_index <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 메모리 동적 할당
+</span></span></span><span style="display:flex;"><span>    arr <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span> DATA_COUNT);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (arr <span style="color:#f92672">==</span> NULL) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;메모리 할당 실패</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 랜덤 데이터 생성
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">srand</span>((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#a6e22e">time</span>(NULL));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> DATA_COUNT; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        arr[i] <span style="color:#f92672">=</span> <span style="color:#a6e22e">rand</span>(); <span style="color:#75715e">// 랜덤 정수 생성
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 탐색할 목표값 설정 
+</span></span></span><span style="display:flex;"><span>    target <span style="color:#f92672">=</span> arr[DATA_COUNT <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>]; 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;&gt;&gt; 생성된 데이터 수: %d개</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, DATA_COUNT);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;&gt;&gt; 탐색할 목표 값: %d</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>, target);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// [1] 순차 탐색
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;--- [1] 순차 탐색 수행 ---</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    comparison_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    found_index <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    start <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>(); <span style="color:#75715e">// 시간 측정 시작
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> DATA_COUNT; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        comparison_count<span style="color:#f92672">++</span>; <span style="color:#75715e">// 비교 횟수 증가
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (arr[i] <span style="color:#f92672">==</span> target) {
+</span></span><span style="display:flex;"><span>            found_index <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>; <span style="color:#75715e">// 찾으면 종료
+</span></span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    end <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>(); <span style="color:#75715e">// 시간 측정 종료
+</span></span></span><span style="display:flex;"><span>    time_used <span style="color:#f92672">=</span> (<span style="color:#66d9ef">double</span>)(end <span style="color:#f92672">-</span> start) <span style="color:#f92672">/</span> CLOCKS_PER_SEC;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (found_index <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;결과: 탐색 성공 (인덱스: %d)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, found_index);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;결과: 탐색 실패</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;비교 횟수: %d회</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, comparison_count);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;소요 시간: %.6f초</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>, time_used);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// [2] 이진 탐색
+</span></span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 이진 탐색 전 정렬 (qsort 사용)
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;--- [데이터 정렬...] ---</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">qsort</span>(arr, DATA_COUNT, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>), compare);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;--- 정렬 완료 ---</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;--- [2] 이진 탐색 수행 ---</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    comparison_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    found_index <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> low <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> high <span style="color:#f92672">=</span> DATA_COUNT <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mid;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    start <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>(); <span style="color:#75715e">// 시간 측정 시작
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (low <span style="color:#f92672">&lt;=</span> high) {
+</span></span><span style="display:flex;"><span>        mid <span style="color:#f92672">=</span> (low <span style="color:#f92672">+</span> high) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        comparison_count<span style="color:#f92672">++</span>; <span style="color:#75715e">// 비교
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (arr[mid] <span style="color:#f92672">==</span> target) {
+</span></span><span style="display:flex;"><span>            found_index <span style="color:#f92672">=</span> mid;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 같지 않다면, 큰지 작은지 비교해야 하므로 비교 횟수 추가로 볼 수 있음
+</span></span></span><span style="display:flex;"><span>            comparison_count<span style="color:#f92672">++</span>; 
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (arr[mid] <span style="color:#f92672">&gt;</span> target) {
+</span></span><span style="display:flex;"><span>                high <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                low <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    end <span style="color:#f92672">=</span> <span style="color:#a6e22e">clock</span>(); <span style="color:#75715e">// 시간 측정 종료
+</span></span></span><span style="display:flex;"><span>    time_used <span style="color:#f92672">=</span> (<span style="color:#66d9ef">double</span>)(end <span style="color:#f92672">-</span> start) <span style="color:#f92672">/</span> CLOCKS_PER_SEC;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (found_index <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;결과: 탐색 성공 (인덱스: %d)</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, found_index);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;결과: 탐색 실패</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>); <span style="color:#75715e">// 정렬 과정에서 위치가 바뀌거나 중복 값이 있을 경우 못 찾을 수도 있음
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;비교 횟수: %d회</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, comparison_count);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;소요 시간: %.6f초</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, time_used);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 메모리 해제
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">free</span>(arr);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="실행-결과">실행 결과</h2>
+<p><img src="/images/1e626c27a2dafa92.png" alt=""></p>
+
+  </div>
+  <footer class="post-foot">
+    <a href="https://duddnr0719.github.io/blog/">← 목록으로</a>
+  </footer>
+</article>
+
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 레옴 · Notion → Hugo</span>
+    </div>
+  </footer>
+</body>
+</html>

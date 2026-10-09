@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>1. 우선순위 큐(heap) · 레옴의 노트</title>
+  <meta name="description" content="CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록">
+  <meta name="author" content="레옴">
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="1. 우선순위 큐(heap)">
+  <meta property="og:description" content="">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="https://duddnr0719.github.io/">레옴의 노트</a>
+      <nav>
+        
+        <a href="/">Home</a>
+        
+        <a href="/categories/">Categories</a>
+        
+        <a href="/about/">About</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<article class="post">
+  <header class="post-head">
+    <h1>1. 우선순위 큐(heap)</h1>
+    <div class="meta">
+      <time datetime="2025-11-10 12:00:00 &#43;0900 KST">2025년 11월 10일</time>
+      
+      <span class="cats"><a href="/categories/%eb%8d%b0%ec%9d%b4%ed%84%b0%ea%b5%ac%ec%a1%b0%20%ec%8b%a4%ec%8a%b5/">데이터구조 실습</a></span>
+      
+    </div>
+  </header>
+  <div class="content">
+    <h2 id="1-다음의-파일에-대하여-다음-물음에-답하시오">1. 다음의 파일에 대하여 다음 물음에 답하시오.</h2>
+<ul>
+<li>10, 40, 30, 5, 12, 6, 15, 9, 60</li>
+</ul>
+<h3 id="1-위의-파일을-순차적으로-읽어서-최소-히프트리를-구성하라-공백-트리에서-최소-히프트리가-만들어지는-과정을-출력하라">(1) 위의 파일을 순차적으로 읽어서 최소 히프트리를 구성하라. 공백 트리에서 최소 히프트리가 만들어지는 과정을 출력하라.</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define MAX_ELEMENT 200
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 힙 구조체 정의
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> key;
+</span></span><span style="display:flex;"><span>} element;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    element heap[MAX_ELEMENT];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> heap_size; 
+</span></span><span style="display:flex;"><span>} HeapType;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 힙 생성 함수
+</span></span></span><span style="display:flex;"><span>HeapType<span style="color:#f92672">*</span> <span style="color:#a6e22e">create</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (HeapType<span style="color:#f92672">*</span>)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(HeapType));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 힙 초기화 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(HeapType<span style="color:#f92672">*</span> h) {
+</span></span><span style="display:flex;"><span>    h<span style="color:#f92672">-&gt;</span>heap_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 최소 힙 삽입 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_min_heap</span>(HeapType <span style="color:#f92672">*</span>h, element item) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i;
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> <span style="color:#f92672">++</span>(h<span style="color:#f92672">-&gt;</span>heap_size); <span style="color:#75715e">// 새 원소를 삽입 하기 전에 힙 크기 증가하여 메모리 공간 확보
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ((i <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&amp;&amp;</span> (item.key <span style="color:#f92672">&lt;</span> h<span style="color:#f92672">-&gt;</span>heap[i<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>].key)) { <span style="color:#75715e">// 루트 노드가 아니고, 부모 노드의 키 값이 새 원소의 키 값보다 작을 때
+</span></span></span><span style="display:flex;"><span>        h<span style="color:#f92672">-&gt;</span>heap[i] <span style="color:#f92672">=</span> h<span style="color:#f92672">-&gt;</span>heap[i<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>]; <span style="color:#75715e">// 부모 노드를 자식 노드로 이동
+</span></span></span><span style="display:flex;"><span>        i <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>; <span style="color:#75715e">// i를 부모 노드의 인덱스로 변경
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    h<span style="color:#f92672">-&gt;</span>heap[i] <span style="color:#f92672">=</span> item; <span style="color:#75715e">// 새 원소를 삽입
+</span></span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 힙 출력 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_heap</span>(HeapType<span style="color:#f92672">*</span> h) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> h<span style="color:#f92672">-&gt;</span>heap_size; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34; %d-&gt;&#34;</span>, h<span style="color:#f92672">-&gt;</span>heap[i].key);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    HeapType<span style="color:#f92672">*</span> h <span style="color:#f92672">=</span> <span style="color:#a6e22e">create</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">init</span>(h);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 힙 원소 정의
+</span></span></span><span style="display:flex;"><span>    element e1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">10</span>}, e2 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">40</span>}, e3 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">30</span>}, e4 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">5</span>}, e5 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">12</span>}, e6 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">6</span>}, e7 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">15</span>}, e8 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">9</span>}, e9 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">60</span>};
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">insert_min_heap</span>(h, e1);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">insert_min_heap</span>(h, e2);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">insert_min_heap</span>(h, e3);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">insert_min_heap</span>(h, e4);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">insert_min_heap</span>(h, e5);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">insert_min_heap</span>(h, e6);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">insert_min_heap</span>(h, e7);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">insert_min_heap</span>(h, e8);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">insert_min_heap</span>(h, e9);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>→ 실행 결과
+<img src="/images/201e6bca513fdb91.png" alt="">
+<img src="/images/8a9622c014cde6dc.png" alt="">
+<img src="/images/739b50e5d75490f4.png" alt=""></p>
+<h3 id="2">(2)</h3>
+<ol>
+<li>개요</li>
+</ol>
+<ul>
+<li>Max Heap을 배열을 이용하여 구현하고 삽입과 삭제 연산을 구현한다.</li>
+</ul>
+<ol start="2">
+<li>데이터는 정수형 값이 입력된다.</li>
+<li>Heap의 최대 크기는 100으로 정한다.</li>
+<li>아래에 제시한 형태로 입력을 받으며, 요구한 형태로 출력을 해야 한다.</li>
+<li>기능</li>
+<li>연산의 종류</li>
+<li>삽입 (I) : max heap에 x를 삽입</li>
+<li>삭제 (D) : 삭제 후 값 출력</li>
+<li>예외 처리</li>
+<li>Empty : 비어있는 경우</li>
+<li>Full : 모두 차 있는 경우</li>
+<li>종료 :  Q 입력</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdbool.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define MAX_ELEMENT 100
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 힙 구조체 정의
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> key;
+</span></span><span style="display:flex;"><span>} element;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    element heap[MAX_ELEMENT];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> heap_size; 
+</span></span><span style="display:flex;"><span>} HeapType;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 힙 생성 함수
+</span></span></span><span style="display:flex;"><span>HeapType<span style="color:#f92672">*</span> <span style="color:#a6e22e">create</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (HeapType<span style="color:#f92672">*</span>)<span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">sizeof</span>(HeapType));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 힙 초기화 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(HeapType<span style="color:#f92672">*</span> h) {
+</span></span><span style="display:flex;"><span>    h<span style="color:#f92672">-&gt;</span>heap_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 최대 힙 삽입 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert_max_heap</span>(HeapType <span style="color:#f92672">*</span>h, element item) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i;
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> <span style="color:#f92672">++</span>(h<span style="color:#f92672">-&gt;</span>heap_size); <span style="color:#75715e">// 새 원소를 삽입 하기 전에 힙 크기 증가하여 메모리 공간 확보
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ((i <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&amp;&amp;</span> (item.key <span style="color:#f92672">&gt;</span> h<span style="color:#f92672">-&gt;</span>heap[i<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>].key)) { <span style="color:#75715e">// 루트 노드가 아니고, 부모 노드의 키 값이 새 원소의 키 값보다 클 때
+</span></span></span><span style="display:flex;"><span>        h<span style="color:#f92672">-&gt;</span>heap[i] <span style="color:#f92672">=</span> h<span style="color:#f92672">-&gt;</span>heap[i<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>]; <span style="color:#75715e">// 부모 노드를 자식 노드로 이동
+</span></span></span><span style="display:flex;"><span>        i <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>; <span style="color:#75715e">// i를 부모 노드의 인덱스로 변경
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    h<span style="color:#f92672">-&gt;</span>heap[i] <span style="color:#f92672">=</span> item; <span style="color:#75715e">// 새 원소를 삽입
+</span></span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 삭제 함수
+</span></span></span><span style="display:flex;"><span>element <span style="color:#a6e22e">delete_max_heap</span>(HeapType<span style="color:#f92672">*</span> h) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> parent, child; <span style="color:#75715e">// 삭제할 노드의 부모 노드와 자식 노드의 인덱스 
+</span></span></span><span style="display:flex;"><span>    element item, temp; <span style="color:#75715e">// 삭제할 노드와 마지막 노드
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    item <span style="color:#f92672">=</span> h<span style="color:#f92672">-&gt;</span>heap[<span style="color:#ae81ff">1</span>]; <span style="color:#75715e">// 루트 노드 저장
+</span></span></span><span style="display:flex;"><span>    temp <span style="color:#f92672">=</span> h<span style="color:#f92672">-&gt;</span>heap[(h<span style="color:#f92672">-&gt;</span>heap_size)<span style="color:#f92672">--</span>]; <span style="color:#75715e">// 마지막 노드를 temp에 저장하고 힙 크기 감소
+</span></span></span><span style="display:flex;"><span>    parent <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// 루트 노드부터 시작
+</span></span></span><span style="display:flex;"><span>    child <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>; <span style="color:#75715e">// 왼쪽 자식 노드부터 시작
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (child <span style="color:#f92672">&lt;=</span> h<span style="color:#f92672">-&gt;</span>heap_size) { <span style="color:#75715e">// 자식 노드가 힙 크기보다 작거나 같을 때까지 반복
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ((child <span style="color:#f92672">&lt;</span> h<span style="color:#f92672">-&gt;</span>heap_size) <span style="color:#f92672">&amp;&amp;</span> (h<span style="color:#f92672">-&gt;</span>heap[child].key <span style="color:#f92672">&lt;</span> h<span style="color:#f92672">-&gt;</span>heap[child <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>].key)) child<span style="color:#f92672">++</span>; <span style="color:#75715e">// 오른쪽 자식 노드가 더 크면 child를 오른쪽 자식 노드로 변경
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (temp.key <span style="color:#f92672">&gt;=</span> h<span style="color:#f92672">-&gt;</span>heap[child].key) <span style="color:#66d9ef">break</span>; <span style="color:#75715e">// 부모 노드가 자식 노드보다 크면 종료
+</span></span></span><span style="display:flex;"><span>        h<span style="color:#f92672">-&gt;</span>heap[parent] <span style="color:#f92672">=</span> h<span style="color:#f92672">-&gt;</span>heap[child]; <span style="color:#75715e">// 자식 노드를 부모 노드로 이동
+</span></span></span><span style="display:flex;"><span>        parent <span style="color:#f92672">=</span> child; <span style="color:#75715e">// 부모 노드를 자식 노드로 변경
+</span></span></span><span style="display:flex;"><span>        child <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>; <span style="color:#75715e">// 자식 노드를 왼쪽 자식 노드로 변경
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    h<span style="color:#f92672">-&gt;</span>heap[parent] <span style="color:#f92672">=</span> temp; <span style="color:#75715e">// 마지막 노드를 부모 노드로 이동
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> item;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 힙 출력 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_heap</span>(HeapType<span style="color:#f92672">*</span> h) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> h<span style="color:#f92672">-&gt;</span>heap_size; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34; %d-&gt;&#34;</span>, h<span style="color:#f92672">-&gt;</span>heap[i].key);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    HeapType<span style="color:#f92672">*</span> h <span style="color:#f92672">=</span> <span style="color:#a6e22e">create</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">init</span>(h);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> select; <span style="color:#75715e">// 사용자가 선택할 메뉴 저장할 변수
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> flag <span style="color:#f92672">=</span> true; <span style="color:#75715e">// 깃발을 세워 반복문 통제
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 무한 반복을 통해 사용자가 종료를 원할 때까지 프로그램 실행
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(flag) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;삽입(I), 삭제(D), 종료(Q): &#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34; %c&#34;</span>, <span style="color:#f92672">&amp;</span>select);
+</span></span><span style="display:flex;"><span>        element item;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">switch</span>(select) { <span style="color:#75715e">// 사용자로부터 원하는 메뉴 입력받아 분기문 실행  
+</span></span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 삽입의 경우
+</span></span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;I&#39;</span><span style="color:#f92672">:</span> 
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;삽입할 key값: &#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>item.key);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">insert_max_heap</span>(h, item);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">print_heap</span>(h);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 삭제의 경우
+</span></span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;D&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 힙 사이즈가 0인 경우 -&gt; 힙 트리가 비어있는 것이기 때문에 오류 메세지 출력
+</span></span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (h<span style="color:#f92672">-&gt;</span>heap_size <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Empty.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>            } 
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 힙 사이크가 MAX_ELEMENT를 초과하는 경우 -&gt; 힙 트리가 가득 찬 것이기 때문에 오류 메세지 출력
+</span></span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (h<span style="color:#f92672">-&gt;</span>heap_size <span style="color:#f92672">&gt;</span> MAX_ELEMENT) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Full.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 정상적인 경우
+</span></span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                item <span style="color:#f92672">=</span> <span style="color:#a6e22e">delete_max_heap</span>(h);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, item.key);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 종료의 경우
+</span></span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;Q&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            flag <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>→ 실행 결과
+<embed src=""></embed></p>
+
+  </div>
+  <footer class="post-foot">
+    <a href="https://duddnr0719.github.io/">← 목록으로</a>
+  </footer>
+</article>
+
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 레옴 · Notion → Hugo</span>
+    </div>
+  </footer>
+</body>
+</html>

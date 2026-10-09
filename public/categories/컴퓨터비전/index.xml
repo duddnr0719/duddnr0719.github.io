@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>컴퓨터비전 on 레옴의 노트</title>
+		<link>https://duddnr0719.github.io/categories/%EC%BB%B4%ED%93%A8%ED%84%B0%EB%B9%84%EC%A0%84/</link>
+		<description>Recent content in 컴퓨터비전 on 레옴의 노트</description>
+		<generator>Hugo</generator>
+		<language>ko-kr</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 28 May 2026 12:00:00 +0900</lastBuildDate>
+		
+			<atom:link href="https://duddnr0719.github.io/categories/%EC%BB%B4%ED%93%A8%ED%84%B0%EB%B9%84%EC%A0%84/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>회선(Convolution)</title>
+				<link>https://duddnr0719.github.io/posts/2026-05-28-%EC%BB%B4%ED%93%A8%ED%84%B0%EB%B9%84%EC%A0%84__%ED%9A%8C%EC%84%A0-convolution/</link>
+				<pubDate>Thu, 28 May 2026 12:00:00 +0900</pubDate>
+				<guid>https://duddnr0719.github.io/posts/2026-05-28-%EC%BB%B4%ED%93%A8%ED%84%B0%EB%B9%84%EC%A0%84__%ED%9A%8C%EC%84%A0-convolution/</guid>
+				<description>&lt;h1 id=&#34;회선&#34;&gt;회선&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;화소 기반 처리&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;화소값(픽셀) 각각에 대해 여러가지 연산 수행&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;영역 기반 처리&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;마스크라 불리는 규정된 영역을 기반으로 연산 수행&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;커널, 윈도우, 필터 : 동일 개념&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;블러링 현상&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;영상의 세밀한 부분 제거하는 아웃 포커싱 기법&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;블러링 처리&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;영상에서 화소값이 급격하게 변하는 부분들을 감소시켜 점진적으로 변하게 함으로써 영상이 전체적으로 부드러운 느낌이 나게 하는 기술 → 튀는 값 주변과 비슷, 노이즈 줄어듦, 경계 흐려짐&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;화소값이 급격히 변화하는 것을 점진적으로 변하게 하는 방법&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;블러링 마스크로 회선 수행 → 가우시안, 평균, 미디안&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;샤프닝 처리&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;출력화소에서 이웃 화소끼리 차이를 크게 해서 날카로운 느낌이 나게 만드는 것&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;영상의 세세한 부분을 강조할 수 있으며, 경계 부분에서 명암 대비가 증가되는 효과&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;샤프닝 마스크&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;마스크 원소들의 값 차이가 커지도록 구성&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;마스크 원소 전체합 = 1 → 입력 영상 밝기 손실 없이 출력 영상 밝기 유지&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+	</channel>
+</rss>

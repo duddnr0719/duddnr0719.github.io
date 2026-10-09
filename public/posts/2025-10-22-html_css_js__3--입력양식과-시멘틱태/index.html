@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3. 입력양식과 시멘틱태 · 레옴의 노트</title>
+  <meta name="description" content="CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록">
+  <meta name="author" content="레옴">
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="3. 입력양식과 시멘틱태">
+  <meta property="og:description" content="">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="https://duddnr0719.github.io/">레옴의 노트</a>
+      <nav>
+        
+        <a href="/">Home</a>
+        
+        <a href="/categories/">Categories</a>
+        
+        <a href="/about/">About</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<article class="post">
+  <header class="post-head">
+    <h1>3. 입력양식과 시멘틱태</h1>
+    <div class="meta">
+      <time datetime="2025-10-22 12:00:00 &#43;0900 KST">2025년 10월 22일</time>
+      
+      <span class="cats"><a href="/categories/HTML/CSS/JS/">HTML/CSS/JS</a></span>
+      
+    </div>
+  </header>
+  <div class="content">
+    <h2 id="iframe">iframe</h2>
+<ul>
+<li>웹페이지 안에서 프레임을 만들고 여기에 다른 웹페이지를 표시하고자 할 때 사용한다.</li>
+<li>&lt;iframe&gt; 태그를 사용하여 정의</li>
+<li>&lt;iframe src=”a.html” width=”300” height=”200”&gt;&lt;/iframe&gt;
+→ a.html 페이지 안에 너비 300, 높이 200짜리 iframe을 생성한다.</li>
+<li>&lt;iframe src=&ldquo;about:blank&rdquo; name=&ldquo;iframe1&rdquo; width=&ldquo;600&rdquo; height=&ldquo;400&rdquo;&gt;&lt;/iframe&gt;&lt;p&gt;&lt;a href=&quot;<a href="https://www.google.co.kr/">https://www.google.co.kr</a>&quot; target=&ldquo;iframe1&rdquo;&gt;구글&lt;/a&gt;&lt;/p&gt;
+→ 하이퍼링크 된 링크를 클릭하면 target이 가리키는 곳(iframe1) 안에서 홈페이지가 열린다.</li>
+</ul>
+<h2 id="div">div</h2>
+<ul>
+<li>페이지를 논리적인 섹션으로 분리할 때 사용</li>
+<li>&lt;div&gt; 태그를 사용하여 정의</li>
+<li>블록 요소에 해당한다.</li>
+</ul>
+<h2 id="시멘틱-요소">시멘틱 요소</h2>
+<columns>
+<column ratio="50">
+- 브라우저에게 요소의 의미나 목적을 명확하게 알려주는 요소
+- \<header\> : 문서의 머리말
+- \<hgroup\> : \<h1\> \~ \<h6\> 요소들의 그룹
+- \<nav\> : 내비게이션 링크
+- \<article\> : 문서의 내용이나 블로그의 포스트
+- \<section\> : 문서의 섹션
+- \<aside\> : 사이드바와 같이 옆에 위치하는 내용
+- \<footer\> : 문서의 꼬리말
+- \<figure\> : 그림이나 도표
+- \<time\> : 날짜와 시간을 표시
+</column>
+<column ratio="50">
+![](/images/b17822c6eed9ccc6.png)
+</column>
+</columns>
+<h2 id="html-입력-양식">HTML 입력 양식</h2>
+<ul>
+<li>사용자가 입력한 내용을 서버로 보낼 때 사용</li>
+<li>&lt;form&gt; 요소를 사용하여 정의</li>
+<li>&lt;form action=”…” method=”…”&gt; … &lt;/form&gt;
+→ action 뒤에 입력을 처리하는 서버 스크립트의 주소를 적는다.
+→ method 뒤에 입력 데이터가 서버로 보내지는 방법을 기술한다. (GET OR POST)</li>
+<li>GET : URL 뒤에 파라미터를 붙여 서버로 전송하는 방식 → 정보보안에 취약하다.</li>
+<li>POST : HTTP Request 헤더에 포함시켜 서버로 전송하는 방식 → 정보보안에 강하다.</li>
+</ul>
+<h2 id="입력-요소">입력 요소</h2>
+<ul>
+<li>input : 아주 다양하게 사용되는 입력 요소, type 속성에 따라 입력의 형태가 달라진다.</li>
+<li>label : 입력 요소에 대한 레이블을 정의한다. → &lt;input&gt; 요소를 위한 레이블을 정의한다.</li>
+<li>select : 드롭다운 리스트를 정의한다. → 메뉴를 표시하고 사용자에게 하나를 선택하도록 한다.</li>
+<li>textarea : 다중 라인 입력 필드</li>
+<li>button : 클릭 가능한 버튼을 생성한다.</li>
+<li>fieldset : 데이터를 그룹핑할 때 사용한다. → 다양한 입력 요소들을 넣을 수 있으며 그룹의 경계에 선을 그린다.</li>
+<li>datalist : 미리 정의된 옵션 목록을 지정한다. → 선택 항목들을 지정하여 사용자가 선택하도록 한다.</li>
+<li>option : 선택될 수 있는 항목을 정의한다.</li>
+</ul>
+<p>→ &lt;input type=”…” value=”…” name=”…”&gt;
+⇒ type : 입력 필드의 종류 결정 (button …)
+⇒ value : 버튼에 나타내는 텍스트
+⇒ name : 서버로 전달되는 이름</p>
+<ul>
+<li>type 속성 값</li>
+<li>text : 텍스트를 입력할 수 있는 한 줄짜리 필드 생성</li>
+<li>password : 비밀번호를 입력할 수 있는 한 줄짜리 필드 생성</li>
+<li>radio : 라디오 버튼 생성 (중복 선택 불가)</li>
+<li>checkbox : 체크 박스 생성 (중복 선택 가능)</li>
+<li>file : 파일 이름을 입력하는 필드 생성</li>
+<li>reset : 초기화 버튼 생성 → 버튼을 누르면 모든 입력 필드가 초기화된다.</li>
+<li>image : 이미지를 전송 버튼으로 만든다.</li>
+<li>hidden : 사용자에게는 보이지 않지만 서버로 전송한다.</li>
+<li>submit : 제출 버튼 생성</li>
+</ul>
+
+  </div>
+  <footer class="post-foot">
+    <a href="https://duddnr0719.github.io/">← 목록으로</a>
+  </footer>
+</article>
+
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 레옴 · Notion → Hugo</span>
+    </div>
+  </footer>
+</body>
+</html>

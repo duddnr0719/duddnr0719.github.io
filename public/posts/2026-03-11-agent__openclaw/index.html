@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenClaw · 레옴의 노트</title>
+  <meta name="description" content="CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록">
+  <meta name="author" content="레옴">
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OpenClaw">
+  <meta property="og:description" content="">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <a class="logo" href="https://duddnr0719.github.io/">레옴의 노트</a>
+      <nav>
+        
+        <a href="/">Home</a>
+        
+        <a href="/categories/">Categories</a>
+        
+        <a href="/about/">About</a>
+        
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    
+<article class="post">
+  <header class="post-head">
+    <h1>OpenClaw</h1>
+    <div class="meta">
+      <time datetime="2026-03-11 12:00:00 &#43;0900 KST">2026년 3월 11일</time>
+      
+      <span class="cats"><a href="/categories/agent/">agent</a></span>
+      
+    </div>
+  </header>
+  <div class="content">
+    <h1 id="개요">개요</h1>
+<ul>
+<li>오스트리아의 소프트웨어 엔지니어 페터 슈타인베르거(Peter Steinberger)가 개발한 자율 에이전트 오픈 소스 프로젝트</li>
+<li>거의 모든 권한을 가진다는 점이 다른 에이전트와의 차이점</li>
+<li>여러 메신저와 쉽게 연동 가능</li>
+</ul>
+<h2 id="그래서-도대체-뭔데-">그래서 도대체 뭔데 ?</h2>
+<callout>
+공식 소개
+"Your own personal AI assistant. Any OS. Any Platform. The lobster way."
+</callout>
+OpenClaw는 로컬에서 실행되는 Personal AI Agent다.
+LLM(로컬 혹은 외부 모델)을 두뇌로 사용하며, 컴퓨터에서 실제 작업을 수행할 수 있다.
+컴퓨터의 거의 모든 제어권을 가지며 사용자의 요청에 따라 작업을 실제로 수행한다.
+→ 브라우저를 열고, 파일을 읽고, 터미널 명령을 실행하고, 이메일을 보내는 등의 작업을 자율적으로 처리
+### 기존 AI들과 뭐가 다른가 ?
+기존 대화형 AI는 질문에 대한 답변만 제공했다. 하지만 OpenClaw는 능동적으로 컴퓨터 파일을 읽거나, 브라우저를 직접 검색하고, 테스트를 수행하는 등 실질적인 작업을 한다.
+→ 하지만 AI에게 제어권을 넘김으로써 보안 이슈가 발생할 수 있다.
+1. 사용자의 파일을 임시로 삭제
+2. 민감한 정보를 인터넷에 유출
+3. 사용자의 돈을 마음대로 제어
+등의 치명적인(?) 이슈가 존재한다. (아직 베타 버전인 오픈 소스 프로그램이기 때문)
+정교한 프롬프트로 보정할 수 있지만, 의도하지 않은 동작을 할 수 있다는 점은 여전히 리스크다. (그래서 지금 Mac mini의 품귀 현상이 일어나는 수준이다 → 저전력으로 개인정보 없이 쓰기 위해)
+## 핵심 특징
+<table>
+<colgroup>
+<col>
+<col width="662.0000152587891">
+</colgroup>
+<tr>
+<td>특징</td>
+<td>설명</td>
+</tr>
+<tr>
+<td>Local First</td>
+<td>모든 데이터와 실행이 내 컴퓨터에서 이루어진다.</td>
+</tr>
+<tr>
+<td>Multi Channel</td>
+<td>Telegram, WhatsApp, Slack, Discord, iMessage 등 19개 채널에서 명령 가능</td>
+</tr>
+<tr>
+<td>Skills 생태계</td>
+<td>Notion, Spotify, Gmail 등 다양한 Skills로 기능 확장. ClawHub에서 자동 검색/설치</td>
+</tr>
+<tr>
+<td>Voice 지원</td>
+<td>macOS/iOS/Android에서 Voice Wake 및 Talk Mode 지원. TTS 코어 통합</td>
+</tr>
+</table>
+## 사용법
+OpenClaw를 사용하기 전 주의할 점—중요한 파일을 삭제하거나 유출시킬 가능성이 있어 메인 컴퓨터에서 사용하는 것은 권장되지 않는다. 현재는 사용자의 명령을 잘 따르도록 튜닝됐지만, 명령이 애매모호하면 OpenClaw가 어떻게 이해하고 실행할지는 온전히 AI에게 달렸다. 이러한 문제를 없애기 위해 권장되는 방법이 두 가지 있다.
+1. 완전히 독립된 다른 PC를 이용
+→ 노트북이나 맥, 심지어 안 쓰는 휴대폰도 가능하다. 하지만 휴대폰은 여러모로 불편하다. (위에 적은 Mac mini 품귀 현상이 이에 해당한다. 24시간 개인 비서를 만들 수 있고 전성비가 좋아 많이 쓰인다. RAM 가격이 폭등한 지금 아주 좋은 선택지다!)
+1. Docker 등 가상화 도구를 이용
+→ OpenClaw에서 공식적으로 권장하는 방법이다. 첫 번째 방법보다는 어려울 수 있으나, 못 쓸 정도는 아니므로 OpenClaw를 사용하고자 한다면 Docker를 배우면서 사용하는 것도 나쁘지 않다.
+## OpenClaw 아키텍처 {toggle="true"}
+OpenClaw의 아키텍처를 이해하면, 이 도구의 잠재력을 더 잘 이해할 수 있다.
+┌─────────────────────────────────────────────────────────────┐<br>│                    External Channels (19개)                  │<br>│  WhatsApp │ Telegram │ Slack │ Discord │ iMessage │ Teams  │<br>│  Signal │ Google Chat │ Matrix │ Zalo │ BlueBubbles │ WebChat│<br>└─────────────────────────┬───────────────────────────────────┘<br>│<br>▼<br>┌─────────────────────────────────────────────────────────────┐<br>│                   Gateway (Local)                          │<br>│              ws://127.0.0.1:18789                            │<br>│         세션 관리, 채널 라우팅, 권한 제어                    │<br>└─────────────────────────┬───────────────────────────────────┘<br>│<br>▼<br>┌─────────────────────────────────────────────────────────────┐<br>│                   Pi Agent Runtime                         │<br>│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐        │<br>│  │ Claude  │  │ OpenAI  │  │ Skills  │  │ Browser │        │<br>│  │  API    │  │  API    │  │ Engine  │  │ Control │        │<br>│  └─────────┘  └─────────┘  └─────────┘  └─────────┘        │<br>└─────────────────────────────────────────────────────────────┘<br>│<br>▼<br>┌─────────────────────────────────────────────────────────────┐<br>│                   Local Resources                          │<br>│      파일 시스템 │ 터미널 │ 브라우저 │ 스마트홈 ...         │<br>└─────────────────────────────────────────────────────────────┘
+### 핵심 컴포넌트
+- Gateway : 로컬에서 실행되는 WebSocket 서버. 모든 채널의 메시지를 수신하고 라우팅.
+- Pi Agent Runtime : LLM 연동, Skills 실행, 브라우저 제어 등 핵심 로직.
+- Skils Engine : ClawHub에서 Skills를 검색하고 자동 설치
+- Browser Control : Chrome/Chromium을 CDP(Chrome DevTools Protocol)로 제어
+- Multi-Channel Bridge : 19개 메시징 플랫폼 통합
+<h2 id="openclaw는-누구를-위한-것인가-">OpenClaw는 누구를 위한 것인가 ?</h2>
+<h3 id="openclaw가-적합한-경우">OpenClaw가 적합한 경우</h3>
+<ul>
+<li>개발자 : 코드 작업, 빌드, 테스트, PR 생성 자동화</li>
+<li>생산성 얼리어답터 : 이메일, 캘린더, 노션 등 업무 자동화</li>
+<li>스마트홈 사용자 : Philips Hue 등 IoT 기기 통합 제어</li>
+<li>프라이버시 중시자 : 로컬 실행으로 데이터 통제</li>
+<li>커스터마이징 애호가 : 자신만의 Skills 개발</li>
+</ul>
+<h3 id="openclaw가-적합하지-않은-경우">OpenClaw가 적합하지 않은 경우</h3>
+<ul>
+<li>CLI 경험이 전혀 없는 사용자 : 초기 설정에 터미널 사용 필요</li>
+<li>LLM API 비용을 지불할 의사가 없는 경우 : Claude / OpenAI API 필요 (단, Ollama를 쓰는 경우 제외)</li>
+<li>단순 Q&amp;A만 원하는 경우 : ChatGPT / Claude.ai가 더 간편</li>
+<li>엔터프라이즈 멀티유저 환경 : 현재는 Single-User 중심</li>
+</ul>
+<callout>
+💡 **API 비용 주의 !**
+OpenClaw는 자율적 에이전트로 토큰 사용량이 매우매우 높다. 꽤나 많은 양을 사용한다 실제로.
+하지만 위에서 언급했듯 Ollama를 통해 로컬 LLM을 사용한다면 Zero Cost가 가능하다.
+<callout>
+**Native Ollama Integration**
+OpenClaw는 Ollama를 통한 로컬 LLM 구동을 기본 지원한다.
+Llama 3, Mistral 등 고성능 로컬 모델을 연결하면 추가 비용 없이 24/7 에이전트를 운영할 수 있다.
+</callout>
+</callout>
+<h2 id="설치">설치</h2>
+<p>크게 할 것은 없고 터미널을 통해 설치하면 되는데 사전 준비물이 있다.
+Node.js로 없다면 homebrew를 통해 설치하면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Homebrew로 Node.js 설치</span>
+</span></span><span style="display:flex;"><span>brew install node
+</span></span></code></pre></div><p>후에 공식 설치 스크립트를 통해 OpenClaw를 설치하면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://openclaw.ai/install.sh | bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 설치 후</span>
+</span></span><span style="display:flex;"><span>openclaw onboard
+</span></span></code></pre></div><h2 id="후에-경고문-및-여러가지-설정들이-나오는데-이는-차근차근-읽으며-진행하면-된다">후에 경고문 및 여러가지 설정들이 나오는데 이는 차근차근 읽으며 진행하면 된다.</h2>
+<h3 id="실체--느낀점-">실체 ? 느낀점 ?</h3>
+<p>일단 이런 Agent AI를 써 본 경험이 없진 않지만 지금까진 터미널을 통해 명령을 내리는 것이 약간의 걸림돌이었다면, OpenClaw는 전혀 그런 불편함을 느낄 부분이 없었다.
+근데 평소에 많이 썼던 cursor, github copilot 이것들과는 큰 차이는 없는 것 같다. 다만, 메신저 프로그램에 쉽게 연동하여 사용할 수 있다. &lt; 이건 엄청나게 큰 메리트이다. 전공자 입장에서는 터미널 명령이나 에디터 프롬프트 이런 것들이 큰 걸림돌이 아니라면, 비전공자 입장에서 생각했을 땐 터미널 이거 하나가 엄청나게 큰 걸림돌으로 작용할 것이기 때문이다. 그러니까 OpenClaw가 유행? 인기 있는 이유가 아닐까.
+그리고 AI를 나만의 비서, 직원처럼 부려먹을 수 있다는 것도 참 좋다. 이른 나이에 성공한 삶을 사는 기분이랄까. 그냥 심심할 때 연동한 메신저 앱을 통해 텍스트로 명령을 내리면 AI가 알아서 컴퓨터로 작업하고 보고하고. 이보다 더 편리할 수는 없다.</p>
+<h3 id="장점">장점</h3>
+<p>그리고 알아보니 장점이 몇 개 더 있었는데</p>
+<ol>
+<li>메모리 기능
+다른 AI들은 stateless라고 해서 세션을 새로 켤 때마다 기억이 리셋되는 반면에 OpenClaw는 메모리 기능이 기본적으로 들어가 있어 사용자의 선호사항을 영구적으로 기억해 준다. → 기억해 라고 명령을 하면 markdown 파일에 알아서 기록하는 방식이라고 한다.</li>
+<li>사람 명령 없어도 알아서 행동하게 만들 수 있다.
+그냥 일정 시간 혹은 매일 몇 시 이렇게 시간을 지정해서 뭐 해줘 라고 명령만 내려두면 알아서 행동한다. ex) 매일 오전 7시에 오늘 일정 브리핑해줘.
+cron job일 뿐이지만, 이거 하나가 대단히 편하다고 생각이 된다.</li>
+<li>스킬 기능
+위에서도 언급했듯 스킬 기능이 들어가있어 AI에게 스킬을 가르칠 수 있는데, MCP처럼 agent를 업그레이드하여 사용할 수 있다. 혹은, <a href="http://SKILL.md">SKILL.md</a> 파일을 직접 만들어서 파일을 주며 학습하라고 해도 된다.</li>
+</ol>
+<h2 id="결론">결론</h2>
+<h2 id="근데-또-막상-무섭기는-하다-이렇게-ai한테-이것저것-업무들을-대신-시키다보면-언젠가-진짜-ai만-남게-되지-않을까">여태 나왔던 agent AI들과 비교했을 때는 그렇게 기능이 뛰어나다 → 이건 아닌 것 같지만, 오히려 심플하기 때문에 전공자/비전공자 할 거 없이 사용해보려 하는 게 아닌가 싶다. 입문이 쉽다 라는 말로 정의할 수 있을 거 같다.
+시작은 심플하게 시작하고 사용자가 기능을 더 원한다 하면 스킬이나 여러가지 방법으로 커스터마이징을 해서 기능을 확장할 수 있으니 얼마나 좋은가. 내 입맛대로.
+근데 또 막상 무섭기는 하다. 이렇게 AI한테 이것저것 업무들을 대신 시키다보면 언젠가 진짜 AI만 남게 되지 않을까..</h2>
+<h2 id="추가">추가</h2>
+<h3 id="기존-연결-방식의-문제점">기존 연결 방식의 문제점</h3>
+<ul>
+<li>google oauth 방식으로 openclaw에 연결하여 사용했는데, 이 방식이 정상적인 접근 방법이 아니라 언제 막힐지 모르는 위험? 불안?이 있었음. (결국 03/09에 막혀버렸다..)</li>
+<li>Local LLM(Ollama)을 사용하려 했지만 내 환경(Macbook Air)으로는 살짝 많이 아쉬움을 느껴 시도하지 못했다.</li>
+</ul>
+<h3 id="새로운-접근">새로운 접근</h3>
+<columns>
+<column ratio="50">
+- 연구실 교수님의 도움?으로 gpu서버에 설치된 Ollama-qwen3.5:122b를 사용할 수 있게 되었다.
+</column>
+<column ratio="50">
+![](/images/53b2dcf00525cba3.png)
+</column>
+</columns>
+- 지금까지 사용하던 gemini 3 flash보단 아쉽겠지만 openclaw를 이용하여 복잡한 코딩이나 추론은 하지 않고 간단한 cron job을 사용해왔기 때문에 괜찮을 거란 생각이 들었다.
+<h3 id="설정">설정</h3>
+<p>지금까지의 memory나 skill들을 초기화 하기 싫어 <code>openclaw config</code> 명령어를 통해 설정을 수정하려 했지만 어딘가 설정이 꼬여 그냥 uninstall 한 뒤에 재설치하기로 했다.</p>
+<p>다른 설정들은 지금까지 해왔던 것들과 똑같이 설정하면 되지만 provider 설정을 다르게 해야한다.</p>
+<ol>
+<li>교수님께 받은 gpu 서버의 tailscale ip 주소를 확인하고</li>
+<li>provider 설정에서 custom provider를 선택하고</li>
+<li>http://&lt;gpu ip address&gt;:11434/v1 을 api 레퍼런스 주소에 넣고 아무 api key를 입력하면 된다.
+그 이후엔 전에 했던 방법과 똑같이 텔레그램에 연동하여 사용한다.</li>
+</ol>
+<h3 id="차이점-문제점">차이점? 문제점?</h3>
+<ul>
+<li>확실한 건 gemini 3 flash 보다 LLM의 성능이 확실히 부족하다고 생각한다. 아무래도 Local LLM이다 보니 ..
+<columns>
+<column ratio="50"></li>
+<li>qwen3.5:122b 이 모델이 한국어 능력이 부족한 거 같다. 거의 5년전 번역기를 돌린 수준이랄까 .. 그래서 그냥 영어 공부도 할 겸 영어로 사용하려고 한다.</li>
+</ul>
+</column>
+<column ratio="50">
+![](/images/742a244e096a3370.png)
+</column>
+</columns>
+## 결론
+gemini 3 flash보다 부족한 건 확실하지만 간단한 cron job을 돌리기엔 나쁘지 않은 것 같다. 며칠 더 써봐야겠지만, 지금까지 사용해보니 약간 멍청하다는 점이 아쉽긴 하지만 api 토큰 결제에 대한 부담도 없이 무료로 사용할 수 있다는 점이 엄청난 장점이라고 생각한다.
+
+  </div>
+  <footer class="post-foot">
+    <a href="https://duddnr0719.github.io/">← 목록으로</a>
+  </footer>
+</article>
+
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 레옴 · Notion → Hugo</span>
+    </div>
+  </footer>
+</body>
+</html>

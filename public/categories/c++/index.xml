@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>C&#43;&#43; on 레옴의 노트</title>
+		<link>https://duddnr0719.github.io/categories/c&#43;&#43;/</link>
+		<description>Recent content in C&#43;&#43; on 레옴의 노트</description>
+		<generator>Hugo</generator>
+		<language>ko-kr</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 11 Nov 2025 12:00:00 +0900</lastBuildDate>
+		
+			<atom:link href="https://duddnr0719.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>2. 제어구조와 배열</title>
+				<link>https://duddnr0719.github.io/posts/2025-11-11-c&#43;&#43;__2--%EC%A0%9C%EC%96%B4%EA%B5%AC%EC%A1%B0%EC%99%80-%EB%B0%B0%EC%97%B4/</link>
+				<pubDate>Tue, 11 Nov 2025 12:00:00 +0900</pubDate>
+				<guid>https://duddnr0719.github.io/posts/2025-11-11-c&#43;&#43;__2--%EC%A0%9C%EC%96%B4%EA%B5%AC%EC%A1%B0%EC%99%80-%EB%B0%B0%EC%97%B4/</guid>
+				<description>&lt;h1 id=&#34;제어구조&#34;&gt;제어구조&lt;/h1&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://duddnr0719.github.io/images/69dfc290e48643cf.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;관계연산자&#34;&gt;관계연산자&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://duddnr0719.github.io/images/6b9037a6640ea35d.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;논리연산자&#34;&gt;논리연산자&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://duddnr0719.github.io/images/3bf8d2a675a681ae.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;if-else문&#34;&gt;if-else문&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://duddnr0719.github.io/images/8d75ae85b4a27515.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;중첩-if-else문&#34;&gt;중첩 if-else문&lt;/h3&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://duddnr0719.github.io/images/5e52ed4f047dcdab.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
