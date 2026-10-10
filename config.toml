@@ -29,3 +29,6 @@ intro = "레옴의 스터디 노트"
     lineNos = false
   [markup.goldmark.renderer]
     unsafe = true
+
+[pagination]
+  pagerSize = 20

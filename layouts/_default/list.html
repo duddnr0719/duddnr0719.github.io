@@ -13,9 +13,13 @@
 <nav class="pager" aria-label="페이지">
   {{ if $paginator.HasPrev }}<a class="pager-step" href="{{ $paginator.Prev.URL }}">← 이전</a>{{ else }}<span class="pager-step is-off">← 이전</span>{{ end }}
   <span class="pager-nums">
+  {{ $cur := $paginator.PageNumber }}{{ $last := $paginator.TotalPages }}
   {{ range $paginator.Pagers }}
-    {{ if eq .PageNumber $paginator.PageNumber }}<span class="pager-num is-current" aria-current="page">{{ .PageNumber }}</span>
-    {{ else }}<a class="pager-num" href="{{ .URL }}">{{ .PageNumber }}</a>{{ end }}
+    {{ $n := .PageNumber }}
+    {{ if eq $n $cur }}<span class="pager-num is-current" aria-current="page">{{ $n }}</span>
+    {{ else if or (eq $n 1) (eq $n $last) (and (ge $n (sub $cur 2)) (le $n (add $cur 2))) }}<a class="pager-num" href="{{ .URL }}">{{ $n }}</a>
+    {{ else if or (eq $n (sub $cur 3)) (eq $n (add $cur 3)) }}<span class="pager-gap">…</span>
+    {{ end }}
   {{ end }}
   </span>
   {{ if $paginator.HasNext }}<a class="pager-step" href="{{ $paginator.Next.URL }}">다음 →</a>{{ else }}<span class="pager-step is-off">다음 →</span>{{ end }}

@@ -43,11 +43,12 @@ footer.site .wrap{padding:20px 16px}
 .content th{background:#f0f0ec}
 .list-title{font-size:1.5rem;margin:0 0 18px}
 .post-foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:.9rem}
-.pager{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
-.pager-nums{display:flex;gap:6px;flex-wrap:wrap}
+.pager{margin-top:28px;display:flex;align-items:center;justify-content:center;gap:10px}
+.pager-nums{display:flex;gap:6px;align-items:center}
+.pager-gap{color:var(--muted);padding:0 2px}
 .pager-num,.pager-step{display:inline-block;min-width:2.2em;padding:5px 10px;border:1px solid var(--line);border-radius:var(--radius);text-align:center;text-decoration:none;font-variant-numeric:tabular-nums}
 .pager-num:hover,.pager-step:hover{border-color:var(--accent)}
 .pager-num.is-current{background:var(--accent);border-color:var(--accent);color:#fff}
 .pager-step.is-off{color:var(--muted);opacity:.5}
 .more{margin-top:14px;text-align:right}
-@media (max-width:560px){ .post-row{flex-wrap:wrap} .cats{display:none} }
+@media (max-width:560px){ .post-row{flex-wrap:wrap} .cats{display:none} .pager-step{min-width:0;padding:5px 8px} .pager-num{min-width:1.8em;padding:5px 6px} }
