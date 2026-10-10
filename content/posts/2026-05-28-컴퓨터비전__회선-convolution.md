@@ -4,6 +4,7 @@ title: "회선(Convolution)"
 date: 2026-05-28T12:00:00+09:00
 categories: ["컴퓨터비전"]
 draft: false
+order: 11
 ---
 
 # 회선

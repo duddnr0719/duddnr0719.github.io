@@ -4,6 +4,7 @@ title: "6. CSS 레이아웃과 애니메이션"
 date: 2025-10-22T12:00:00+09:00
 categories: ["HTML/CSS/JS"]
 draft: false
+order: 5
 ---
 
 ## 레이아웃

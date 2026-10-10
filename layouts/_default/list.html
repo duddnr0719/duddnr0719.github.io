@@ -1,7 +1,13 @@
 {{ define "main" }}
 <h1 class="list-title">{{ if .Title }}{{ .Title }}{{ else }}{{ .Kind | title }}{{ end }}</h1>
-{{/* 날짜순 : 최신 글이 위로. 정렬한 목록을 페이지로 나눠야 페이지를 넘겨도 순서가 이어짐 */}}
-{{ $paginator := .Paginate .Pages.ByDate.Reverse }}
+{{/* 기본은 최신 글이 위로. 카테고리 안에서는 장 순서(front matter order, scripts/assign_order.py)로.
+     정렬한 목록을 페이지로 나눠야 페이지를 넘겨도 순서가 이어짐 */}}
+{{ $pages := .Pages.ByDate.Reverse }}
+{{ if eq .Kind "term" }}
+  {{ $ordered := where .Pages "Params.order" "!=" nil }}
+  {{ if and (gt (len $ordered) 0) (eq (len $ordered) (len .Pages)) }}{{ $pages = .Pages.ByParam "order" }}{{ end }}
+{{ end }}
+{{ $paginator := .Paginate $pages }}
 {{ range $paginator.Pages }}
 <article class="post-row">
   <time>{{ .Date.Format "2006-01-02" }}</time>

@@ -4,6 +4,7 @@ title: "2장 OpenCV와 Python 개발 환경 (설치, PyCharm, 첫 OpenCV 프로�
 date: 2026-03-09T21:48:00+09:00
 categories: ["컴퓨터비전"]
 draft: false
+order: 2
 ---
 
 > Python 설치(PATH 체크) → PyCharm에 인터프리터 연결 → opencv-python, matplotlib 설치 → NumPy 배열을 만들어 cv2.imshow로 띄우면 환경 준비 끝. OpenCV 영상은 그냥 NumPy 배열이다. (OpenCV 소개·버전 표는 1장 참고)
