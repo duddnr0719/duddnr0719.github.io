@@ -7,7 +7,7 @@ hasCJKLanguage = true
 
 [params]
 author = "레옴"
-description = "CS · AI · 인프라 스터디 노트 — 노션에서 이관한 기록"
+description = "CS · AI · 인프라 스터디 노트와 AI 기술 리포트"
 intro = "레옴의 스터디 노트"
 # menu
 [[menu.main]]
