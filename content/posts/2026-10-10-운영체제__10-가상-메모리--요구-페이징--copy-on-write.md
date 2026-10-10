@@ -1,7 +1,7 @@
 ---
 weight: 90
 title: "10. 가상 메모리 (요구 페이징, Copy-on-Write)"
-date: 2026-10-10T12:00:00+09:00
+date: 2026-05-13T22:18:00+09:00
 categories: ["운영체제"]
 draft: false
 ---

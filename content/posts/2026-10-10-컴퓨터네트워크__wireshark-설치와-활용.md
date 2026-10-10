@@ -1,7 +1,7 @@
 ---
 weight: 57
 title: "Wireshark 설치와 활용"
-date: 2026-10-10T12:00:00+09:00
+date: 2026-09-12T23:30:00+09:00
 categories: ["컴퓨터네트워크"]
 draft: false
 ---

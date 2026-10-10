@@ -1,7 +1,7 @@
 ---
 weight: 124
 title: "2장 OpenCV와 Python 개발 환경 (설치, PyCharm, 첫 OpenCV 프로그램)"
-date: 2026-10-10T12:00:00+09:00
+date: 2026-03-09T21:48:00+09:00
 categories: ["컴퓨터비전"]
 draft: false
 ---
