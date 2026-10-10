@@ -3,9 +3,9 @@
   <header class="post-head">
     <h1>{{ .Title }}</h1>
     <div class="meta">
-      <time datetime="{{ .Date }}">{{ .Date.Format "2006년 1월 2일" }}</time>
-      {{ with .Params.categories }}
-      <span class="cats">{{ range . }}<a href="{{ printf "/categories/%s/" . }}">{{ . }}</a>{{ end }}</span>
+      {{ if not .Date.IsZero }}<time datetime="{{ .Date }}">{{ .Date.Format "2006년 1월 2일" }}</time>{{ end }}
+      {{ with .GetTerms "categories" }}
+      <span class="cats">{{ range . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}</span>
       {{ end }}
     </div>
   </header>
