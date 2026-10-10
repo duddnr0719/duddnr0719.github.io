@@ -1,10 +1,24 @@
 {{ define "main" }}
 <h1 class="list-title">{{ if .Title }}{{ .Title }}{{ else }}{{ .Kind | title }}{{ end }}</h1>
-{{ range .Paginator.Pages.ByWeight }}
+{{/* 날짜순 : 최신 글이 위로. 정렬한 목록을 페이지로 나눠야 페이지를 넘겨도 순서가 이어짐 */}}
+{{ $paginator := .Paginate .Pages.ByDate.Reverse }}
+{{ range $paginator.Pages }}
 <article class="post-row">
   <time>{{ .Date.Format "2006-01-02" }}</time>
   <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+  {{ if eq $.Kind "section" }}{{ with .Params.categories }}<span class="cats">{{ delimit . " · " }}</span>{{ end }}{{ end }}
 </article>
 {{ end }}
-{{ template "_internal/pagination.html" . }}
+{{ if gt $paginator.TotalPages 1 }}
+<nav class="pager" aria-label="페이지">
+  {{ if $paginator.HasPrev }}<a class="pager-step" href="{{ $paginator.Prev.URL }}">← 이전</a>{{ else }}<span class="pager-step is-off">← 이전</span>{{ end }}
+  <span class="pager-nums">
+  {{ range $paginator.Pagers }}
+    {{ if eq .PageNumber $paginator.PageNumber }}<span class="pager-num is-current" aria-current="page">{{ .PageNumber }}</span>
+    {{ else }}<a class="pager-num" href="{{ .URL }}">{{ .PageNumber }}</a>{{ end }}
+  {{ end }}
+  </span>
+  {{ if $paginator.HasNext }}<a class="pager-step" href="{{ $paginator.Next.URL }}">다음 →</a>{{ else }}<span class="pager-step is-off">다음 →</span>{{ end }}
+</nav>
+{{ end }}
 {{ end }}

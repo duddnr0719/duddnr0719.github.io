@@ -4,13 +4,14 @@
   <p class="sub">{{ .Site.Params.description }}</p>
 </section>
 <section>
-  <h2 class="sec-title">스터디 노트</h2>
-  {{ range first 20 (.Site.GetPage "posts").Pages.ByWeight }}
+  <h2 class="sec-title">최근 글</h2>
+  {{ range first 20 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
   <article class="post-row">
     <time>{{ .Date.Format "2006-01-02" }}</time>
     <a href="{{ .RelPermalink }}">{{ .Title }}</a>
     {{ with .Params.categories }}<span class="cats">{{ delimit . " · " }}</span>{{ end }}
   </article>
   {{ end }}
+  <p class="more"><a href="/posts/">전체 글 보기 →</a></p>
 </section>
 {{ end }}
