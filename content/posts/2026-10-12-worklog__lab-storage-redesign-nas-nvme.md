@@ -1,7 +1,7 @@
 ---
 weight: 136
 title: "연구실 스토리지 개편 — 정본은 NAS, 작업은 NVMe"
-date: 2026-10-12T21:00:00+09:00
+date: 2026-10-12T16:33:00+09:00
 categories: ["작업 기록"]
 draft: false
 ---
