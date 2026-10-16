@@ -1,7 +1,7 @@
 ---
 weight: 141
 title: "Gemini 3.8 TTS — 프롬프트로 목소리를 디자인하고 대사마다 연기를 디렉팅한다"
-date: 2026-10-17T22:00:00+09:00
+date: 2026-10-17T02:00:00+09:00
 categories: ["AI 리포트"]
 draft: false
 ---
