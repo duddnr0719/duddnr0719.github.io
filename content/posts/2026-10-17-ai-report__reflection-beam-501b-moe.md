@@ -1,7 +1,7 @@
 ---
 weight: 144
 title: "Reflection Beam — 1M 컨텍스트와 하이브리드 어텐션을 갖춘 501B 오픈 MoE 에이전트 모델"
-date: 2026-10-18T07:50:02+09:00
+date: 2026-10-17T22:53:30+09:00
 categories: ["AI 리포트"]
 draft: false
 ---
